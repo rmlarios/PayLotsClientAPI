@@ -4,6 +4,7 @@ using DevExtremeAspNetCoreResponsiveApp.Model;
 using DevExtremeAspNetCoreResponsiveApp.Proxies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Newtonsoft.Json;
 
 namespace DevExtremeAspNetCoreResponsiveApp.Pages.ListaBeneficiarios
 {
@@ -16,9 +17,10 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.ListaBeneficiarios
     }
 
     [HttpGet]
-    public async Task OnGetBeneficiarios()
+    public async Task<string> OnGetBeneficiarios()
     {
       var result = await _proxy.GetAsync<Beneficiarios>("Beneficiario/Listar");           
+      return JsonConvert.SerializeObject(result.Datas);
     }
 
   }
