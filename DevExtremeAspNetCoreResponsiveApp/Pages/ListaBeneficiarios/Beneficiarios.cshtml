@@ -1,0 +1,81 @@
+﻿@page
+@model DevExtremeAspNetCoreResponsiveApp.Pages.ListaBeneficiarios.BeneficiariosModel
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+
+@{
+    ViewData["Title"] = "Beneficiarios";
+}
+
+<script>
+    function grid_dataSource_beforeSend(op, ajax) {
+        ajax.headers = {
+            RequestVerificationToken: "@Xsrf.GetAndStoreTokens(Model.HttpContext).RequestToken"
+        };
+    }
+</script>
+
+
+<h2>Beneficiarios</h2>
+
+@(Html.DevExtreme().DataGrid<DevExtremeAspNetCoreResponsiveApp.Model.Beneficiarios>()
+        .ID("GridBeneficiarios")
+        //.DataSource(m => m.Mvc().Controller("Beneficiarios").LoadAction("Get").Key("IdBeneficiario"))
+
+
+        .DataSource(d => d.RemoteController()
+                                            .LoadUrl(Url.Page("Beneficiarios", "Beneficiarios"))
+                                            .DeleteUrl(Url.Page("Beneficiarios", "Delete"))
+                                            .Key("IdBeneficiario")
+                                            .OnBeforeSend("grid_dataSource_beforeSend") // passes an antiforgery token)
+                                            )
+
+        .Export(e => e.Enabled(true).FileName("Beneficiarios"))
+        .Paging(paging => paging.PageSize(10))
+        .Pager(p => p.ShowPageSizeSelector(false).ShowNavigationButtons(true).ShowInfo(true).InfoText("Página {0} de {1} ({2} Registros)"))
+        .RowAlternationEnabled(true)
+        .HoverStateEnabled(true)
+        .Selection(s => s.Mode(SelectionMode.Single).AllowSelectAll(false))
+        .SearchPanel(s => s.Visible(true).HighlightSearchText(true).Width(400))
+        .FilterRow(f => f.Visible(true).ApplyFilter(GridApplyFilterMode.OnClick))
+        .WordWrapEnabled(true)
+        .ColumnAutoWidth(true)
+        /*Columnas del grid*/
+        .Columns(columns =>
+        {
+
+            columns.AddFor(m => m.IdBeneficiario);
+
+            columns.AddFor(m => m.NombreCompleto);
+
+            columns.AddFor(m => m.CedulaIdentidad);
+
+            columns.AddFor(m => m.Direccion);
+
+            columns.AddFor(m => m.Telefono);
+
+
+        }).HeaderFilter(h => h.AllowSearch(true).Visible(true))
+        /*Configuracion para la edicion*/
+        .Editing(e => e.Mode(GridEditMode.Popup)
+            .AllowAdding(true)
+            .AllowUpdating(true)
+            .AllowDeleting(true)
+            .UseIcons(true)
+            .Texts(t => t.AddRow("Nuevo").EditRow("Editar").DeleteRow("Eliminar").ConfirmDeleteMessage("¿Está seguro que desea Eliminar este Registro?")
+                         .SaveRowChanges("Guardar").CancelRowChanges("Cancelar"))
+                          /*Configuracion del Popup*/
+                          .Popup(p => p.Width(700).Title("Formulario de Edición").ShowTitle(true).Position(PositionAlignment.Center).Height(350).CloseOnOutsideClick(false).ShowCloseButton(false))
+        /*Configuracion del EditForm*/
+        .Form(f => f.ColCount(2).ShowRequiredMark(true).LabelLocation(FormLabelLocation.Left)
+                    .Items(items =>
+                    {
+                        items.AddSimple().IsRequired(true).DataField("NombreCompleto").ColSpan(2);
+                        items.AddSimple().IsRequired(false).DataField("Direccion").ColSpan(2);
+                        items.AddSimple().IsRequired(false).DataField("CedulaIdentidad").ColSpan(1);
+                        items.AddSimple().IsRequired(true).DataField("Telefono").ColSpan(1).ValidationRules(v => v.AddStringLength().Max(8));
+                    }
+                    )
+             )
+       )
+
+)

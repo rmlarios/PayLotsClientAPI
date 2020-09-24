@@ -1,0 +1,253 @@
+﻿@page
+
+@model DevExtremeAspNetCoreResponsiveApp.Pages.ListaAsignaciones.RegistrarAsignacionModel
+@*@model DevExtremeAspNetCoreResponsiveApp.Model.Asignaciones*@
+@using DevExtremeAspNetCoreResponsiveApp.Model
+
+@{
+    ViewData["Title"] = "RegistrarAsignacion";
+}
+
+
+
+@using (Html.BeginForm())
+{
+    <div class="dx-form-group-caption"><h3>Registrar Asignaciones</h3></div>
+    <div class="dx-card" style="padding-top:20px;">
+
+        <table style="margin-left:25px;">
+            <tr>
+                <td>
+                    @(Html.DevExtreme().Button().Icon("save").Type(ButtonType.Default).Text("Guardar").HoverStateEnabled(true).StylingMode(ButtonStylingMode.Contained).UseSubmitBehavior(true))
+                </td>
+                <td>
+                    @(Html.DevExtreme().Button().Icon("plus").Type(ButtonType.Default).Text("Nuevo").OnClick("newButton"))
+                </td>
+                <td>
+                    @(Html.DevExtreme().Button().Icon("clear").Type(ButtonType.Default).Text("Cancelar"))
+                </td>
+            </tr>
+        </table>
+
+
+        <div class="btn-group-lg text-left" role="toolbar">
+            <button asp-page-handler="Create" class="btn btn-primary fa fa-2x fa-save" name="Save" value="Save" type="submit"> Guardar</button>
+            <button asp-page-handler="Clear" class="btn btn-primary fa fa-2x fa-plus" name="Clear" value="Clear" type="submit"> Nuevo</button>
+
+        </div>
+
+
+        <input type="hidden" asp-for="Asignaciones.IdAsignacion" />
+
+        @(Html.DevExtreme().Form<Asignaciones>()
+                                                                                        .ID("form")
+                                                                                        .ColCount(12)
+                                                                                        .FormData(Model.Asignaciones)
+                                                                                        .LabelLocation(FormLabelLocation.Top)
+
+                                                                                        .Height("80%")
+                                                                                        .Width("100%")
+                                                                                        .ScrollingEnabled(true)
+                                                                                        .LabelLocation(FormLabelLocation.Left)
+                                                                                        .RequiredMark("*")
+                                                                                        .ShowColonAfterLabel(true)
+                                                                                        .HoverStateEnabled(true)
+                                                                                        .ReadOnly(false)
+                                                                                        .ShowColonAfterLabel(true)
+                                                                                        .Items(items =>
+                                                                                        {
+
+
+                                                                                            items.AddSimpleFor(m => m.IdAsignacion).Editor(e => e.TextBox()).Visible(false);
+
+
+
+
+                                                                                            items.AddSimpleFor(m => m.IdLote).Editor(e => e.SelectBox()
+                                                                                                                                                        .StylingMode(EditorStylingMode.Outlined)
+
+                                                                                                                                                        .Height(40)
+                                                                                                                                                        .SearchEnabled(true)
+                                                                                                                                                        .SearchMode(DropDownSearchMode.Contains)
+                                                                                                                                                        .DataSource(d => d.Mvc().Controller("Lotes1").LoadAction("Get").Key("IdLote"))
+                                                                                                                                                        .DisplayExpr("NumeroLote")
+                                                                                                                                                        .ValueExpr("IdLote")
+                                                                                                                                                       .Value(Model.Asignaciones.IdLote)
+                                                                                                                                                        .ShowClearButton(true)
+                                                                                                                                                        .ShowDropDownButton(true)
+                                                                                                                                                        )
+
+                                                                                                                               .ValidationRules(r => r.AddRequired().Message("Debe seleccionar el Lote a Asignar"))
+                                                                                                                               .ColSpan(6);
+
+                                                                                            items.AddSimpleFor(m => m.IdBeneficiario).Editor(e => e.SelectBox()
+                                                                                                                                                        .SearchEnabled(true)
+                                                                                                                                                        .SearchMode(DropDownSearchMode.Contains)
+                                                                                                                                                        .StylingMode(EditorStylingMode.Outlined)
+                                                                                                                                                        .Height(40)
+                                                                                                                                                        .DataSource(d => d.Mvc().Controller("Beneficiarios").LoadAction("Get").Key("IdBeneficiario"))
+                                                                                                                                                        .DisplayExpr("NombreCompleto")
+                                                                                                                                                        .ValueExpr("IdBeneficiario")
+                                                                                                                                                        .Value(Model.Asignaciones.IdBeneficiario)
+                                                                                                                                                        .ShowClearButton(true)
+                                                                                                                                                        .ShowDropDownButton(true)
+
+                                                                                                                                                        )
+
+                                                                                                                               .ValidationRules(r => r.AddRequired().Message("Debe seleccionar el Beneficiario")).ColSpan(6);
+
+
+                                                                                            items.AddSimpleFor(m => m.MontoTotal).Editor(e => e.NumberBox().Height(40).StylingMode(EditorStylingMode.Outlined).ShowSpinButtons(true)).ColSpan(4);
+                                                                                            items.AddSimpleFor(m => m.FechaInicioPago).Editor(e => e.DateBox().Height(40).StylingMode(EditorStylingMode.Outlined)).ColSpan(4);
+                                                                                            items.AddSimpleFor(m => m.CuotaMinima).Editor(e => e.NumberBox().Height(40).StylingMode(EditorStylingMode.Outlined).ShowSpinButtons(true)).ColSpan(4);
+                                                                                            items.AddSimpleFor(m => m.Prima).Editor(e => e.NumberBox().Height(40).StylingMode(EditorStylingMode.Outlined).ShowSpinButtons(true)).ColSpan(4);
+                                                                                            items.AddSimpleFor(m => m.Donado).ColSpan(1);
+                                                                                            items.AddSimpleFor(m => m.AplicaMora).ColSpan(1);
+                                                                                            items.AddSimpleFor(m => m.Observaciones).Editor(e => e.TextBox().Height(40).StylingMode(EditorStylingMode.Outlined)).ColSpan(6);
+                                                                                            items.AddSimpleFor(m => m.AplicaInteres).ColSpan(4);
+                                                                                            items.AddSimpleFor(m => m.TasaInteres).Editor(e => e.NumberBox().Height(40).StylingMode(EditorStylingMode.Outlined).ShowSpinButtons(true)).ColSpan(4);
+                                                                                            items.AddSimpleFor(m => m.Plazo).Editor(e => e.NumberBox().Height(40).StylingMode(EditorStylingMode.Outlined).ShowSpinButtons(true)).ColSpan(4);
+
+
+
+                                                                                        }
+                                                                                        )
+
+
+        )
+
+    </div>
+
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<style>
+    #form {
+        padding: 10px 10px 110px;
+    }
+</style>
+<script>
+    function newButton(e) {
+        var buttonText = e.component.option("text");
+        DevExpress.ui.notify("The " + buttonText + " button was clicked");
+        window.location.href = window.location.href + '/?id=0';
+    }
+
+    $(document).ready(function () {
+
+        $("#save").click(function () {
+            $("form").attr("action", "/Home/SaveForm");
+        });
+
+        $("#cancel").click(function () {
+            $("form").attr("action", "/Home/CancelForm");
+        });
+
+    });
+
+</script>
+
+@*<div class="row" style="display:none">
+        <div class="col-md-4">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="IdLote" class="control-label"></label>
+                    <select asp-for="IdLote" class="form-control" asp-items="ViewBag.IdLote"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="IdBeneficiario" class="control-label"></label>
+                    <select asp-for="IdBeneficiario" class="form-control" asp-items="ViewBag.IdBeneficiario"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FechaInicioPago" class="control-label"></label>
+                    <input asp-for="FechaInicioPago" class="form-control" />
+                    <span asp-validation-for="FechaInicioPago" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DiaCuota" class="control-label"></label>
+                    <input asp-for="DiaCuota" class="form-control" />
+                    <span asp-validation-for="DiaCuota" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MontoTotal" class="control-label"></label>
+                    <input asp-for="MontoTotal" class="form-control" />
+                    <span asp-validation-for="MontoTotal" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CuotaMinima" class="control-label"></label>
+                    <input asp-for="CuotaMinima" class="form-control" />
+                    <span asp-validation-for="CuotaMinima" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Prima" class="control-label"></label>
+                    <input asp-for="Prima" class="form-control" />
+                    <span asp-validation-for="Prima" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Estado" class="control-label"></label>
+                    <input asp-for="Estado" class="form-control" />
+                    <span asp-validation-for="Estado" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Donado" class="control-label"></label>
+                    <input asp-for="Donado" class="form-control" />
+                    <span asp-validation-for="Donado" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AplicaInteres" class="control-label"></label>
+                    <input asp-for="AplicaInteres" class="form-control" />
+                    <span asp-validation-for="AplicaInteres" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TasaInteres" class="control-label"></label>
+                    <input asp-for="TasaInteres" class="form-control" />
+                    <span asp-validation-for="TasaInteres" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Asignaciones.AplicaMora" class="control-label"></label>
+                    <input asp-for="Asignaciones.AplicaMora" class="form-control" />
+                    <span asp-validation-for="Asignaciones.AplicaMora" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Asignaciones.Plazo" class="control-label"></label>
+                    <input asp-for="Asignaciones.Plazo" class="form-control" />
+                    <span asp-validation-for="Asignaciones.Plazo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Asignaciones.Observaciones" class="control-label"></label>
+                    <input asp-for="Asignaciones.Observaciones" class="form-control" />
+                    <span asp-validation-for="Asignaciones.Observaciones" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Asignaciones.Uar" class="control-label"></label>
+                    <input asp-for="Asignaciones.Uar" class="form-control" />
+                    <span asp-validation-for="Asignaciones.Uar" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Asignaciones.Far" class="control-label"></label>
+                    <input asp-for="Asignaciones.Far" class="form-control" />
+                    <span asp-validation-for="Asignaciones.Far" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Asignaciones.Uua" class="control-label"></label>
+                    <input asp-for="Asignaciones.Uua" class="form-control" />
+                    <span asp-validation-for="Asignaciones.Uua" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Asignaciones.Fua" class="control-label"></label>
+                    <input asp-for="Asignaciones.Fua" class="form-control" />
+                    <span asp-validation-for="Asignaciones.Fua" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
+    </div>*@
+
+
+

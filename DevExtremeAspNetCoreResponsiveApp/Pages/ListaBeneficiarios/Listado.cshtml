@@ -1,0 +1,194 @@
+﻿@page
+@model DevExtremeAspNetCoreResponsiveApp.Model.Beneficiarios;
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+
+@{
+    ViewData["Title"] = "Listado";
+}
+
+<script>
+    @*function grid_dataSource_beforeSend(op, ajax) {
+        ajax.headers = {
+            RequestVerificationToken: "@Xsrf.GetAndStoreTokens(Model.HttpContext).RequestToken"
+        };
+    }*@
+    function grid_dataSource_beforeSend(operation, ajaxSettings) {
+        var data = ajaxSettings.data || {},
+            args = Object.keys(data).map(function (key) {
+                return key + "=" + data[key];
+            }).join(" ");
+
+    }
+</script>
+
+
+@*@if (Model.Mensaje != null)
+    {
+         <div class="alert alert-info alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+
+        </div>
+    }*@
+<input class="dx-hidden-input" type="hidden" id="IDBeneficiarios" />
+
+
+@(Html.DevExtreme().DataGrid<DevExtremeAspNetCoreResponsiveApp.Model.Beneficiarios>
+                    ()
+                    .ID("GridListado")
+
+                    .DataSource(m => m.Mvc().Controller("Beneficiarios").Key("IdBeneficiario")
+                    
+                    .LoadAction("GetAll")
+                    .DeleteAction("Delete")
+                    .InsertAction("AgregarBeneficiario")
+                    .UpdateAction("ActualizarBeneficiario")
+
+                    /*.LoadAction("Get")
+                    .DeleteAction("Delete")
+                    .InsertAction("AgregarBeneficiario")
+                    .UpdateAction("ActualizarBeneficiario")*/
+
+                    .OnBeforeSend("grid_dataSource_beforeSend")
+
+
+                    )
+
+
+                    //.DataSource(d => d.RemoteController()
+                    //                                    .LoadUrl(Url.Page("Beneficiarios", "Beneficiarios"))
+                    //                                    .DeleteUrl(Url.Page("Beneficiarios", "Delete"))
+                    //                                    .Key("IdBeneficiario")
+                    //                                    .OnBeforeSend("grid_dataSource_beforeSend") // passes an antiforgery token)
+                    //                                    )
+
+                    .Export(e => e.Enabled(true).FileName("Beneficiarios"))//.OnExporting("onExporting")
+                    .Paging(pag => pag.PageSize(10))
+                    .Pager(p => p.ShowPageSizeSelector(false).ShowNavigationButtons(true).ShowInfo(true).InfoText("Página {0} de {1} ({2} Registros)"))
+                    .RowAlternationEnabled(true)
+                    .HoverStateEnabled(true)
+                    .Selection(s => s.Mode(SelectionMode.Single).AllowSelectAll(false))
+                    .SearchPanel(s => s.Visible(true).HighlightSearchText(true).Width(400))
+                    .FilterRow(f => f.ApplyFilter(GridApplyFilterMode.Auto).Visible(true).ShowAllText("Todo"))
+                    .FilterSyncEnabled(true)
+                    .WordWrapEnabled(true)
+                    .ColumnAutoWidth(true)
+                    /*Columnas del grid*/
+                    .Columns(columns =>
+                    {
+
+                        columns.AddFor(m => m.IdBeneficiario).Visible(false);
+
+                        columns.AddFor(m => m.NombreCompleto);
+
+                        columns.AddFor(m => m.CedulaIdentidad);
+
+                        columns.AddFor(m => m.Direccion);
+
+                        columns.AddFor(m => m.Telefono);
+
+                        columns.Add().Type(GridCommandColumnType.Buttons).Width(200).Buttons(b =>
+                        {
+                            b.Add().Name(GridColumnButtonName.Edit);
+                            b.Add().Name(GridColumnButtonName.Delete);
+                            b.Add().Icon("chevrondown").Visible(true).Hint("Detalle").OnClick("openDetail");
+                        }
+
+                        );
+
+
+                    }).HeaderFilter(h => h.AllowSearch(true).Visible(true))
+                    /*Configuracion para la edicion*/
+                    .Editing(e => e.Mode(GridEditMode.Popup)
+                        .UseIcons(true)
+                        .AllowAdding(true)
+                        .AllowUpdating(true)
+                        .AllowDeleting(true)
+                        .UseIcons(true)
+                        .Texts(t => t.AddRow("Nuevo").EditRow("Editar").DeleteRow("Eliminar").ConfirmDeleteMessage("¿Está seguro que desea Eliminar este Registro?")
+                        .SaveRowChanges("Guardar").CancelRowChanges("Cancelar"))
+                        /*Configuracion del Popup*/
+                        .Popup(p => p.Width(700).Title("Formulario de Edición").ShowTitle(true).Position(PositionAlignment.Center).Height(350).CloseOnOutsideClick(false).ShowCloseButton(false))
+
+                        /*Configuracion del EditForm*/
+                        .Form(f => f.ColCount(2).ShowRequiredMark(true).LabelLocation(FormLabelLocation.Left)
+                            .Items(items =>
+                            {
+                                items.AddSimple().IsRequired(true).DataField("NombreCompleto").ColSpan(2);
+                                items.AddSimple().IsRequired(false).DataField("Direccion").ColSpan(2);
+                                items.AddSimple().IsRequired(false).DataField("CedulaIdentidad").ColSpan(1);
+                                items.AddSimple().IsRequired(true).DataField("Telefono").ColSpan(1).ValidationRules(v => v.AddStringLength().Max(8));
+                            }
+                                )
+
+                            )
+                          )
+                       .ErrorRowEnabled(true)
+
+)
+
+@(Html.DevExtreme().Popup
+            ()
+            .ID("PopAsignaciones")
+            .Height(400)
+            .Position(PositionAlignment.Center)
+            .Width(600)
+            .Title("Lotes Asignados")
+            .ShowCloseButton(true)
+            .ContentTemplate(@<text>
+                @(Html.DevExtreme().DataGrid().ID("gridAsignaciones")
+                                            .DataSource(m => m.Mvc().Controller("Beneficiarios")
+                                                                    .LoadAction("GetAsignaciones")
+                                                                    .LoadParams(new { id = new JS("getBeneficiarioId") })
+
+
+                                            )
+                                            .Columns(c =>
+                                            {
+                                                        c.Add().DataField("NombreLote");
+                                                        c.Add().DataField("NombreProyecto");
+                                                        c.Add().DataField("MontoTotal");
+
+
+                                                    }
+
+                                            )
+                                            .NoDataText("No hay Datos que mostrar")
+
+
+                )
+
+            </text>)
+                        .Visible(false)
+)
+
+<script>
+    var IdBeneficiario
+    function openDetail(e) {
+        //alert(e.row.key);
+        IdBeneficiario = e.row.key;
+        $('#PopAsignaciones').dxPopup('instance').option('visible', true);
+        $("#gridAsignaciones").dxDataGrid("refresh");
+    }
+
+    function getBeneficiarioId() {
+        //alert(IdBeneficiario);
+        return IdBeneficiario;
+    }
+
+</script>
+
+
+<script type="text/javascript">
+    function getDateBoxValue() {
+        return $("#orderDate").dxDateBox("option", "text");
+    }
+
+    function refreshGrid() {
+        $("#targetDataGrid").dxDataGrid("refresh");
+    }
+</script>
+
+
+

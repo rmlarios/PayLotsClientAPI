@@ -1,0 +1,233 @@
+﻿@page
+@model LoginModel
+@*<link rel="stylesheet" href="~/Identity/lib/bootstrap/dist/css/bootstrap.min.css" />*@
+<link href="~/css/boostrap/bootstrap.min.css" rel="stylesheet" />
+<link href="~/css/fontawesome/css/all.css" rel="stylesheet" />
+@*<link rel="stylesheet" href="~/Identity/css/site.css" />*@
+@{
+    // Layout = "/Pages/Shared/_Layout.cshtml";
+}
+
+@*<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        /*background-color: #9e9e9e33;*/
+    }
+
+        body:before {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            border-left: 130px solid #9C27B0;
+            border-bottom: 130px solid #00064a;
+            border-right: 450px solid transparent;
+            border-top: 450px solid #ffff0000;
+        }
+
+        body:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            border-right: 130px solid #00cc4b;
+            border-top: 130px solid #d7ff3f;
+            border-left: 450px solid transparent;
+            border-bottom: 450px solid #ffff0000;
+        }
+</style>*@
+
+<style>
+
+    body {
+        
+        background: -webkit-linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* Chrome 10+, Saf5.1+ */
+        background: -moz-linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* FF3.6+ */
+        background: -ms-linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* IE10 */
+        background: -o-linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* Opera 11.10+ */
+        background: linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* W3C */
+        font-family: 'Raleway', sans-serif;
+    }
+
+    .wrapper {
+        margin-top: 180px;
+        margin-bottom: 20px;
+        
+    }
+
+    .form-signin {
+        max-width: 420px;
+        padding: 30px 38px 66px;
+        margin: 0 auto;
+        background-color: #eee;
+        border: 3px dotted rgba(0,0,0,0.1);
+        z-index:99999999;
+    }
+
+    .form-signin-heading {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .form-control {
+        position: relative;
+        font-size: 16px;
+        height: auto;
+        padding: 10px;
+    }
+
+    input[type="text"] {
+        margin-bottom: 0px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    input[type="password"] {
+        margin-bottom: 20px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    .colorgraph {
+        height: 7px;
+        border-top: 0;
+        background: #c4e17f;
+        border-radius: 5px;
+        background-image: -webkit-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+        background-image: -moz-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+        background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+        background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
+    }
+</style>
+
+
+@{
+    ViewData["Title"] = "Sistema de Control de Pagos";
+}
+
+<div class="container">
+
+    <div class="alert alert-warning alert-dismissible fade hide" asp-validation-summary="All"></div> 
+    
+    <div class="wrapper">
+        <form method="post" name="Login_Form" class="form-signin">
+            <h3 class="form-signin-heading">@ViewData["Title"]</h3>
+            <div class="row text-center">
+                <div class="col">
+                    <span class="profile-img">
+                        <i class='fas fa-user-circle' style='font-size:120px'></i>
+                    </span>
+                </div>
+            </div>
+
+            <hr class="colorgraph"><br>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">
+                        <i class='fas fa-user-shield'></i>
+                    </span>
+                </div>
+                <input type="text" asp-for="Input.Username" class="form-control" name="Username" placeholder="Usuario" required="" autofocus="" />
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">
+                        <i class='fas fa-unlock-alt'></i>
+                    </span>
+                </div>
+                <input type="password" class="form-control" asp-for="Input.Password" name="Password" placeholder="Contraseña" required="" />
+
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit">Iniciar Sesión</button>
+
+            <div class="container" style="background-color:#f1f1f1;text-align:right;">
+
+                <span class="psw">Olvidó su <a asp-page="./ForgotPassword">contraseña?</a></span>
+            </div>
+        </form>
+    </div>
+</div>
+
+@*<div class="row justify-content-center">
+    <div class="card" style="max-width:400px;min-width:300px;width:400px;float:left;position:relative; margin-top: 10%;margin-left:20%;margin-right:20%;z-index:999999;" >
+        <div class="card-header text-center"><h2>@ViewData["Title"]</h2></div>
+        <div class="card-body">
+            <section>
+                <form method="post">
+                    <h4>Iniciar Sesión...</h4>
+                    <hr />
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Input.Username"></label>
+                        <input asp-for="Input.Username" class="form-control" />
+                        <span asp-validation-for="Input.Username" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Input.Password"></label>
+                        <input asp-for="Input.Password" class="form-control" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label asp-for="Input.RememberMe">
+                                <input asp-for="Input.RememberMe" />
+                                @Html.DisplayNameFor(m => m.Input.RememberMe)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                    </div>
+                    <div class="form-group">
+                        <p>
+                            <a asp-page="./ForgotPassword">Olvidó su contraseña?</a>
+                        </p>
+                        @*<p>
+                            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                        </p>
+                        </div>
+                    </form>
+                </section>*@
+
+@*<div class="col-md-6 col-md-offset-2" style="display:none;">
+          <section>
+              <h4>Use another service to log in.</h4>
+              <hr />
+              @{
+                  if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                  {
+                      <div>
+                          <p>
+                              There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
+                              for details on setting up this ASP.NET application to support logging in via external services.
+                          </p>
+                      </div>
+                  }
+                  else
+                  {
+                      <form asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                          <div>
+                              <p>
+                                  @foreach (var provider in Model.ExternalLogins)
+                                  {
+                                      <button type="submit" class="btn btn-default" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                  }
+                              </p>
+                          </div>
+                      </form>
+                  }
+              }
+          </section>
+      </div>
+
+              </div>
+          </div>
+    </div>*@
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

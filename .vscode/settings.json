@@ -1,0 +1,12 @@
+{
+  "files.exclude": {
+    "**/.git": false,
+    "**/.svn": false,
+    "**/.hg": false,
+    "**/CVS": false,
+    "**/.DS_Store": false,
+    "DevExtremeAspNetCoreResponsiveApp\\Pages\\ListaBeneficiarios/Beneficiarios.cshtml": false,
+    "Beneficiarios.cshtml": false
+  },
+  "explorerExclude.backup": null
+}
