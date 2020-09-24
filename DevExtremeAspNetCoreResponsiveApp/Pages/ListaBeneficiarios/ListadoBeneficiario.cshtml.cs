@@ -17,10 +17,10 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.ListaBeneficiarios
     }
 
     [HttpGet]
-    public async Task<string> OnGetBeneficiarios()
+    public async Task<IActionResult> OnGetBeneficiarios()
     {
       var result = await _proxy.GetAsync<Beneficiarios>("Beneficiario/Listar");           
-      return JsonConvert.SerializeObject(result.Datas);
+      return Content(JsonConvert.SerializeObject(result.Datas), "application/json");
     }
 
   }

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Http;
 
 namespace DevExtremeAspNetCoreResponsiveApp.Areas.Identity.Pages.Account
 {
@@ -29,6 +30,11 @@ namespace DevExtremeAspNetCoreResponsiveApp.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPost(string returnUrl = null)
         {
+      Response.Cookies.Delete("paylotscookie", new CookieOptions()
+      {
+        Secure = true,
+      });
+            
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
             if (returnUrl != null)

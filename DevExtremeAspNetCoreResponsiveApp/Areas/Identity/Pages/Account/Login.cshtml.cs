@@ -17,6 +17,7 @@ using DevExtremeAspNetCoreResponsiveApp.Helpers;
 using DevExtremeAspNetCoreResponsiveApp.Proxies;
 using DevExtremeAspNetCoreResponsiveApp.Proxies.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 
 namespace DevExtremeAspNetCoreResponsiveApp.Areas.Identity.Pages.Account
 {
@@ -74,6 +75,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Areas.Identity.Pages.Account
 
       // Clear the existing external cookie to ensure a clean login process
       await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+     
 
       ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 

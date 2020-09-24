@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp.csproj": {}
+    "D:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp.csproj": {}
   },
   "projects": {
-    "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp.csproj": {
+    "D:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp.csproj",
+        "projectUniqueName": "D:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp.csproj",
         "projectName": "DevExtremeAspNetCoreResponsiveApp",
-        "projectPath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp.csproj",
+        "projectPath": "D:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp.csproj",
         "packagesPath": "C:\\Users\\Miguel.Larios.MEM\\.nuget\\packages\\",
-        "outputPath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\obj\\",
+        "outputPath": "D:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\NuGet.Config",
+          "D:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\NuGet.Config",
           "C:\\Users\\Miguel.Larios.MEM\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 18.2.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.1.config",

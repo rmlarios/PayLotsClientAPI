@@ -43,6 +43,7 @@ namespace DevExtremeAspNetCoreResponsiveApp
             {
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
+                
             });
             
             //Conexion a la Base de Datos
@@ -75,19 +76,22 @@ namespace DevExtremeAspNetCoreResponsiveApp
             //});
 
             //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
-            //services.AddAuthentication(IdentityConstants.ApplicationScheme).AddApplicationCookie();
+            //services.AddAuthentication(IdentityConstants.ApplicationScheme).AddCookie();
        
 
             services.ConfigureApplicationCookie(opts =>
             {
                 opts.LoginPath = $"/Identity/Account/Login";
                 opts.AccessDeniedPath = $"/Identity/Account/Login";
+                opts.Cookie.Name = "paylotscookie";
+                opts.Cookie.Expiration = new TimeSpan(hours:4,minutes:0,seconds:0);                
+               
                 opts.Events = new CookieAuthenticationEvents()
                 {
                     OnRedirectToLogin = redirectContext =>
                     {
-                        string redirecturi = redirectContext.RedirectUri;
-                        UriHelper.FromAbsolute(
+                       string redirecturi = redirectContext.RedirectUri;
+                       UriHelper.FromAbsolute(
                        redirecturi,
                        out string scheme,
                        out HostString host,
@@ -167,6 +171,7 @@ namespace DevExtremeAspNetCoreResponsiveApp
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseCookiePolicy();
+            
 
             
             // app.UseMvc(routes =>
