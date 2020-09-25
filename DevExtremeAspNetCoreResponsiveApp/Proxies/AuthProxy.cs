@@ -1,8 +1,9 @@
 using System.Threading.Tasks;
-using System;
+using System.Text;
 using DevExtremeAspNetCoreResponsiveApp.Proxies.Models;
 using DevExtremeAspNetCoreResponsiveApp.Common;
 using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace DevExtremeAspNetCoreResponsiveApp.Proxies
 {
@@ -22,11 +23,12 @@ namespace DevExtremeAspNetCoreResponsiveApp.Proxies
     public async Task<Response<AuthenticationResponse>> Authenticate(LoginAuthModel model)
     {
       var client = _proxyHttpClient.Get();
-      var response = await client.PostAsJsonAsync("Account/authenticate",model);
-
+      var Content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+      var response = await client.PostAsync("Account/authenticate",Content);
       response.EnsureSuccessStatusCode();
-
-      return await response.Content.ReadAsAsync<Response<AuthenticationResponse>>();      
+      var result = await response.Content.ReadAsStringAsync();
+      var Json = JsonConvert.DeserializeObject<Response<AuthenticationResponse>>(result);   
+      return Json;
       
     }
   }

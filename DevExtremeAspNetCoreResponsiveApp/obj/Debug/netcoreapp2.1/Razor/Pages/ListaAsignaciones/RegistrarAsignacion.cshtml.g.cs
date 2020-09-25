@@ -127,7 +127,7 @@ using DevExtremeAspNetCoreResponsiveApp.Model;
             WriteLiteral("\r\n                </td>\r\n            </tr>\r\n        </table>\r\n\r\n\r\n        <div class=\"btn-group-lg text-left\" role=\"toolbar\">\r\n            ");
             EndContext();
             BeginContext(1174, 131, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("button", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9c5962c5b32d45bc92b689179c34995e", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("button", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "13066077e9f14f3687f6e48143e5f3ac", async() => {
                 BeginContext(1288, 8, true);
                 WriteLiteral(" Guardar");
                 EndContext();
@@ -153,7 +153,7 @@ using DevExtremeAspNetCoreResponsiveApp.Model;
             WriteLiteral("\r\n            ");
             EndContext();
             BeginContext(1319, 130, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("button", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f7f02c268d7848e1baa7560df97851eb", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("button", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "24c9088ac83b4610afa74e08de93e407", async() => {
                 BeginContext(1434, 6, true);
                 WriteLiteral(" Nuevo");
                 EndContext();
@@ -179,7 +179,7 @@ using DevExtremeAspNetCoreResponsiveApp.Model;
             WriteLiteral("\r\n\r\n        </div>\r\n\r\n\r\n        ");
             EndContext();
             BeginContext(1481, 59, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("input", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "acefa114b0f34f8489cbaba75b9c5ba8", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("input", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "40ab08ca04674eb89c0750a60cdb8a6a", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_TagHelpers_InputTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.InputTagHelper>();
@@ -302,7 +302,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_InputTagHelper.For = ModelExpressionProvid
                 WriteLiteral("\r\n    ");
                 EndContext();
                 BeginContext(10725, 44, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("partial", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "9f3076dfba954114bad28e5ce0e66f36", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("partial", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "049e031968f94946a9124041db8824ec", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_TagHelpers_PartialTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.PartialTagHelper>();

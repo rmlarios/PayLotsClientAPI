@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace DevExtremeAspNetCoreResponsiveApp.Pages.ListaAsignaciones
 {
     [Serializable]
+    [Authorize]
     public class RegistrarAsignacionModel : PageModel
     {
         private readonly DevExtremeAspNetCoreResponsiveApp.Model.PayLotsDBContext _context;
@@ -24,7 +25,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.ListaAsignaciones
 
         [BindProperty]
         public Asignaciones Asignaciones { get; set; }
-        [Authorize]
+      
         public void OnGet(int id=6087)
         {
         ViewData["IdBeneficiario"] = new SelectList(_context.Beneficiarios, "IdBeneficiario", "NombreCompleto");
@@ -37,7 +38,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.ListaAsignaciones
             
                 
         }
-        [HttpPost]
+   
         public async Task<IActionResult> OnPostCreate([FromForm]Asignaciones values)
         {
             if (!ModelState.IsValid)
@@ -51,7 +52,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.ListaAsignaciones
             return RedirectToPage("./Index");
         }
 
-        [HttpPost]
+       
         public async Task OnPostClear()
         {
             Asignaciones.IdAsignacion = 0;

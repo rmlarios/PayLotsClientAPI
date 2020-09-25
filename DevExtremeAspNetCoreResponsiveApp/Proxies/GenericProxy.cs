@@ -25,8 +25,9 @@ namespace DevExtremeAspNetCoreResponsiveApp.Proxies
       var _httpClient = _proxyHttpClient.Get();
       var response = _httpClient.GetAsync(requestUrl, HttpCompletionOption.ResponseHeadersRead).Result;
       //response.EnsureSuccessStatusCode();
-      var data = await response.Content.ReadAsAsync<Response<T>>();
-      return data;
+      //var data = await response.Content.ReadAsAsync<Response<T>>();
+      var data = await response.Content.ReadAsStringAsync();
+      return new Response<T>(data);
       //return JsonConvert.DeserializeObject<T>(data);
     }
 

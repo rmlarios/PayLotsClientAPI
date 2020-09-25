@@ -95,24 +95,26 @@ namespace DevExtremeAspNetCoreResponsiveApp.Areas.Identity.Pages.Account
       {
         var claims = new List<Claim>
         {
-            new Claim(ClaimTypes.NameIdentifier,result.Data.Id),
+            new Claim(ClaimTypes.NameIdentifier,result.Data.UserName),
             new Claim(ClaimTypes.Email,result.Data.Email),
             new Claim("access_token",result.Data.JWToken),
         };
 
-        var user = await _userHelper.GetUserByNameAsync(model.Email);
-        await _userHelper.AddUserClaims(user,claims);        
-        await _userHelper.SignInAsync(user,false);
+        //var user = await _userHelper.GetUserByNameAsync(model.Email);
+        //await _userHelper.AddUserClaims(user,claims);        
+        //await _userHelper.SignInAsync(user,false);
 
-        /* var claimsIdentity = new ClaimsIdentity(claims,IdentityConstants.ApplicationScheme);
 
-        await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme,new ClaimsPrincipal(claimsIdentity),new AuthenticationProperties{
+       var claimsIdentity = new ClaimsIdentity(claims,IdentityConstants.ApplicationScheme);
+
+         await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme,new ClaimsPrincipal(claimsIdentity),new AuthenticationProperties{
             AllowRefresh = true,
-            IsPersistent=true              
-        }); */
-
+            IsPersistent=true                         ,
+            
+        });
+        return LocalRedirect("~/"); 
                 
-        return Redirect("~/");
+        //return Redirect("~/index");
       }
 
 

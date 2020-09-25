@@ -15,8 +15,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.ListaBeneficiarios
     {
         _proxy = proxy;
     }
-
-    [HttpGet]
+    
     public async Task<IActionResult> OnGetBeneficiarios()
     {
       var result = await _proxy.GetAsync<Beneficiarios>("Beneficiario/Listar");           

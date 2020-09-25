@@ -20,10 +20,10 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controladores
         private readonly PayLotsDBContext _context;
         private readonly string _connectionString;
 
-        public GeneralController(string connectiontring)
+        public GeneralController(IConfiguration configuration)
         {
             // _context = payLotsDBContext;
-            _connectionString = connectiontring;//configuration.GetConnectionString("PayLotsConnection");
+            _connectionString = configuration.GetConnectionString("PayLotsConnection");
             
         }
 

@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Text;
 using System;
 using System.Collections.Generic;
@@ -17,13 +18,16 @@ using DevExtremeAspNetCoreResponsiveApp.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using Microsoft.AspNetCore.Identity.UI.Services;
+
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http.Extensions;
 using DevExtremeAspNetCoreResponsiveApp.Common;
 using DevExtremeAspNetCoreResponsiveApp.Proxies;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Hosting;
+using SimpleInjector;
+
 
 namespace DevExtremeAspNetCoreResponsiveApp
 {
@@ -35,6 +39,7 @@ namespace DevExtremeAspNetCoreResponsiveApp
         }
 
         public IConfiguration Configuration { get; }
+       
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -62,7 +67,7 @@ namespace DevExtremeAspNetCoreResponsiveApp
                         options.Password.RequireLowercase = true;
                         options.User.RequireUniqueEmail = true;
                         options.SignIn.RequireConfirmedEmail = true;
-                        options.Lockout.MaxFailedAccessAttempts = 5;
+                        options.Lockout.MaxFailedAccessAttempts = 5;                        
                         
                     })
                 .AddEntityFrameworkStores<PayLotsDBContext>().AddDefaultTokenProviders().AddDefaultUI();
@@ -76,7 +81,13 @@ namespace DevExtremeAspNetCoreResponsiveApp
             //});
 
             //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
-            //services.AddAuthentication(IdentityConstants.ApplicationScheme).AddCookie();
+             services.AddAuthentication(IdentityConstants.ApplicationScheme).AddCookie(
+                opt=>{
+                    opt.LoginPath=$"/Identity/Account/Login";
+                    opt.AccessDeniedPath=$"/Identity/Account/Login";
+                    opt.Cookie.Name="identcookie";
+                }
+            ); 
        
 
             services.ConfigureApplicationCookie(opts =>
@@ -84,8 +95,9 @@ namespace DevExtremeAspNetCoreResponsiveApp
                 opts.LoginPath = $"/Identity/Account/Login";
                 opts.AccessDeniedPath = $"/Identity/Account/Login";
                 opts.Cookie.Name = "paylotscookie";
-                opts.Cookie.Expiration = new TimeSpan(hours:4,minutes:0,seconds:0);                
-               
+                opts.Cookie.SameSite = SameSiteMode.None;
+                opts.ExpireTimeSpan = new TimeSpan(hours:4,minutes:0,seconds:0);
+                                                            
                 opts.Events = new CookieAuthenticationEvents()
                 {
                     OnRedirectToLogin = redirectContext =>
@@ -109,36 +121,40 @@ namespace DevExtremeAspNetCoreResponsiveApp
 
 
             }
-            );
+            ); 
 
 
             //Instancia el UserHelper como Servicio
             services.AddScoped<IUserHelper, UserHelper>();            
             //Instancia el servicio para enviar correo
-            services.AddScoped<IEmailSender, MailHelper>();
+            services.AddScoped<IEmailHelper, MailHelper>();
             //Registro los Proxys
             services.AddTransient<ProxyHttpClient>();
             services.AddTransient<IAuthProxy,AuthProxy>();
             services.AddTransient<IGenericProxy,GenericProxy>();
-            
+                      
+           
+            services.AddControllers().AddNewtonsoftJson(o => {
+                o.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });       
             
            
             
 
             //Configuracion de JSON para evitar conflictos con el nombre de los campos
             services.AddMvc()
-                .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver())
-                .AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
+            .AddMvcOptions(o=>o.EnableEndpointRouting=false)
+                /*.AddJsonOptions(options => options.JsonSerializerOptions.ContractResolver = new DefaultContractResolver())
+                .AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)*/
                 .AddRazorPagesOptions(options => 
                 {
-                    options.AllowAreas = true;
+                    //options.AllowAreas = true;                    
                     options.Conventions.AuthorizeFolder("/");
                     options.Conventions.AllowAnonymousToPage("/Identity/Account/Login");
                     
                 }
-                )
-                
-                ;
+                );
             //Requiere que el usuario este autenticado para poder acceder a cualquier pagina
             services.AddAuthorization(options =>
             {
@@ -148,13 +164,15 @@ namespace DevExtremeAspNetCoreResponsiveApp
              });
             });
 
-           
+            
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            
+
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();
@@ -181,8 +199,10 @@ namespace DevExtremeAspNetCoreResponsiveApp
             //        template: "{controller=Home}/{action=Index}/{id?}")
             //        ;
             //});
-
             app.UseMvc();
+            //app.UseEndpoints()
         }
-    }
+
+    
+  }
 }

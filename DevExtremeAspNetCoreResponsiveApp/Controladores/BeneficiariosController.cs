@@ -4,7 +4,6 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Formatting;
 using System.Threading.Tasks;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
@@ -42,7 +41,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controladores
         {
             _context = payLotsDBContext;
             _connectionString = configuration.GetConnectionString("PayLotsConnection");
-            FG = new GeneralController(_connectionString);
+            FG = new GeneralController(configuration);
 
         }
 
@@ -110,7 +109,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controladores
             else
             {
                 //return NotFound(new { Result = "something went wrong" });
-                var ErrorSQL = _context.ErrorSql.FromSql($"SELECT * FROM ErrorSQL WHERE IdentityUser= 'ADOInsert'").ToList();
+                var ErrorSQL = _context.ErrorSql.FromSqlRaw($"SELECT * FROM ErrorSQL WHERE IdentityUser= 'ADOInsert'").ToList();
                 if (ErrorSQL.Count() > 0)
                 {
                     Mensaje = ErrorSQL[0].ErrorSql1.ToString();
@@ -147,7 +146,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controladores
             command.Parameters.Clear();
             command.Connection.Close();
 
-            var ErrorSQL = _context.ErrorSql.FromSql($"SELECT * FROM ErrorSQL WHERE IdentityUser= 'IdentityUpdate1'").ToList();
+            var ErrorSQL = _context.ErrorSql.FromSqlRaw($"SELECT * FROM ErrorSQL WHERE IdentityUser= 'IdentityUpdate1'").ToList();
             if (ErrorSQL.Count() > 0)
             {
                 Mensaje = ErrorSQL[0].ErrorSql1.ToString();
@@ -176,7 +175,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controladores
 
                     int result = _context.Database.ExecuteSqlCommand("SP_BeneficiarioEliminar @IdBeneficiario,@IdentityUser,@UUA", IdBeneficiario, IdentityUser,UUA);
 
-                    var ErrorSQL = _context.ErrorSql.FromSql($"SELECT * FROM ErrorSQL WHERE IdentityUser= 'NetCoreError989'").ToList();
+                    var ErrorSQL = _context.ErrorSql.FromSqlRaw($"SELECT * FROM ErrorSQL WHERE IdentityUser= 'NetCoreError989'").ToList();
                     if (ErrorSQL.Count() > 0)
                     {
                         Mensaje = ErrorSQL[0].ErrorSql1.ToString();
