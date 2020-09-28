@@ -63,7 +63,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Helpers
 
     public async Task SignInAsync(AppUser user, bool isPersistent)
     {
-      await _signInManager.SignInAsync(user, isPersistent);
+        await _signInManager.SignInAsync(user, isPersistent);
     }
     public async Task<SignInResult> LoginAsync(LoginView model)
     {

@@ -22,6 +22,6 @@ namespace DevExtremeAspNetCoreResponsiveApp.Helpers
         Task<string> GeneratePasswordResetTokenAsync(AppUser user);
         Task<string> GenerateEmailConfirmationTokenAsync(AppUser user);
         Task SignInAsync(AppUser user, bool isPersistent);
-    Task AddUserClaims(AppUser user, IEnumerable<Claim> claims);
+        Task AddUserClaims(AppUser user, IEnumerable<Claim> claims);
   }
 }

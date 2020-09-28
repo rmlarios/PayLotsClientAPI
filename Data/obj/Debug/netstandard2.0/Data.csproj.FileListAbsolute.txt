@@ -1,0 +1,9 @@
+D:\GIT\PayLotsClientAPI\Data\bin\Debug\netstandard2.0\Data.deps.json
+D:\GIT\PayLotsClientAPI\Data\bin\Debug\netstandard2.0\Data.dll
+D:\GIT\PayLotsClientAPI\Data\bin\Debug\netstandard2.0\Data.pdb
+D:\GIT\PayLotsClientAPI\Data\obj\Debug\netstandard2.0\Data.csprojAssemblyReference.cache
+D:\GIT\PayLotsClientAPI\Data\obj\Debug\netstandard2.0\Data.AssemblyInfoInputs.cache
+D:\GIT\PayLotsClientAPI\Data\obj\Debug\netstandard2.0\Data.AssemblyInfo.cs
+D:\GIT\PayLotsClientAPI\Data\obj\Debug\netstandard2.0\Data.csproj.CoreCompileInputs.cache
+D:\GIT\PayLotsClientAPI\Data\obj\Debug\netstandard2.0\Data.dll
+D:\GIT\PayLotsClientAPI\Data\obj\Debug\netstandard2.0\Data.pdb

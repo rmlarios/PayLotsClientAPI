@@ -1,5 +1,5 @@
 {
-  "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp.csproj",
+  "FilePath": "d:\\GIT\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp.csproj",
   "Configuration": {
     "ConfigurationName": "MVC-3.0",
     "LanguageVersion": "3.0",
@@ -14392,123 +14392,123 @@
   "RootNamespace": "DevExtremeAspNetCoreResponsiveApp",
   "Documents": [
     {
-      "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Pages\\_ViewStart.cshtml",
-      "TargetPath": "Pages\\_ViewStart.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Areas\\Identity\\Pages\\_ValidationScriptsPartial.cshtml",
-      "TargetPath": "Areas\\Identity\\Pages\\_ValidationScriptsPartial.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Pages\\Shared\\_CookieConsentPartial.cshtml",
-      "TargetPath": "Pages\\Shared\\_CookieConsentPartial.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Pages\\_ValidationScriptsPartial.cshtml",
-      "TargetPath": "Pages\\_ValidationScriptsPartial.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Areas\\Identity\\Pages\\Account\\Register.cshtml",
-      "TargetPath": "Areas\\Identity\\Pages\\Account\\Register.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Areas\\Identity\\Pages\\_ViewStart.cshtml",
+      "FilePath": "d:\\GIT\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\Areas\\Identity\\Pages\\_ViewStart.cshtml",
       "TargetPath": "Areas\\Identity\\Pages\\_ViewStart.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Pages\\Shared\\_Layout.cshtml",
-      "TargetPath": "Pages\\Shared\\_Layout.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Areas\\Identity\\Pages\\Account\\Logout.cshtml",
-      "TargetPath": "Areas\\Identity\\Pages\\Account\\Logout.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Areas\\Identity\\Pages\\Account\\_ViewImports.cshtml",
-      "TargetPath": "Areas\\Identity\\Pages\\Account\\_ViewImports.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Pages\\_ViewImports.cshtml",
-      "TargetPath": "Pages\\_ViewImports.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Areas\\Identity\\Pages\\Account\\ForgotPassword.cshtml",
-      "TargetPath": "Areas\\Identity\\Pages\\Account\\ForgotPassword.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Pages\\Shared\\_ValidationScriptsPartial.cshtml",
-      "TargetPath": "Pages\\Shared\\_ValidationScriptsPartial.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Pages\\Shared\\_LoginPartial.cshtml",
-      "TargetPath": "Pages\\Shared\\_LoginPartial.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Areas\\Identity\\Pages\\_ViewImports.cshtml",
-      "TargetPath": "Areas\\Identity\\Pages\\_ViewImports.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Pages\\Shared\\_LayoutAdminLTE.cshtml",
-      "TargetPath": "Pages\\Shared\\_LayoutAdminLTE.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Pages\\Account\\Login.cshtml",
-      "TargetPath": "Pages\\Account\\Login.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Pages\\ListaBeneficiarios\\ListadoAPI.cshtml",
-      "TargetPath": "Pages\\ListaBeneficiarios\\ListadoAPI.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Pages\\ListaAsignaciones\\RegistrarAsignacion.cshtml",
-      "TargetPath": "Pages\\ListaAsignaciones\\RegistrarAsignacion.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Pages\\ListaBeneficiarios\\Listado.cshtml",
-      "TargetPath": "Pages\\ListaBeneficiarios\\Listado.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Pages\\Index.cshtml",
-      "TargetPath": "Pages\\Index.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Pages\\About.cshtml",
-      "TargetPath": "Pages\\About.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Pages\\ListaBeneficiarios\\ListadoBeneficiario.cshtml",
+      "FilePath": "d:\\GIT\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\Pages\\ListaBeneficiarios\\ListadoBeneficiario.cshtml",
       "TargetPath": "Pages\\ListaBeneficiarios\\ListadoBeneficiario.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Pages\\_Layout.cshtml",
+      "FilePath": "d:\\GIT\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\Pages\\_ViewStart.cshtml",
+      "TargetPath": "Pages\\_ViewStart.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GIT\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\Pages\\_ValidationScriptsPartial.cshtml",
+      "TargetPath": "Pages\\_ValidationScriptsPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GIT\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\Areas\\Identity\\Pages\\Account\\ForgotPassword.cshtml",
+      "TargetPath": "Areas\\Identity\\Pages\\Account\\ForgotPassword.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GIT\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\Areas\\Identity\\Pages\\Account\\_ViewImports.cshtml",
+      "TargetPath": "Areas\\Identity\\Pages\\Account\\_ViewImports.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GIT\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\Areas\\Identity\\Pages\\Account\\Logout.cshtml",
+      "TargetPath": "Areas\\Identity\\Pages\\Account\\Logout.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GIT\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\Pages\\Shared\\_ValidationScriptsPartial.cshtml",
+      "TargetPath": "Pages\\Shared\\_ValidationScriptsPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GIT\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\Pages\\Beneficiario\\Listado.cshtml",
+      "TargetPath": "Pages\\Beneficiario\\Listado.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GIT\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\Areas\\Identity\\Pages\\Account\\Login.cshtml",
+      "TargetPath": "Areas\\Identity\\Pages\\Account\\Login.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GIT\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\Pages\\Shared\\_CookieConsentPartial.cshtml",
+      "TargetPath": "Pages\\Shared\\_CookieConsentPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GIT\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\Areas\\Identity\\Pages\\_ValidationScriptsPartial.cshtml",
+      "TargetPath": "Areas\\Identity\\Pages\\_ValidationScriptsPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GIT\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\Areas\\Identity\\Pages\\_ViewImports.cshtml",
+      "TargetPath": "Areas\\Identity\\Pages\\_ViewImports.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GIT\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\Pages\\ListaAsignaciones\\RegistrarAsignacion.cshtml",
+      "TargetPath": "Pages\\ListaAsignaciones\\RegistrarAsignacion.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GIT\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\Pages\\About.cshtml",
+      "TargetPath": "Pages\\About.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GIT\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\Pages\\Index.cshtml",
+      "TargetPath": "Pages\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GIT\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\Pages\\_ViewImports.cshtml",
+      "TargetPath": "Pages\\_ViewImports.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GIT\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\Pages\\ListaBeneficiarios\\Listado.cshtml",
+      "TargetPath": "Pages\\ListaBeneficiarios\\Listado.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GIT\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\Areas\\Identity\\Pages\\Account\\Register.cshtml",
+      "TargetPath": "Areas\\Identity\\Pages\\Account\\Register.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GIT\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\Pages\\Shared\\_LoginPartial.cshtml",
+      "TargetPath": "Pages\\Shared\\_LoginPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GIT\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\Pages\\ListaBeneficiarios\\ListadoAPI.cshtml",
+      "TargetPath": "Pages\\ListaBeneficiarios\\ListadoAPI.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GIT\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\Pages\\_Layout.cshtml",
       "TargetPath": "Pages\\_Layout.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Areas\\Identity\\Pages\\Account\\Login.cshtml",
-      "TargetPath": "Areas\\Identity\\Pages\\Account\\Login.cshtml",
+      "FilePath": "d:\\GIT\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\Pages\\Shared\\_LayoutAdminLTE.cshtml",
+      "TargetPath": "Pages\\Shared\\_LayoutAdminLTE.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GIT\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\Pages\\Shared\\_Layout.cshtml",
+      "TargetPath": "Pages\\Shared\\_Layout.cshtml",
       "FileKind": "mvc"
     }
   ],

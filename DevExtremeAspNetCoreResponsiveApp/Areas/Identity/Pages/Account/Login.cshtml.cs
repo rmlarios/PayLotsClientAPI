@@ -100,21 +100,21 @@ namespace DevExtremeAspNetCoreResponsiveApp.Areas.Identity.Pages.Account
             new Claim("access_token",result.Data.JWToken),
         };
 
-        //var user = await _userHelper.GetUserByNameAsync(model.Email);
-        //await _userHelper.AddUserClaims(user,claims);        
-        //await _userHelper.SignInAsync(user,false);
+        var user = await _userHelper.GetUserByNameAsync(model.Email);
+        await _userHelper.AddUserClaims(user,claims);        
+        
+        var r = await _userHelper.LoginAsync(Input);
 
-
-       var claimsIdentity = new ClaimsIdentity(claims,IdentityConstants.ApplicationScheme);
+      /*  var claimsIdentity = new ClaimsIdentity(claims,IdentityConstants.ApplicationScheme);
 
          await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme,new ClaimsPrincipal(claimsIdentity),new AuthenticationProperties{
             AllowRefresh = true,
             IsPersistent=true                         ,
             
-        });
-        return LocalRedirect("~/"); 
+        }); */
+       // return LocalRedirect("~/"); 
                 
-        //return Redirect("~/index");
+        return Redirect("~/index");
       }
 
 

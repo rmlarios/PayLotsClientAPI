@@ -86,11 +86,12 @@ namespace DevExtremeAspNetCoreResponsiveApp
                     opt.LoginPath=$"/Identity/Account/Login";
                     opt.AccessDeniedPath=$"/Identity/Account/Login";
                     opt.Cookie.Name="identcookie";
+                    opt.Cookie.SameSite = SameSiteMode.None;
                 }
             ); 
        
 
-            services.ConfigureApplicationCookie(opts =>
+           /*  services.ConfigureApplicationCookie(opts =>
             {
                 opts.LoginPath = $"/Identity/Account/Login";
                 opts.AccessDeniedPath = $"/Identity/Account/Login";
@@ -121,7 +122,7 @@ namespace DevExtremeAspNetCoreResponsiveApp
 
 
             }
-            ); 
+            );  */
 
 
             //Instancia el UserHelper como Servicio
