@@ -34,7 +34,7 @@
                         {
                             b.Add().Name(GridColumnButtonName.Edit);
                             b.Add().Name(GridColumnButtonName.Delete);
-                            b.Add().Icon("chevrondown").Visible(true).Hint("Detalle");//.OnClick("openDetail");
+                            b.Add().Icon("chevrondown").Visible(true).Hint("Detalle").OnClick("openDetail");
                         });
                     }).HeaderFilter(h => h.AllowSearch(true).Visible(true))
                     /*Configuracion para la edicion*/
@@ -60,3 +60,48 @@
                           )
                        .ErrorRowEnabled(true)
 )
+
+@(Html.DevExtreme().Popup
+            ()
+            .ID("PopAsignaciones")
+            .Height(400)
+            .Position(PositionAlignment.Center)
+            .Width(600)
+            .Title("Lotes Asignados: ")
+            .ShowCloseButton(true)
+            .ContentTemplate(@<text>                
+                @(Html.DevExtreme().DataGrid().ID("gridAsignaciones")
+                                            .DataSource(d => d.RemoteController()
+                                                                   .LoadUrl(Url.Page("Listado", "Asignaciones"))
+                                                                  .LoadParams(new { id = new JS("getBeneficiarioId") }))
+                                                                  
+                                            .Columns(c =>
+                                            {
+                                                        c.Add().DataField("NombreLote");
+                                                        c.Add().DataField("NombreProyecto");
+                                                        c.Add().DataField("MontoTotal");
+                                                    })
+                                            .NoDataText("No hay Datos que mostrar")
+                )
+            </text>)
+            .Visible(false).CloseOnOutsideClick(true).Position(PositionAlignment.Center)
+)
+
+<script>
+    var IdBeneficiario
+    function openDetail(e) {        
+        IdBeneficiario = e.row.key;       
+        var popup = $("#PopAsignaciones").dxPopup("instance");
+        popup.option('title',e.row.data.NombreCompleto);
+        popup.show();
+
+        //$('#PopAsignaciones').dxPopup('instance').option('visible', true);
+        $("#gridAsignaciones").dxDataGrid("refresh");
+    }
+
+    function getBeneficiarioId() {
+        //alert(IdBeneficiario);
+        return IdBeneficiario;
+    }
+
+</script>

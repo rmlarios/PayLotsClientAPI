@@ -9,21 +9,18 @@
     <link rel="stylesheet" href="~/css/vendor.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" />
     @*<link rel="stylesheet" href="~/Identity/lib/bootstrap/dist/css/bootstrap.css" />*@
-    @*<link href="~/css/boostrap/bootstrap.min.css" rel="stylesheet" />
-        <link href="~/css/fontawesome/css/all.css" rel="stylesheet" />*@
+    @*<link href="~/css/boostrap/bootstrap.min.css" rel="stylesheet" />*@
+    @* <link href="~/css/fontawesome/css/all.css" rel="stylesheet" /> *@
+        
 
     <script src="~/js/vendor.js" asp-append-version="true"></script>
-
-
-
-
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="~/AdminLTE/lib/bootstrap/dist/css/bootstrap.min.css">
     <!-- Font Awesome -->
-    @*<link rel="stylesheet" href="~/css/fontawesome/css/all.css">*@
+    @*<link rel="stylesheet" href="~/css/fontawesome/css/all.css">*@    
     <link rel="stylesheet" href="~/AdminLTE/lib/font-awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="~/AdminLTE/lib/Ionicons/css/ionicons.min.css">
@@ -261,18 +258,16 @@
                     </li>
                     <li class="treeview">
                         <a href="#">
-                            <i class="fas fa-th-list"></i>
+                            <i class="fa fa-th-list"></i>
                             <span>Catálogos</span>
                             <span class="pull-right-container">
                                 <span class="label label-primary pull-right">4</span>
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
-                        <ul class="treeview-menu">
-                            <li><a href=@Url.Page("/Catalogos/Asentamientos")><i class="fas fa-map-marker-alt"></i>Asentamientos</a></li>
-                            <li><a href=@Url.Page("/Catalogos/Lotes")><i class="fas fa-map-marked-alt"></i>Asentamientos</a></li>
-                            <li><a href=@Url.Page("/ListaBeneficiarios/Listado")><i class="fa fa-users"></i>Beneficiarios</a></li>
-                            <li><a href=@Url.Page("/Catalogos/RangosMora")><i class="fa fa-calendar-alt"></i>Beneficiarios</a></li>
+                        <ul class="treeview-menu">                            
+                            <li><a href=@Url.Page("/Beneficiario/Listado")><i class="fa fa-users"></i>Beneficiarios</a></li>
+                            
                         </ul>
                     </li>
                     <li>

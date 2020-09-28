@@ -1,23 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "d:\\GIT\\PayLotsClientAPI\\Data\\Data.csproj": {}
+    "D:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\Data\\Data.csproj": {}
   },
   "projects": {
-    "d:\\GIT\\PayLotsClientAPI\\Data\\Data.csproj": {
+    "D:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\Data\\Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\GIT\\PayLotsClientAPI\\Data\\Data.csproj",
+        "projectUniqueName": "D:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\Data\\Data.csproj",
         "projectName": "Data",
-        "projectPath": "d:\\GIT\\PayLotsClientAPI\\Data\\Data.csproj",
-        "packagesPath": "C:\\Users\\Informatica\\.nuget\\packages\\",
-        "outputPath": "d:\\GIT\\PayLotsClientAPI\\Data\\obj\\",
+        "projectPath": "D:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\Data\\Data.csproj",
+        "packagesPath": "C:\\Users\\Miguel.Larios.MEM\\.nuget\\packages\\",
+        "outputPath": "D:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\Data\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Informatica\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Miguel.Larios.MEM\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 18.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.1.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.2.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 20.1.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -26,9 +28,13 @@
           "netcoreapp3.1"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\DevExpress 18.2\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\DevExpress 18.2\\DevExtreme\\System\\DevExtreme\\Bin\\AspNetCore": {},
+          "C:\\Program Files (x86)\\DevExpress 19.1\\Components\\System\\Components\\Packages": {},
           "C:\\Program Files (x86)\\DevExpress 19.2\\Components\\System\\Components\\Packages": {},
           "C:\\Program Files (x86)\\DevExpress 20.1\\Components\\System\\Components\\Packages": {},
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "D:\\TFS2020\\SISLIC\\packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

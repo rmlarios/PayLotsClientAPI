@@ -1,4 +1,4 @@
-// Version: 2.2.1
+// Version: 2.6.1
 // https://github.com/DevExpress/DevExtreme.AspNet.Data
 // Copyright (c) Developer Express Inc.
 
@@ -10,39 +10,51 @@
     if(typeof define === "function" && define.amd) {
         define(function(require, exports, module) {
             module.exports = factory(
-                require("jquery"),
+                require("devextreme/core/utils/ajax"),
+                require("jquery").Deferred,
+                require("jquery").extend,
                 require("devextreme/data/custom_store"),
                 require("devextreme/data/utils")
             );
         });
     } else if (typeof module === "object" && module.exports) {
         module.exports = factory(
-            require("jquery"),
+            require("devextreme/core/utils/ajax"),
+            require("jquery").Deferred,
+            require("jquery").extend,
             require("devextreme/data/custom_store"),
             require("devextreme/data/utils")
         );
     } else {
         DevExpress.data.AspNet = factory(
-            jQuery,
+            DevExpress.utils.ajax || { sendRequest: jQuery.ajax },
+            jQuery.Deferred,
+            jQuery.extend,
             DevExpress.data.CustomStore,
             DevExpress.data.utils
         );
     }
 
-})(function($, CustomStore, dataUtils) {
+})(function(ajaxUtility, Deferred, extend, CustomStore, dataUtils) {
     "use strict";
 
-    function createStore(options) {
-        var store = new CustomStore(createStoreConfig(options));
-        store._useDefaultSearch = true;
-        return store;
-    }
+    var CUSTOM_STORE_OPTIONS = [
+        "onLoading", "onLoaded",
+        "onInserting", "onInserted",
+        "onUpdating", "onUpdated",
+        "onRemoving", "onRemoved",
+        "onModifying", "onModified",
+        "onPush",
+        "loadMode", "cacheRawData",
+        "errorHandler"
+    ];
 
     function createStoreConfig(options) {
         var keyExpr = options.key,
             loadUrl = options.loadUrl,
             loadMethod = options.loadMethod || "GET",
             loadParams = options.loadParams,
+            isRawLoadMode = options.loadMode === "raw",
             updateUrl = options.updateUrl,
             insertUrl = options.insertUrl,
             deleteUrl = options.deleteUrl,
@@ -50,7 +62,7 @@
             onAjaxError = options.onAjaxError;
 
         function send(operation, requiresKey, ajaxSettings, customSuccessHandler) {
-            var d = $.Deferred();
+            var d = Deferred();
 
             if(requiresKey && !keyExpr) {
                 d.reject(new Error("Primary key is not specified (operation: '" + operation + "', url: '" + ajaxSettings.url + "')"));
@@ -65,14 +77,14 @@
                 if(onBeforeSend)
                     onBeforeSend(operation, ajaxSettings);
 
-                $.ajax(ajaxSettings)
-                    .done(function(res, textStatus, xhr) {
+                ajaxUtility.sendRequest(ajaxSettings).then(
+                    function(res, textStatus, xhr) {
                         if(customSuccessHandler)
                             customSuccessHandler(d, res, xhr);
                         else
                             d.resolve();
-                    })
-                    .fail(function(xhr, textStatus) {
+                    },
+                    function(xhr, textStatus) {
                         var error = getErrorMessageFromXhr(xhr);
 
                         if(onAjaxError) {
@@ -85,7 +97,8 @@
                             d.reject(error);
                         else
                             d.reject(xhr, textStatus);
-                    });
+                    }
+                );
             }
 
             return d.promise();
@@ -128,7 +141,7 @@
                 }
 
                 if(Array.isArray(filter)) {
-                    filter = $.extend(true, [], filter);
+                    filter = extend(true, [], filter);
                     stringifyDatesInFilter(filter);
                     result.filter = JSON.stringify(filter);
                 }
@@ -146,7 +159,7 @@
                 }
             }
 
-            $.extend(result, loadParams);
+            extend(result, loadParams);
 
             return result;
         }
@@ -157,9 +170,9 @@
             d.resolve(isJSON ? JSON.parse(res) : res);
         }
 
-        return {
+        var result = {
             key: keyExpr,
-            errorHandler: options.errorHandler,
+            useDefaultSearch: true,
 
             load: function(loadOptions) {
                 return send(
@@ -178,7 +191,7 @@
                 );
             },
 
-            totalCount: function(loadOptions) {
+            totalCount: !isRawLoadMode && function(loadOptions) {
                 return send(
                     "load",
                     false,
@@ -195,7 +208,7 @@
                 );
             },
 
-            byKey: function(key) {
+            byKey: !isRawLoadMode && function(key) {
                 return send(
                     "load",
                     true,
@@ -250,6 +263,14 @@
             }
 
         };
+
+        CUSTOM_STORE_OPTIONS.forEach(function(name) {
+            var value = options[name];
+            if(value !== undefined)
+                result[name] = value;
+        });
+
+        return result;
     }
 
     function processLoadResponse(d, res, getResolveArgs) {
@@ -367,6 +388,8 @@
     }
 
     return {
-        createStore: createStore
+        createStore: function(options) {
+            return new CustomStore(createStoreConfig(options));
+        }
     };
 });
