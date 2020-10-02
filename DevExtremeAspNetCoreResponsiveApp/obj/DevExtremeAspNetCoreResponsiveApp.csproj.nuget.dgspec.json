@@ -180,6 +180,10 @@
               "target": "Package",
               "version": "[3.1.4, )"
             },
+            "NToastNotify": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
             "SimpleInjector.Integration.AspNetCore.Mvc": {
               "target": "Package",
               "version": "[4.7.1, )"

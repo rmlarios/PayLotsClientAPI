@@ -11,26 +11,26 @@ using Data.Model;
 
 namespace DevExtremeAspNetCoreResponsiveApp.Pages.Beneficiario
 {
-    public class ListadoModel : PageModel
-    {
-        [BindProperty]
-        public string NombreActual { get;set; } = "";
-        private readonly IGenericProxy _proxy;   
+  public class ListadoModel : PageModel
+  {
+    [BindProperty]
+    public string NombreActual { get; set; } = "";
+    private readonly IGenericProxy _proxy;
 
     public ListadoModel(IGenericProxy proxy)
-        {
-            _proxy=proxy;
-        }
-        public async Task<IActionResult> OnGetListado()
-        {
-            var result = await _proxy.GetAsync<Beneficiarios>("Beneficiario/Listar");           
-            return Content(JsonConvert.SerializeObject(result.Datas), "application/json");
-        }
-
-        public async Task<IActionResult> OnGetAsignaciones(int id)
-        {
-            var result = await _proxy.GetAsync<ViewAsignacionesLotes>("Asignacion/GetbyBenef/" + id);           
-            return Content(JsonConvert.SerializeObject(result.Datas),"application/json");
-        }
+    {
+      _proxy = proxy;
     }
+    public async Task<IActionResult> OnGetListado()
+    {
+      var result = await _proxy.GetAsync<Beneficiarios>("Beneficiario/Listar");
+      return Content(JsonConvert.SerializeObject(result.Datas), "application/json");
+    }
+
+    public async Task<IActionResult> OnGetAsignaciones(int id)
+    {
+      var result = await _proxy.GetAsync<ViewAsignacionesLotes>("Asignacion/GetbyBenef/" + id);
+      return Content(JsonConvert.SerializeObject(result.Datas), "application/json");
+    }
+  }
 }

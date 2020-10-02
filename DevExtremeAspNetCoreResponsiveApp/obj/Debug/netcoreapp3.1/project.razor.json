@@ -12422,6 +12422,23 @@
         }
       },
       {
+        "HashCode": 1130864009,
+        "Kind": "MVC.ViewComponent",
+        "Name": "__Generated__NToastNotifyViewComponentTagHelper",
+        "AssemblyName": "NToastNotify",
+        "CaseSensitive": false,
+        "TagMatchingRules": [
+          {
+            "TagName": "vc:n-toast-notify"
+          }
+        ],
+        "Metadata": {
+          "Runtime.Name": "ITagHelper",
+          "Common.TypeName": "__Generated__NToastNotifyViewComponentTagHelper",
+          "MVC.ViewComponent.Name": "NToastNotify"
+        }
+      },
+      {
         "HashCode": 1912741130,
         "Kind": "Components.Bind",
         "Name": "Bind",
@@ -14492,8 +14509,18 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Pages\\Ubicacion\\Listado.cshtml",
+      "TargetPath": "Pages\\Ubicacion\\Listado.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Pages\\ListaBeneficiarios\\ListadoBeneficiario.cshtml",
       "TargetPath": "Pages\\ListaBeneficiarios\\ListadoBeneficiario.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Pages\\Shared\\_Alerts.cshtml",
+      "TargetPath": "Pages\\Shared\\_Alerts.cshtml",
       "FileKind": "mvc"
     },
     {

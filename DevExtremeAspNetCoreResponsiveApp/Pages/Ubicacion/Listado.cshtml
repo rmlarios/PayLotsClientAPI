@@ -1,0 +1,249 @@
+@page
+@model DevExtremeAspNetCoreResponsiveApp.Pages.Ubicacion.ListadoModel
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+
+<style>
+    .visible{
+        visibility: visible;
+    }
+
+    .hidden{
+        visibility: hidden;
+    }
+</style>
+
+@{
+    ViewData["Title"] = "Proyectos Registrados";   
+}
+
+@{
+   string cssClass = Model.Mensaje != null ? "visible" : "hidden";
+}
+<div id="inputform" class="@cssClass">Hola</div>
+
+@if(Model.Mensaje!=null)
+{
+    <script>
+        $(function(){ 
+            bootbox.alert('Creado Correctamente');
+        });
+    </script>
+}
+
+@{
+var message=TempData["Mensaje"] as string;
+}
+<input type="hidden" value="@message" id="hdnMessage"/>
+<script>
+$(document).ready(function(){
+      if($("#hdnMessage").val()!="")
+     {
+         var msg=$("#hdnMessage").val();
+         bootbox.alert(msg);
+         $("#hdnMessage").val('');//empty the value so that it won't show everytime
+    }
+});
+</script>
+
+
+@using (Html.BeginForm()){
+
+   
+
+@(Html.DevExtreme().DataGrid<ViewConsolidadoUbicaciones>
+                    ()
+                    .ID("GridListado")
+                    .DataSource(d => d.RemoteController()
+                                                        .LoadUrl(Url.Page("Listado", "Listado"))
+                                                        .DeleteUrl(Url.Page("Listado", "Delete"))
+                                                        .Key("IdUbicacion")
+                                                        //.OnBeforeSend("grid_dataSource_beforeSend") // passes an antiforgery token)
+                                                        )                                      
+                    .ShowBorders(false)
+                    .ElementAttr(new { @class = "dx-card wide-card" })
+                    .Export(e => e.Enabled(true).FileName("Beneficiarios"))//.OnExporting("onExporting")
+                    .Paging(pag => pag.PageSize(10))
+                    .Pager(p => p.ShowPageSizeSelector(false).ShowNavigationButtons(true).ShowInfo(true).InfoText("Página {0} de {1} ({2} Registros)"))
+                    .RowAlternationEnabled(true)
+                    .HoverStateEnabled(true)                    
+                    .Selection(s => s.Mode(SelectionMode.Single).AllowSelectAll(false))
+                    .SearchPanel(s => s.Visible(true).HighlightSearchText(true).Width(400))
+                    .FilterRow(f => f.ApplyFilter(GridApplyFilterMode.Auto).Visible(true).ShowAllText("Todo"))
+                    .FilterSyncEnabled(true)
+                    .WordWrapEnabled(true)
+                    .ColumnAutoWidth(true)
+                    /*Columnas del grid*/
+                    .Columns(columns =>
+                    {
+                        columns.AddFor(m => m.IdUbicacion).Visible(false);
+                        columns.AddFor(m => m.NombreProyecto);
+                        columns.AddFor(m => m.Direccion);
+                        columns.AddFor(m => m.Bloques);
+                        columns.AddFor(m => m.Asignados);
+                        columns.AddFor(m => m.Diponibles);
+                        columns.AddFor(m => m.IdMunicipio).Caption("Municipio").DataType(GridColumnDataType.Number).Lookup(look => look
+                                                                        .DataSource(d => d.Mvc().Controller("Catalogo")
+                                                                                    .LoadAction("Municipios").Key("MunicipioId"))
+                                                                        .DisplayExpr("Municipio")
+                                                                        .ValueExpr("MunicipioId")
+                                                                        );
+                        columns.AddFor(m=>m.AplicaInteres).Caption("Intereses");
+                        columns.AddFor(m=>m.IdMunicipio).RenderAsync(true);
+                        columns.Add().Type(GridCommandColumnType.Buttons).Width(200).Buttons(b =>
+                        {
+                            b.Add().Name(GridColumnButtonName.Edit);
+                            b.Add().Name(GridColumnButtonName.Delete);                            
+                            b.Add().Icon("chevrondown").Visible(true).Hint("Detalle").OnClick("openDetail");
+                        });
+                    }).HeaderFilter(h => h.AllowSearch(true).Visible(true))
+                    /*Configuracion para la edicion*/
+                    .Editing(e => e.Mode(GridEditMode.Popup)
+                        .UseIcons(true)
+                        .AllowAdding(true)
+                        .AllowUpdating(true)
+                        .AllowDeleting(true)
+                        .UseIcons(true)
+                        .Texts(t => t.AddRow("Nuevo").EditRow("Editar").DeleteRow("Eliminar").ConfirmDeleteMessage("¿Está seguro que desea Eliminar este Registro?")
+                        .SaveRowChanges("Guardar").CancelRowChanges("Cancelar"))
+                        /*Configuracion del Popup*/
+                        .Popup(p => p.Width(700).Title("Formulario de Edición").ShowTitle(true).Position(PositionAlignment.Center).Height(350).CloseOnOutsideClick(false).ShowCloseButton(false))
+                        /*Configuracion del EditForm*/
+                        .Form(f => f.ColCount(2).ShowRequiredMark(true).LabelLocation(FormLabelLocation.Left)
+                            .Items(items =>
+                            {
+                                items.AddSimpleFor(m => m.NombreProyecto).IsRequired(true).ColSpan(2);
+                                items.AddSimpleFor(m=> m.Direccion).IsRequired(true).ColSpan(2);
+                                items.AddSimpleFor(m=>m.IdMunicipio).IsRequired(true);
+                                items.AddSimpleFor(m=> m.AplicaInteres);
+                            }))
+                          )
+                       .ErrorRowEnabled(true)
+                       /*Eventos*/
+                       .OnRowDblClick(@<text>
+                           function(e)
+                           {
+                               var dataGrid = $("#GridListado").dxDataGrid("instance");
+                               dataGrid.editRow(e.rowIndex);                               
+                           }
+                       </text>)
+                       .OnCellClick(@<text>
+                           function(e)
+                           {                                
+                                DevExpress.ui.notify(e.row.data.NombreProyecto, "success", 600);
+                           }
+                       </text>)
+)
+
+@(Html.DevExtreme().Popup
+            ()
+            .ID("PopBloques")
+            .Height(650)
+            .Position(PositionAlignment.Center)
+            .Width(600)          
+            .ShowCloseButton(true)
+            .ContentTemplate(@<text>                              
+                @(Html.DevExtreme().DataGrid<ViewConsolidadoBloques>().ID("gridBloques")
+                                            .AllowColumnResizing(true)
+                                            .FilterRow(f => f.Visible(true))
+                                            .RowAlternationEnabled(true)
+                                            .Editing(e => e.Mode(GridEditMode.Popup)
+                                                                .UseIcons(true)
+                                                                .AllowAdding(true)
+                                                                .AllowUpdating(true)
+                                                                .AllowDeleting(true)
+                                                                .UseIcons(true)
+                                                                .Texts(t => t.AddRow("Nuevo").EditRow("Editar").DeleteRow("Eliminar").ConfirmDeleteMessage("¿Está seguro que desea Eliminar este Registro?")
+                                                                .SaveRowChanges("Guardar").CancelRowChanges("Cancelar"))
+                                            /*Configuracion del Popup*/
+                                                        .Popup(p => p.Width(700).Title("Formulario de Edición").ShowTitle(true).Position(PositionAlignment.Center).Height(350).CloseOnOutsideClick(false).ShowCloseButton(false))
+                                            /*Configuracion del EditForm*/
+                                                        .Form(f => f.ColCount(2).ShowRequiredMark(true).LabelLocation(FormLabelLocation.Left)
+                                                        .Items(items =>
+                                                        {                                                            
+                                                            items.AddSimpleFor(m=> m.Bloque).IsRequired(true).ColSpan(2);
+                                                            items.AddSimpleFor(m=>m.Observaciones).ColSpan(2);
+                                                            
+                                                        })))
+                                            .DataSource(d => d.RemoteController()
+                                                                    .Key("IdBloque")
+                                                                    .LoadUrl(Url.Page("Listado", "Bloques"))
+                                                                    .LoadParams(new { id = new JS("getUbicacionId") })
+                                                                    .InsertUrl(Url.Page("Listado","CreateBloque"))
+                                                                    .OnBeforeSend("grid_dataSource_beforeSend")
+                                                                    
+                                                                    )
+                                                                  
+                                            .Columns(c =>
+                                            {
+                                                        c.AddFor(m=>m.IdBloque).Visible(false);
+                                                        c.AddFor(m=>m.IdUbicacion).Visible(false);
+                                                        c.AddFor(m=>m.Bloque);
+                                                        c.AddFor(m=>m.Asignados);
+                                                        c.AddFor(m=>m.Disponibles);
+                                                        c.Add().Caption("Lotes").CalculateCellValue("calcTotal");
+                                                        c.AddFor(m=>m.Observaciones).Visible(false);
+                                                    })
+                                            
+                                            .NoDataText("No hay Datos que mostrar")
+                                            .Paging(pag => pag.PageSize(6))
+                                            .Pager(p => p.ShowPageSizeSelector(false).ShowNavigationButtons(true).ShowInfo(true).InfoText("Página {0} de {1} ({2} Registros)"))
+                                            .OnRowInserting("onRowInsertingDetail")
+                                            .OnRowClick("clickdetail")
+                                            .OnRowInserted("clickdetail")
+                                            
+                                            
+                                           
+                )
+            </text>)
+            .Visible(false).CloseOnOutsideClick(true).Position(PositionAlignment.Center)
+)
+
+
+}
+
+
+<script>
+    var IdUbicacion
+    function openDetail(e) {        
+        IdUbicacion = e.row.key;       
+        var popup = $("#PopBloques").dxPopup("instance");
+        popup.option('title',e.row.data.NombreProyecto);
+        popup.show();
+        @* $('#PopBloques').dxPopup('instance').option('visible', true); *@
+        $("#gridBloques").dxDataGrid("refresh");
+    }
+
+    function getUbicacionId() {
+        return IdUbicacion;
+    }
+
+    function calcTotal(data)
+    {
+        return data.Asignados + data.Disponibles;
+    }
+
+    function onRowInsertingDetail(e)
+    {
+        e.data.IdUbicacion = IdUbicacion;        
+    }
+
+    function clickdetail(e)
+    {
+        //var msg = "@ViewData["Mensaje"]";
+        // DevExpress.ui.notify(Model.Mensaje, "success", 600);       
+        
+    }
+
+    function grid_dataSource_beforeSend(operation, ajax) {
+        @* var data = ajaxSettings.data || {},
+            args = Object.keys(data).map(function (key) {
+                return key + "=" + data[key];
+            }).join(" "); *@
+
+             ajax.headers = {
+            RequestVerificationToken: "@Xsrf.GetAndStoreTokens(Model.HttpContext).RequestToken"
+        };
+    }
+
+    
+</script>
