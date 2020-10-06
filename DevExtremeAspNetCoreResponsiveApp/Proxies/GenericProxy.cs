@@ -49,13 +49,8 @@ namespace DevExtremeAspNetCoreResponsiveApp.Proxies
         var response = await _httpClient.PostAsync(requestUrl, Content);
         //response.EnsureSuccessStatusCode();
         result = await response.Content.ReadAsStringAsync();
-        if (response.IsSuccessStatusCode)
-        {
-          var Json = JsonConvert.DeserializeObject<Response<T>>(result);
-          return Json;
-        }
-        else
-          return new Response<T>(response.RequestMessage.ToString());
+        var Json = JsonConvert.DeserializeObject<Response<T>>(result);
+        return Json;
 
       }
       catch (Exception Ex)

@@ -189,7 +189,8 @@ $(document).ready(function(){
                                             .Pager(p => p.ShowPageSizeSelector(false).ShowNavigationButtons(true).ShowInfo(true).InfoText("Página {0} de {1} ({2} Registros)"))
                                             .OnRowInserting("onRowInsertingDetail")
                                             .OnRowClick("clickdetail")
-                                            .OnRowInserted("clickdetail")
+                                            .OnRowInserted("onrowInsertedDetail")
+                                            .OnDataErrorOccurred("OnDataErrorOccurred")
                                             
                                             
                                            
@@ -225,6 +226,16 @@ $(document).ready(function(){
     function onRowInsertingDetail(e)
     {
         e.data.IdUbicacion = IdUbicacion;        
+    }
+
+    function onrowInsertedDetail(e)
+    {
+        DevExpress.ui.notify("Creado Correctamente","success",900);
+    }
+
+    function OnDataErrorOccurred(e)
+    {
+
     }
 
     function clickdetail(e)

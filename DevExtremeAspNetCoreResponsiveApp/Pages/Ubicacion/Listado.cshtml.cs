@@ -50,13 +50,13 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.Ubicacion
       JsonConvert.PopulateObject(values, bloque);
       var result = await _genericProxy.PostAsync<Bloques>("Bloque/Create", bloque);
       if (result.Succeeded)
-        _toastNotification.AddSuccessToastMessage(result.Message);
+        return new OkObjectResult(result.Message);
       else
-        _toastNotification.AddErrorToastMessage(result.Message);
+        return BadRequest(result.Message);
 
-      await OnGetListado(new DataSourceLoadOptions);
+      /* await OnGetListado(new DataSourceLoadOptions);
 
-      return Page();
+      return Page(); */
       //return RedirectToPage("Listado");
 
     }
