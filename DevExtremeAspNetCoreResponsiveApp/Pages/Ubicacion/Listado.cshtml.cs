@@ -26,15 +26,12 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.Ubicacion
       _toastNotification = toastNotification;
     }
 
-    public void OnGet()
-    {
-      _toastNotification.AddInfoToastMessage("Info");
-    }
-
     public async Task<IActionResult> OnGetListado(DataSourceLoadOptions loadOptions)
     {
+
       var result = await _genericProxy.GetAsync<ViewConsolidadoUbicaciones>("Ubicacion/GetUbicaciones");
       return new JsonResult(DataSourceLoader.Load(result.Datas, loadOptions));
+
     }
 
     public async Task<IActionResult> OnGetBloques(int id, DataSourceLoadOptions loadOptions)
@@ -50,9 +47,15 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.Ubicacion
       JsonConvert.PopulateObject(values, bloque);
       var result = await _genericProxy.PostAsync<Bloques>("Bloque/Create", bloque);
       if (result.Succeeded)
+      {
+        _toastNotification.AddSuccessToastMessage("Same for success message");
         return new OkObjectResult(result.Message);
+      }
       else
+      {
+        _toastNotification.AddErrorToastMessage(result.Message);
         return BadRequest(result.Message);
+      }
 
       /* await OnGetListado(new DataSourceLoadOptions);
 

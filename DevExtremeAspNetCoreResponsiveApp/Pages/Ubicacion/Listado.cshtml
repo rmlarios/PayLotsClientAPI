@@ -16,36 +16,6 @@
     ViewData["Title"] = "Proyectos Registrados";   
 }
 
-@{
-   string cssClass = Model.Mensaje != null ? "visible" : "hidden";
-}
-<div id="inputform" class="@cssClass">Hola</div>
-
-@if(Model.Mensaje!=null)
-{
-    <script>
-        $(function(){ 
-            bootbox.alert('Creado Correctamente');
-        });
-    </script>
-}
-
-@{
-var message=TempData["Mensaje"] as string;
-}
-<input type="hidden" value="@message" id="hdnMessage"/>
-<script>
-$(document).ready(function(){
-      if($("#hdnMessage").val()!="")
-     {
-         var msg=$("#hdnMessage").val();
-         bootbox.alert(msg);
-         $("#hdnMessage").val('');//empty the value so that it won't show everytime
-    }
-});
-</script>
-
-
 @using (Html.BeginForm()){
 
    
@@ -188,15 +158,12 @@ $(document).ready(function(){
                                             .Paging(pag => pag.PageSize(6))
                                             .Pager(p => p.ShowPageSizeSelector(false).ShowNavigationButtons(true).ShowInfo(true).InfoText("Página {0} de {1} ({2} Registros)"))
                                             .OnRowInserting("onRowInsertingDetail")
-                                            .OnRowClick("clickdetail")
                                             .OnRowInserted("onrowInsertedDetail")
-                                            .OnDataErrorOccurred("OnDataErrorOccurred")
-                                            
-                                            
+                                                                                                                         
                                            
                 )
             </text>)
-            .Visible(false).CloseOnOutsideClick(true).Position(PositionAlignment.Center)
+            .Visible(false).CloseOnOutsideClick(false).Position(PositionAlignment.Center)
 )
 
 
@@ -231,18 +198,6 @@ $(document).ready(function(){
     function onrowInsertedDetail(e)
     {
         DevExpress.ui.notify("Creado Correctamente","success",900);
-    }
-
-    function OnDataErrorOccurred(e)
-    {
-
-    }
-
-    function clickdetail(e)
-    {
-        //var msg = "@ViewData["Mensaje"]";
-        // DevExpress.ui.notify(Model.Mensaje, "success", 600);       
-        
     }
 
     function grid_dataSource_beforeSend(operation, ajax) {

@@ -158,12 +158,15 @@ namespace DevExtremeAspNetCoreResponsiveApp
 
       }
           )
-      .AddNToastNotifyNoty(new NotyOptions
+      ;
+      services.AddRazorPages().AddNToastNotifyToastr(new ToastrOptions
       {
-        Layout = "bottomRight",
         ProgressBar = true,
-        Timeout = 5000,
-        Theme = "metroui"
+        PositionClass = ToastPositions.BottomFullWidth,
+        CloseButton = true,
+        TimeOut = 2500,
+        CloseDuration = true,
+        Type = Enums.NotificationTypesToastr.Success
       });
       //Requiere que el usuario este autenticado para poder acceder a cualquier pagina
       services.AddAuthorization(options =>
@@ -203,7 +206,6 @@ namespace DevExtremeAspNetCoreResponsiveApp
       app.UseNToastNotify();
 
 
-
       // app.UseMvc(routes =>
       //{
       //    routes.MapRoute(
@@ -212,7 +214,7 @@ namespace DevExtremeAspNetCoreResponsiveApp
       //        ;
       //});
       app.UseMvc();
-      //app.UseEndpoints()
+      //app.UseEndpoints(c => c.MapControllers());
     }
 
 
