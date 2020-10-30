@@ -3,15 +3,10 @@
 @(Html.DevExtreme().DataGrid<Beneficiarios>
                     ()
                     .ID("GridListado")
-                    .DataSource(d => d.RemoteController()
-                                                        .LoadUrl(Url.Page("Listado", "Listado"))
-                                                        .DeleteUrl(Url.Page("Listado", "Delete"))
-                                                        .Key("IdBeneficiario")
-                                                        //.OnBeforeSend("grid_dataSource_beforeSend") // passes an antiforgery token)
-                                                        )
+                    .DataSource(d=>d.Mvc().Controller("Beneficiarios").Key("IdBeneficiario").LoadAction("GetAll"))
                     .ShowBorders(false)
                     .ElementAttr(new { @class = "dx-card wide-card" })
-                    .Export(e => e.Enabled(true).FileName("Beneficiarios"))//.OnExporting("onExporting")
+                    .Export(e => e.Enabled(true).AllowExportSelectedData(true)).OnExporting("exporting")
                     .Paging(pag => pag.PageSize(10))
                     .Pager(p => p.ShowPageSizeSelector(false).ShowNavigationButtons(true).ShowInfo(true).InfoText("Página {0} de {1} ({2} Registros)"))
                     .RowAlternationEnabled(true)
@@ -71,9 +66,9 @@
             .ShowCloseButton(true)
             .ContentTemplate(@<text>                
                 @(Html.DevExtreme().DataGrid().ID("gridAsignaciones")
-                                            .DataSource(d => d.RemoteController()
-                                                                   .LoadUrl(Url.Page("Listado", "Asignaciones"))
-                                                                  .LoadParams(new { id = new JS("getBeneficiarioId") }))
+                                            .DataSource(d=>d.Mvc().Controller("Asignaciones").Key("IdAsignacion")
+                                            .LoadAction("GetbyId")
+                                            .LoadParams(new { id = new JS("getBeneficiarioId") }))
                                                                   
                                             .Columns(c =>
                                             {
@@ -102,6 +97,23 @@
     function getBeneficiarioId() {
         //alert(IdBeneficiario);
         return IdBeneficiario;
+    }
+
+    function exporting(e) {
+        var workbook = new ExcelJS.Workbook();
+        var worksheet = workbook.addWorksheet('Hoja1');
+
+        DevExpress.excelExporter.exportDataGrid({
+            component: e.component,
+            worksheet: worksheet,
+            autoFilterEnabled: true
+        }).then(function () {
+            // https://github.com/exceljs/exceljs#writing-xlsx
+            workbook.xlsx.writeBuffer().then(function (buffer) {
+                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'Beneficiarios.xlsx');
+            });
+        });
+        e.cancel = true;
     }
 
 </script>

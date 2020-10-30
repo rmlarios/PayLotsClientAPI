@@ -14484,18 +14484,8 @@
       "FileKind": "mvc"
     },
     {
-      "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Pages\\ListaBeneficiarios\\ListadoAPI.cshtml",
-      "TargetPath": "Pages\\ListaBeneficiarios\\ListadoAPI.cshtml",
-      "FileKind": "mvc"
-    },
-    {
       "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Pages\\ListaAsignaciones\\RegistrarAsignacion.cshtml",
       "TargetPath": "Pages\\ListaAsignaciones\\RegistrarAsignacion.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Pages\\ListaBeneficiarios\\Listado.cshtml",
-      "TargetPath": "Pages\\ListaBeneficiarios\\Listado.cshtml",
       "FileKind": "mvc"
     },
     {
@@ -14511,16 +14501,6 @@
     {
       "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Pages\\Ubicacion\\Listado.cshtml",
       "TargetPath": "Pages\\Ubicacion\\Listado.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Pages\\ListaBeneficiarios\\ListadoBeneficiario.cshtml",
-      "TargetPath": "Pages\\ListaBeneficiarios\\ListadoBeneficiario.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Pages\\Shared\\_Alerts.cshtml",
-      "TargetPath": "Pages\\Shared\\_Alerts.cshtml",
       "FileKind": "mvc"
     },
     {

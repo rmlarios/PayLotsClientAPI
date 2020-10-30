@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using DevExtremeAspNetCoreResponsiveApp.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using Data.Model;
 
 namespace DevExtremeAspNetCoreResponsiveApp.Pages.ListaAsignaciones
 {
@@ -15,9 +16,9 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.ListaAsignaciones
     [Authorize]
     public class RegistrarAsignacionModel : PageModel
     {
-        private readonly DevExtremeAspNetCoreResponsiveApp.Model.PayLotsDBContext _context;
+        private readonly PayLotsDbContext _context;
 
-        public RegistrarAsignacionModel(DevExtremeAspNetCoreResponsiveApp.Model.PayLotsDBContext context)
+        public RegistrarAsignacionModel(PayLotsDbContext context)
         {
             _context = context;
         }

@@ -2,15 +2,6 @@
 @model DevExtremeAspNetCoreResponsiveApp.Pages.Ubicacion.ListadoModel
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
 
-<style>
-    .visible{
-        visibility: visible;
-    }
-
-    .hidden{
-        visibility: hidden;
-    }
-</style>
 
 @{
     ViewData["Title"] = "Proyectos Registrados";   
@@ -23,23 +14,21 @@
 @(Html.DevExtreme().DataGrid<ViewConsolidadoUbicaciones>
                     ()
                     .ID("GridListado")
-                    .DataSource(d => d.RemoteController()
-                                                        .LoadUrl(Url.Page("Listado", "Listado"))
-                                                        .DeleteUrl(Url.Page("Listado", "Delete"))
-                                                        .Key("IdUbicacion")
-                                                        //.OnBeforeSend("grid_dataSource_beforeSend") // passes an antiforgery token)
-                                                        )                                      
+                    .DataSource(d=>d.Mvc().Controller("Ubicaciones").Key("IdUbicacion").LoadAction("GetAll"))                                                            
                     .ShowBorders(false)
                     .ElementAttr(new { @class = "dx-card wide-card" })
-                    .Export(e => e.Enabled(true).FileName("Beneficiarios"))//.OnExporting("onExporting")
+                    .ColumnHidingEnabled(true)
+                    .FilterPanel(f => f.Visible(true))
+                    .FilterBuilder(c => c.Visible(true))                    
+                    .Export(e => e.Enabled(true).AllowExportSelectedData(true)).OnExporting("exporting")
                     .Paging(pag => pag.PageSize(10))
                     .Pager(p => p.ShowPageSizeSelector(false).ShowNavigationButtons(true).ShowInfo(true).InfoText("Página {0} de {1} ({2} Registros)"))
                     .RowAlternationEnabled(true)
                     .HoverStateEnabled(true)                    
                     .Selection(s => s.Mode(SelectionMode.Single).AllowSelectAll(false))
-                    .SearchPanel(s => s.Visible(true).HighlightSearchText(true).Width(400))
-                    .FilterRow(f => f.ApplyFilter(GridApplyFilterMode.Auto).Visible(true).ShowAllText("Todo"))
-                    .FilterSyncEnabled(true)
+                    .SearchPanel(s => s.Visible(true).HighlightSearchText(true).Width(400).Placeholder("Buscar..."))
+                    .FilterRow(f => f.ApplyFilter(GridApplyFilterMode.Auto).Visible(true).ShowAllText("Todos"))
+                    
                     .WordWrapEnabled(true)
                     .ColumnAutoWidth(true)
                     /*Columnas del grid*/
@@ -51,14 +40,15 @@
                         columns.AddFor(m => m.Bloques);
                         columns.AddFor(m => m.Asignados);
                         columns.AddFor(m => m.Diponibles);
-                        columns.AddFor(m => m.IdMunicipio).Caption("Municipio").DataType(GridColumnDataType.Number).Lookup(look => look
+                        columns.AddFor(m => m.IdMunicipio).Caption("Municipio").Lookup(look => look
                                                                         .DataSource(d => d.Mvc().Controller("Catalogo")
-                                                                                    .LoadAction("Municipios").Key("MunicipioId"))
+                                                                                    .LoadAction("GetAll").Key("MunicipioId"))
+                                                                         
                                                                         .DisplayExpr("Municipio")
                                                                         .ValueExpr("MunicipioId")
                                                                         );
                         columns.AddFor(m=>m.AplicaInteres).Caption("Intereses");
-                        columns.AddFor(m=>m.IdMunicipio).RenderAsync(true);
+                        
                         columns.Add().Type(GridCommandColumnType.Buttons).Width(200).Buttons(b =>
                         {
                             b.Add().Name(GridColumnButtonName.Edit);
@@ -85,6 +75,7 @@
                                 items.AddSimpleFor(m=> m.Direccion).IsRequired(true).ColSpan(2);
                                 items.AddSimpleFor(m=>m.IdMunicipio).IsRequired(true);
                                 items.AddSimpleFor(m=> m.AplicaInteres);
+                                
                             }))
                           )
                        .ErrorRowEnabled(true)
@@ -108,7 +99,7 @@
             ()
             .ID("PopBloques")
             .Height(650)
-            .Position(PositionAlignment.Center)
+            .Position(PositionAlignment.Center)            
             .Width(600)          
             .ShowCloseButton(true)
             .ContentTemplate(@<text>                              
@@ -134,14 +125,14 @@
                                                             items.AddSimpleFor(m=>m.Observaciones).ColSpan(2);
                                                             
                                                         })))
-                                            .DataSource(d => d.RemoteController()
-                                                                    .Key("IdBloque")
-                                                                    .LoadUrl(Url.Page("Listado", "Bloques"))
-                                                                    .LoadParams(new { id = new JS("getUbicacionId") })
-                                                                    .InsertUrl(Url.Page("Listado","CreateBloque"))
-                                                                    .OnBeforeSend("grid_dataSource_beforeSend")
-                                                                    
-                                                                    )
+                                            .DataSource(d=> d.Mvc()
+                                            .Controller("Bloques")
+                                            .LoadAction("GetbyId")
+                                            .LoadParams(new { id = new JS("getUbicacionId") })
+                                            .InsertAction("PostCreate")
+                                            .DeleteAction("DeletebyId")
+                                            .UpdateAction("PutUpdate")
+                                            .Key("IdBloque"))
                                                                   
                                             .Columns(c =>
                                             {
@@ -198,6 +189,23 @@
     function onrowInsertedDetail(e)
     {
         DevExpress.ui.notify("Creado Correctamente","success",900);
+    }
+
+     function exporting(e) {
+        var workbook = new ExcelJS.Workbook();
+        var worksheet = workbook.addWorksheet('Employees');
+
+        DevExpress.excelExporter.exportDataGrid({
+            component: e.component,
+            worksheet: worksheet,
+            autoFilterEnabled: true
+        }).then(function () {
+            // https://github.com/exceljs/exceljs#writing-xlsx
+            workbook.xlsx.writeBuffer().then(function (buffer) {
+                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'Proyectos.xlsx');
+            });
+        });
+        e.cancel = true;
     }
 
     function grid_dataSource_beforeSend(operation, ajax) {

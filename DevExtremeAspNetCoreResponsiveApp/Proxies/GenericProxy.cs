@@ -14,8 +14,10 @@ namespace DevExtremeAspNetCoreResponsiveApp.Proxies
 {
   public interface IGenericProxy
   {
+    Task<Response<string>> DeleteAsync(string requestUrl);
     Task<Response<T>> GetAsync<T>(string requestUrl) where T : class;
     Task<Response<T>> PostAsync<T>(string requestUrl, T model) where T : class;
+    Task<Response<T>> PutAsync<T>(string requestUrl, T model) where T : class;
   }
   public class GenericProxy : IGenericProxy
   {
@@ -58,5 +60,35 @@ namespace DevExtremeAspNetCoreResponsiveApp.Proxies
         return new Response<T>(Ex.Message);
       }
     }
+
+    public async Task<Response<T>> PutAsync<T>(string requestUrl, T model) where T : class
+    {
+      try
+      {
+        var _httpClient = _proxyHttpClient.Get();
+        var Content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+        var response = await _httpClient.PutAsync(requestUrl, Content);
+        //response.EnsureSuccessStatusCode();
+        var result = await response.Content.ReadAsStringAsync();
+        var Json = JsonConvert.DeserializeObject<Response<T>>(result);
+        return Json;
+
+      }
+      catch (Exception Ex)
+      {
+        return new Response<T>(Ex.Message);
+      }
+    }
+
+    public async Task<Response<string>> DeleteAsync(string requestUrl)
+    {
+      var _httpClient = _proxyHttpClient.Get();
+      var response = await _httpClient.DeleteAsync(requestUrl);
+      var result = await response.Content.ReadAsStringAsync();
+      var resp = JsonConvert.DeserializeObject<Response<string>>(result);
+      return new Response<string>(resp.Message, resp.Succeeded);
+    }
+
+
   }
 }

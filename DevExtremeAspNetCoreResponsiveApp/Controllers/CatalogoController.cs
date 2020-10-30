@@ -4,22 +4,23 @@ using Data.Model;
 using DevExtremeAspNetCoreResponsiveApp.Proxies;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using NToastNotify;
 
 namespace DevExtremeAspNetCoreResponsiveApp.Controllers
 {
-    public class CatalogoController:ControllerBase
+    public class CatalogoController:GenericController<ViewDepartamentosMunicipios>
     {        
-        private readonly IGenericProxy _genericProxy;
-        public CatalogoController(IGenericProxy genericProxy)
+       
+        public CatalogoController(IGenericProxy genericProxy, IToastNotification toastNotification):base(genericProxy,toastNotification,"Municipios/","Listar","")
         {
-            _genericProxy = genericProxy;
+         
         }
 
-        [HttpGet("Municipios")]
+        /* [HttpGet("Municipios")]
         public async Task<IActionResult> Municipios()
         {
             var result = await _genericProxy.GetAsync<ViewDepartamentosMunicipios>("Municipios/Listar");
             return Content(JsonConvert.SerializeObject(result.Datas));
-        }
+        } */
     }
 }

@@ -18,16 +18,15 @@ using DevExtremeAspNetCoreResponsiveApp.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http.Extensions;
 using DevExtremeAspNetCoreResponsiveApp.Common;
 using DevExtremeAspNetCoreResponsiveApp.Proxies;
-
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Hosting;
 using SimpleInjector;
 using NToastNotify;
+
 
 namespace DevExtremeAspNetCoreResponsiveApp
 {
@@ -142,9 +141,6 @@ namespace DevExtremeAspNetCoreResponsiveApp
         o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
       });
 
-
-
-
       //Configuracion de JSON para evitar conflictos con el nombre de los campos
       services.AddMvc()
       .AddMvcOptions(o => o.EnableEndpointRouting = false)
@@ -162,11 +158,12 @@ namespace DevExtremeAspNetCoreResponsiveApp
       services.AddRazorPages().AddNToastNotifyToastr(new ToastrOptions
       {
         ProgressBar = true,
-        PositionClass = ToastPositions.BottomFullWidth,
+        PositionClass = ToastPositions.TopRight,
         CloseButton = true,
         TimeOut = 2500,
         CloseDuration = true,
         Type = Enums.NotificationTypesToastr.Success
+
       });
       //Requiere que el usuario este autenticado para poder acceder a cualquier pagina
       services.AddAuthorization(options =>
@@ -177,22 +174,15 @@ namespace DevExtremeAspNetCoreResponsiveApp
           config.RequireAuthenticatedUser().Build();
         });
       });
-
-
-
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
-
-
       if (env.IsDevelopment())
       {
         app.UseBrowserLink();
         app.UseDeveloperExceptionPage();
-
-
       }
       else
       {
