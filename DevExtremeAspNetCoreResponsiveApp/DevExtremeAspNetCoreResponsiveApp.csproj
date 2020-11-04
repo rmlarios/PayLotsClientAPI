@@ -3,39 +3,44 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <IdentityUIFrameworkVersion>Bootstrap4</IdentityUIFrameworkVersion>
     <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
+    <UserSecretsId>a6df1995-27be-4a43-bf4c-f5d916ef73a9</UserSecretsId>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningLevel>0</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="Pages\ListaBeneficiarios\Beneficiarios.cshtml.cs"/>
+    <Compile Remove="Pages\ListaBeneficiarios\Beneficiarios.cshtml.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Remove="Pages\ListaBeneficiarios\Beneficiarios.cshtml"/>
+    <Content Remove="Pages\ListaBeneficiarios\Beneficiarios.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MailKit" Version="2.8.0"/>
-    <PackageReference Include="DevExtreme.AspNet.Data" Version="2.6.1"/>
-    <PackageReference Include="DevExtreme.AspNet.Core" Version="20.1.3"/>
-    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.1.1"/>
-    <PackageReference Include="BuildBundlerMinifier" Version="2.9.406"/>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4"/>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.7"/>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.7"/>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.7"/>
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.7"/>
-    <PackageReference Include="System.Data.SqlClient" Version="4.6.1"/>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.7"/>
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.7"/>
-    <PackageReference Include="SimpleInjector.Integration.AspNetCore.Mvc" Version="4.7.1"/>
-    <PackageReference Include="NToastNotify" Version="7.0.0"/>
+    <PackageReference Include="MailKit" Version="2.8.0" />
+    <PackageReference Include="DevExtreme.AspNet.Data" Version="2.6.1" />
+    <PackageReference Include="DevExtreme.AspNet.Core" Version="20.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Cors" Version="2.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.1.1" />
+    <PackageReference Include="BuildBundlerMinifier" Version="2.9.406" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.7" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.6.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.7" />
+    <PackageReference Include="SimpleInjector.Integration.AspNetCore.Mvc" Version="4.7.1" />
+    <PackageReference Include="NToastNotify" Version="7.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Identity\Services\"/>
+    <Folder Include="Areas\Identity\Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Data\Data.csproj"/>
+    <ProjectReference Include="..\Data\Data.csproj" />
   </ItemGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties TemplateFeatures="NETCORE CS RESPONSIVE"/>
+      <UserProperties TemplateFeatures="NETCORE CS RESPONSIVE" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

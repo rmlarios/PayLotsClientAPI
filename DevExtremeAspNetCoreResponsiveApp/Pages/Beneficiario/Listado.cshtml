@@ -1,16 +1,25 @@
 @page
 @model DevExtremeAspNetCoreResponsiveApp.Pages.Beneficiario.ListadoModel
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+
 @(Html.DevExtreme().DataGrid<Beneficiarios>
                     ()
                     .ID("GridListado")
-                    .DataSource(d=>d.Mvc().Controller("Beneficiarios").Key("IdBeneficiario").LoadAction("GetAll"))
+                    .DataSource(d=>d.Mvc().Controller("Beneficiarios").Key("IdBeneficiario")
+                    .LoadAction("GetAll")
+                    .InsertAction("PostCreate")
+                    .UpdateAction("PutUpdate")
+                    .DeleteAction("DeletebyId")
+                    .OnBeforeSend("grid_dataSource_beforeSend")
+                    )
+
                     .ShowBorders(false)
                     .ElementAttr(new { @class = "dx-card wide-card" })
                     .Export(e => e.Enabled(true).AllowExportSelectedData(true)).OnExporting("exporting")
                     .Paging(pag => pag.PageSize(10))
                     .Pager(p => p.ShowPageSizeSelector(false).ShowNavigationButtons(true).ShowInfo(true).InfoText("Página {0} de {1} ({2} Registros)"))
                     .RowAlternationEnabled(true)
-                    .HoverStateEnabled(true)                    
+                    .HoverStateEnabled(true)
                     .Selection(s => s.Mode(SelectionMode.Single).AllowSelectAll(false))
                     .SearchPanel(s => s.Visible(true).HighlightSearchText(true).Width(400))
                     .FilterRow(f => f.ApplyFilter(GridApplyFilterMode.Auto).Visible(true).ShowAllText("Todo"))
@@ -55,7 +64,6 @@
                           )
                        .ErrorRowEnabled(true)
 )
-
 @(Html.DevExtreme().Popup
             ()
             .ID("PopAsignaciones")
@@ -64,12 +72,12 @@
             .Width(600)
             .Title("Lotes Asignados: ")
             .ShowCloseButton(true)
-            .ContentTemplate(@<text>                
+            .ContentTemplate(@<text>
                 @(Html.DevExtreme().DataGrid().ID("gridAsignaciones")
                                             .DataSource(d=>d.Mvc().Controller("Asignaciones").Key("IdAsignacion")
                                             .LoadAction("GetbyId")
                                             .LoadParams(new { id = new JS("getBeneficiarioId") }))
-                                                                  
+
                                             .Columns(c =>
                                             {
                                                         c.Add().DataField("NombreLote");
@@ -84,8 +92,8 @@
 
 <script>
     var IdBeneficiario
-    function openDetail(e) {        
-        IdBeneficiario = e.row.key;       
+    function openDetail(e) {
+        IdBeneficiario = e.row.key;
         var popup = $("#PopAsignaciones").dxPopup("instance");
         popup.option('title',e.row.data.NombreCompleto);
         popup.show();
@@ -114,6 +122,17 @@
             });
         });
         e.cancel = true;
+    }
+
+     function grid_dataSource_beforeSend(operation, ajax) {
+        @* var data = ajaxSettings.data || {},
+            args = Object.keys(data).map(function (key) {
+                return key + "=" + data[key];
+            }).join(" "); *@
+
+             ajax.headers = {
+            RequestVerificationToken: "@Xsrf.GetAndStoreTokens(Model.HttpContext).RequestToken"
+        };
     }
 
 </script>

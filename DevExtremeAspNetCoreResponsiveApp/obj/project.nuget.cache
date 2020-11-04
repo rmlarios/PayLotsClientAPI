@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "R0oweGQCpkz0mq9MtnrJMJPErMj+6GDnBJu0qTkT/PnvWR41ufUEaErC7q1RrMZsjzpaL9eEbCyALpVyIZbWSQ==",
+  "dgSpecHash": "kMEeZ2tLTbCWHu9W0Lx+jnBrm+0j0PrH5Y/LNPfviuBiT8OSiklUI9a5ABvUt76QhtoV1/4qqkEtphWcX++G9w==",
   "success": true,
   "projectFilePath": "D:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp.csproj",
   "expectedPackageFiles": [
@@ -13,7 +13,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore.authentication.core\\2.2.0\\microsoft.aspnetcore.authentication.core.2.2.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore.authorization\\2.2.0\\microsoft.aspnetcore.authorization.2.2.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore.authorization.policy\\2.2.0\\microsoft.aspnetcore.authorization.policy.2.2.0.nupkg.sha512",
-    "C:\\Users\\Miguel.Larios.MEM\\.nuget\\packages\\microsoft.aspnetcore.cors\\2.0.0\\microsoft.aspnetcore.cors.2.0.0.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore.cors\\2.2.0\\microsoft.aspnetcore.cors.2.2.0.nupkg.sha512",
     "C:\\Users\\Miguel.Larios.MEM\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\3.1.7\\microsoft.aspnetcore.cryptography.internal.3.1.7.nupkg.sha512",
     "C:\\Users\\Miguel.Larios.MEM\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\3.1.7\\microsoft.aspnetcore.cryptography.keyderivation.3.1.7.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore.dataprotection\\2.2.0\\microsoft.aspnetcore.dataprotection.2.2.0.nupkg.sha512",
@@ -34,7 +34,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore.mvc.abstractions\\2.2.0\\microsoft.aspnetcore.mvc.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\Miguel.Larios.MEM\\.nuget\\packages\\microsoft.aspnetcore.mvc.apiexplorer\\2.0.0\\microsoft.aspnetcore.mvc.apiexplorer.2.0.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore.mvc.core\\2.2.0\\microsoft.aspnetcore.mvc.core.2.2.0.nupkg.sha512",
-    "C:\\Users\\Miguel.Larios.MEM\\.nuget\\packages\\microsoft.aspnetcore.mvc.cors\\2.0.0\\microsoft.aspnetcore.mvc.cors.2.0.0.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore.mvc.cors\\2.2.0\\microsoft.aspnetcore.mvc.cors.2.2.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore.mvc.dataannotations\\2.2.0\\microsoft.aspnetcore.mvc.dataannotations.2.2.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore.mvc.formatters.json\\2.2.0\\microsoft.aspnetcore.mvc.formatters.json.2.2.0.nupkg.sha512",
     "C:\\Users\\Miguel.Larios.MEM\\.nuget\\packages\\microsoft.aspnetcore.mvc.localization\\2.0.0\\microsoft.aspnetcore.mvc.localization.2.0.0.nupkg.sha512",

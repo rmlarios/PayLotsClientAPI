@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using System.Text;
 using System.Collections;
 using DevExtremeAspNetCoreResponsiveApp.Exceptions;
+using System.Net;
 
 namespace DevExtremeAspNetCoreResponsiveApp.Proxies
 {
@@ -32,13 +33,17 @@ namespace DevExtremeAspNetCoreResponsiveApp.Proxies
     {
       var _httpClient = _proxyHttpClient.Get();
       var response = _httpClient.GetAsync(requestUrl, HttpCompletionOption.ResponseHeadersRead).Result;
-      //response.EnsureSuccessStatusCode();
-      //var data = await response.Content.ReadAsAsync<Response<T>>()
-      var data = await response.Content.ReadAsStringAsync();
-      var Json = JsonConvert.DeserializeObject<Response<T>>(data);
-      return Json;
-      //return new Response<T>(data);
-      //return JsonConvert.DeserializeObject<T>(data);
+      if (response.StatusCode != HttpStatusCode.BadRequest && response.StatusCode != HttpStatusCode.OK)
+      {
+        return new Response<T>(response.StatusCode.ToString(), false);
+      }
+      else
+      {
+        var data = await response.Content.ReadAsStringAsync();
+        var Json = JsonConvert.DeserializeObject<Response<T>>(data);
+        return Json;
+      }
+
     }
 
     public async Task<Response<T>> PostAsync<T>(string requestUrl, T model) where T : class
@@ -49,11 +54,16 @@ namespace DevExtremeAspNetCoreResponsiveApp.Proxies
         var _httpClient = _proxyHttpClient.Get();
         var Content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
         var response = await _httpClient.PostAsync(requestUrl, Content);
-        //response.EnsureSuccessStatusCode();
-        result = await response.Content.ReadAsStringAsync();
-        var Json = JsonConvert.DeserializeObject<Response<T>>(result);
-        return Json;
-
+        if (response.StatusCode != HttpStatusCode.BadRequest && response.StatusCode != HttpStatusCode.OK)
+        {
+          return new Response<T>(response.StatusCode.ToString(), false);
+        }
+        else
+        {
+          result = await response.Content.ReadAsStringAsync();
+          var Json = JsonConvert.DeserializeObject<Response<T>>(result);
+          return Json;
+        }
       }
       catch (Exception Ex)
       {
@@ -68,10 +78,16 @@ namespace DevExtremeAspNetCoreResponsiveApp.Proxies
         var _httpClient = _proxyHttpClient.Get();
         var Content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
         var response = await _httpClient.PutAsync(requestUrl, Content);
-        //response.EnsureSuccessStatusCode();
-        var result = await response.Content.ReadAsStringAsync();
-        var Json = JsonConvert.DeserializeObject<Response<T>>(result);
-        return Json;
+        if (response.StatusCode != HttpStatusCode.BadRequest && response.StatusCode != HttpStatusCode.OK)
+        {
+          return new Response<T>(response.StatusCode.ToString(), false);
+        }
+        else
+        {
+          var result = await response.Content.ReadAsStringAsync();
+          var Json = JsonConvert.DeserializeObject<Response<T>>(result);
+          return Json;
+        }
 
       }
       catch (Exception Ex)
@@ -84,9 +100,16 @@ namespace DevExtremeAspNetCoreResponsiveApp.Proxies
     {
       var _httpClient = _proxyHttpClient.Get();
       var response = await _httpClient.DeleteAsync(requestUrl);
-      var result = await response.Content.ReadAsStringAsync();
-      var resp = JsonConvert.DeserializeObject<Response<string>>(result);
-      return new Response<string>(resp.Message, resp.Succeeded);
+      if (response.StatusCode != HttpStatusCode.BadRequest && response.StatusCode != HttpStatusCode.OK)
+      {
+        return new Response<string>(response.StatusCode.ToString(), false);
+      }
+      else
+      {
+        var result = await response.Content.ReadAsStringAsync();
+        var resp = JsonConvert.DeserializeObject<Response<string>>(result);
+        return new Response<string>(resp.Message, resp.Succeeded);
+      }
     }
 
 

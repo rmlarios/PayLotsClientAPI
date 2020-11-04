@@ -26,187 +26,197 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Hosting;
 using SimpleInjector;
 using NToastNotify;
-
+using Microsoft.AspNetCore.Mvc.Cors;
 
 namespace DevExtremeAspNetCoreResponsiveApp
 {
-  public class Startup
-  {
-    public Startup(IConfiguration configuration)
+    public class Startup
     {
-      Configuration = configuration;
-    }
-
-    public IConfiguration Configuration { get; }
-
-
-    // This method gets called by the runtime. Use this method to add services to the container.
-    public void ConfigureServices(IServiceCollection services)
-    {
-      services.Configure<CookiePolicyOptions>(options =>
-      {
-        options.CheckConsentNeeded = context => true;
-        options.MinimumSameSitePolicy = SameSiteMode.None;
-        options.HttpOnly = Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.None;
-      });
-
-      //Conexion a la Base de Datos
-      services.AddDbContext<PayLotsDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PayLotsConnection")));
-
-      //services.AddDbContext<IdentityContext>(options => options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
-
-      //Configuracion de Identity
-      services.AddIdentity<AppUser, IdentityRole>(options =>
-              {
-                options.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
-                options.Password.RequireDigit = true;
-                options.Password.RequiredLength = 8;
-                options.Password.RequireNonAlphanumeric = true;
-                options.Password.RequireUppercase = true;
-                options.Password.RequireLowercase = true;
-                options.User.RequireUniqueEmail = true;
-                options.SignIn.RequireConfirmedEmail = true;
-                options.Lockout.MaxFailedAccessAttempts = 5;
-
-              })
-          .AddEntityFrameworkStores<PayLotsDBContext>().AddDefaultTokenProviders().AddDefaultUI();
-
-      //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-      //.AddRazorPagesOptions(options =>
-      //{
-      //options.AllowAreas = true;
-      //options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage");
-      //options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
-      //});
-
-      //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
-      services.AddAuthentication(IdentityConstants.ApplicationScheme).AddCookie(
-         opt =>
-         {
-           opt.LoginPath = $"/Identity/Account/Login";
-           opt.AccessDeniedPath = $"/Identity/Account/Login";
-           opt.Cookie.Name = "identcookie";
-           opt.Cookie.SameSite = SameSiteMode.None;
-         }
-     );
-
-
-      /*  services.ConfigureApplicationCookie(opts =>
-       {
-           opts.LoginPath = $"/Identity/Account/Login";
-           opts.AccessDeniedPath = $"/Identity/Account/Login";
-           opts.Cookie.Name = "paylotscookie";
-           opts.Cookie.SameSite = SameSiteMode.None;
-           opts.ExpireTimeSpan = new TimeSpan(hours:4,minutes:0,seconds:0);
-
-           opts.Events = new CookieAuthenticationEvents()
-           {
-               OnRedirectToLogin = redirectContext =>
-               {
-                  string redirecturi = redirectContext.RedirectUri;
-                  UriHelper.FromAbsolute(
-                  redirecturi,
-                  out string scheme,
-                  out HostString host,
-                  out PathString path,
-                  out QueryString query,
-                  out FragmentString fragment);
-
-                   redirecturi = UriHelper.BuildAbsolute(scheme, host, path);
-
-                   redirectContext.Response.Redirect(redirecturi);
-
-                   return Task.CompletedTask;
-               }
-           };
-
-
-       }
-       );  */
-
-
-      //Instancia el UserHelper como Servicio
-      services.AddScoped<IUserHelper, UserHelper>();
-      //Instancia el servicio para enviar correo
-      services.AddScoped<IEmailHelper, MailHelper>();
-      //Registro los Proxys
-      services.AddTransient<ProxyHttpClient>();
-      services.AddTransient<IAuthProxy, AuthProxy>();
-      services.AddTransient<IGenericProxy, GenericProxy>();
-
-
-      services.AddControllers().AddNewtonsoftJson(o =>
-      {
-        o.SerializerSettings.ContractResolver = new DefaultContractResolver();
-        o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-      });
-
-      //Configuracion de JSON para evitar conflictos con el nombre de los campos
-      services.AddMvc()
-      .AddMvcOptions(o => o.EnableEndpointRouting = false)
-      /*.AddJsonOptions(options => options.JsonSerializerOptions.ContractResolver = new DefaultContractResolver())
-      .AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)*/
-      .AddRazorPagesOptions(options =>
-      {
-        //options.AllowAreas = true;                    
-        options.Conventions.AuthorizeFolder("/");
-        options.Conventions.AllowAnonymousToPage("/Identity/Account/Login");
-
-      }
-          )
-      ;
-      services.AddRazorPages().AddNToastNotifyToastr(new ToastrOptions
-      {
-        ProgressBar = true,
-        PositionClass = ToastPositions.TopRight,
-        CloseButton = true,
-        TimeOut = 2500,
-        CloseDuration = true,
-        Type = Enums.NotificationTypesToastr.Success
-
-      });
-      //Requiere que el usuario este autenticado para poder acceder a cualquier pagina
-      services.AddAuthorization(options =>
-      {
-        options.DefaultPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-        options.AddPolicy("AdminPolicy", config =>
+        public Startup(IConfiguration configuration)
         {
-          config.RequireAuthenticatedUser().Build();
-        });
-      });
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
+
+
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+                options.HttpOnly = Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.None;
+            });
+
+            //Conexion a la Base de Datos
+            services.AddDbContext<PayLotsDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PayLotsConnection")));
+
+            //services.AddDbContext<IdentityContext>(options => options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
+
+            //Configuracion de Identity
+            services.AddIdentity<AppUser, IdentityRole>(options =>
+                    {
+                        options.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
+                        options.Password.RequireDigit = true;
+                        options.Password.RequiredLength = 8;
+                        options.Password.RequireNonAlphanumeric = true;
+                        options.Password.RequireUppercase = true;
+                        options.Password.RequireLowercase = true;
+                        options.User.RequireUniqueEmail = true;
+                        options.SignIn.RequireConfirmedEmail = true;
+                        options.Lockout.MaxFailedAccessAttempts = 5;
+
+                    })
+                .AddEntityFrameworkStores<PayLotsDBContext>().AddDefaultTokenProviders().AddDefaultUI();
+
+            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+            //.AddRazorPagesOptions(options =>
+            //{
+            //options.AllowAreas = true;
+            //options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage");
+            //options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
+            //});
+
+            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+            services.AddAuthentication(IdentityConstants.ApplicationScheme).AddCookie(
+               opt =>
+               {
+                   opt.LoginPath = $"/Identity/Account/Login";
+                   opt.AccessDeniedPath = $"/Identity/Account/Login";
+                   opt.Cookie.Name = "identcookie";
+                   opt.Cookie.SameSite = SameSiteMode.None;
+               }
+           );
+
+
+            /*  services.ConfigureApplicationCookie(opts =>
+             {
+                 opts.LoginPath = $"/Identity/Account/Login";
+                 opts.AccessDeniedPath = $"/Identity/Account/Login";
+                 opts.Cookie.Name = "paylotscookie";
+                 opts.Cookie.SameSite = SameSiteMode.None;
+                 opts.ExpireTimeSpan = new TimeSpan(hours:4,minutes:0,seconds:0);
+
+                 opts.Events = new CookieAuthenticationEvents()
+                 {
+                     OnRedirectToLogin = redirectContext =>
+                     {
+                        string redirecturi = redirectContext.RedirectUri;
+                        UriHelper.FromAbsolute(
+                        redirecturi,
+                        out string scheme,
+                        out HostString host,
+                        out PathString path,
+                        out QueryString query,
+                        out FragmentString fragment);
+
+                         redirecturi = UriHelper.BuildAbsolute(scheme, host, path);
+
+                         redirectContext.Response.Redirect(redirecturi);
+
+                         return Task.CompletedTask;
+                     }
+                 };
+
+
+             }
+             );  */
+
+
+            //Instancia el UserHelper como Servicio
+            services.AddScoped<IUserHelper, UserHelper>();
+            //Instancia el servicio para enviar correo
+            services.AddScoped<IEmailHelper, MailHelper>();
+            //Registro los Proxys
+            services.AddTransient<ProxyHttpClient>();
+            services.AddTransient<IAuthProxy, AuthProxy>();
+            services.AddTransient<IGenericProxy, GenericProxy>();
+
+
+            services.AddControllers().AddNewtonsoftJson(o =>
+            {
+                o.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
+
+            //Configuracion de JSON para evitar conflictos con el nombre de los campos
+            services.AddMvc()
+            .AddMvcOptions(o => o.EnableEndpointRouting = false)
+            /*.AddJsonOptions(options => options.JsonSerializerOptions.ContractResolver = new DefaultContractResolver())
+            .AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)*/
+            .AddRazorPagesOptions(options =>
+            {
+          //options.AllowAreas = true;                    
+          options.Conventions.AuthorizeFolder("/");
+                options.Conventions.AllowAnonymousToPage("/Identity/Account/Login");
+
+            }
+                )
+            ;
+            services.AddRazorPages().AddNToastNotifyToastr(new ToastrOptions
+            {
+                ProgressBar = true,
+                PositionClass = ToastPositions.TopRight,
+                CloseButton = true,
+                TimeOut = 2500,
+                CloseDuration = true,
+                Type = Enums.NotificationTypesToastr.Success
+
+            });
+            //Requiere que el usuario este autenticado para poder acceder a cualquier pagina
+            services.AddAuthorization(options =>
+            {
+                options.DefaultPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+                options.AddPolicy("AdminPolicy", config =>
+          {
+                  config.RequireAuthenticatedUser().Build();
+              });
+            });
+
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+
+            
+        }
+
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseBrowserLink();
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
+            //app.UseRouting();
+            app.UseCors("MyPolicy");
+            app.UseStaticFiles();
+            app.UseAuthentication();
+            
+            app.UseCookiePolicy();
+            app.UseNToastNotify();
+
+
+            // app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(
+            //        name: "default",
+            //        template: "{controller=Home}/{action=Index}/{id?}")
+            //        ;
+            //});
+            app.UseMvc();
+            //app.UseEndpoints(c => c.MapControllers());
+        }
+
+
     }
-
-    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-    {
-      if (env.IsDevelopment())
-      {
-        app.UseBrowserLink();
-        app.UseDeveloperExceptionPage();
-      }
-      else
-      {
-        app.UseExceptionHandler("/Home/Error");
-      }
-
-
-      app.UseStaticFiles();
-      app.UseAuthentication();
-      app.UseCookiePolicy();
-      app.UseNToastNotify();
-
-
-      // app.UseMvc(routes =>
-      //{
-      //    routes.MapRoute(
-      //        name: "default",
-      //        template: "{controller=Home}/{action=Index}/{id?}")
-      //        ;
-      //});
-      app.UseMvc();
-      //app.UseEndpoints(c => c.MapControllers());
-    }
-
-
-  }
 }

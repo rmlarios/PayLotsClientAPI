@@ -14439,6 +14439,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Pages\\Mora\\Listado.cshtml",
+      "TargetPath": "Pages\\Mora\\Listado.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Pages\\Shared\\_Layout.cshtml",
       "TargetPath": "Pages\\Shared\\_Layout.cshtml",
       "FileKind": "mvc"
@@ -14511,6 +14516,11 @@
     {
       "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Areas\\Identity\\Pages\\Account\\Login.cshtml",
       "TargetPath": "Areas\\Identity\\Pages\\Account\\Login.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Pages\\Lote\\Listado.cshtml",
+      "TargetPath": "Pages\\Lote\\Listado.cshtml",
       "FileKind": "mvc"
     },
     {

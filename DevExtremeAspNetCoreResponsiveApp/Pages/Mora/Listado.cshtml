@@ -1,0 +1,90 @@
+@page
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+
+
+@(Html.DevExtreme().DataGrid<Mora>
+                    ()
+                    .ID("GridListado")
+                    .DataSource(d=>d.Mvc().Controller("Mora").Key("IdMora")
+                    .LoadAction("GetAll")
+                    .InsertAction("PostCreate")
+                    .UpdateAction("PutUpdate")
+                    .DeleteAction("DeletebyId")
+                    .OnBeforeSend("grid_dataSource_beforeSend")
+                    )
+                    .ShowBorders(false)
+                    .ElementAttr(new { @class = "dx-card wide-card" })
+                    .Export(e => e.Enabled(true).AllowExportSelectedData(true)).OnExporting("exporting")
+                    .Paging(pag => pag.PageSize(10))
+                    .Pager(p => p.ShowPageSizeSelector(false).ShowNavigationButtons(true).ShowInfo(true).InfoText("Página {0} de {1} ({2} Registros)"))
+                    .RowAlternationEnabled(true)
+                    .HoverStateEnabled(true)
+                    .Selection(s => s.Mode(SelectionMode.Single).AllowSelectAll(false))
+                    .SearchPanel(s => s.Visible(true).HighlightSearchText(true).Width(400))
+                    .FilterRow(f => f.ApplyFilter(GridApplyFilterMode.Auto).Visible(true).ShowAllText("Todo"))
+                    .FilterSyncEnabled(true)
+                    .WordWrapEnabled(true)
+                    .ColumnAutoWidth(true)
+                    /*Columnas del grid*/
+                    .Columns(columns =>
+                    {
+                        columns.AddFor(m => m.IdMora).Visible(false);
+                        columns.AddFor(m => m.Minimo);
+                        columns.AddFor(m => m.Maximo);
+                        columns.AddFor(m => m.Porcentaje);                     
+                    }).HeaderFilter(h => h.AllowSearch(true).Visible(true))
+                    /*Configuracion para la edicion*/
+                    .Editing(e => e.Mode(GridEditMode.Popup)
+                        .UseIcons(true)
+                        .AllowAdding(true)
+                        .AllowUpdating(true)
+                        .AllowDeleting(true)
+                        .UseIcons(true)
+                        .Texts(t => t.AddRow("Nuevo").EditRow("Editar").DeleteRow("Eliminar").ConfirmDeleteMessage("¿Está seguro que desea Eliminar este Registro?")
+                        .SaveRowChanges("Guardar").CancelRowChanges("Cancelar"))
+                        /*Configuracion del Popup*/
+                        .Popup(p => p.Width(700).Title("Formulario de Edición").ShowTitle(true).Position(PositionAlignment.Center).Height(350).CloseOnOutsideClick(false).ShowCloseButton(false))
+                        /*Configuracion del EditForm*/
+                        .Form(f => f.ColCount(1).ShowRequiredMark(true).LabelLocation(FormLabelLocation.Left)
+                            .Items(items =>
+                            {
+                                items.AddSimple().IsRequired(true).DataField("Minimo").ColSpan(1);
+                                items.AddSimple().IsRequired(false).DataField("Maximo").ColSpan(1);
+                                items.AddSimple().IsRequired(false).DataField("Porcentaje").ColSpan(1);
+                                
+                            }))
+                          )
+                       .ErrorRowEnabled(true)
+)
+
+<script>
+   
+    function exporting(e) {
+        var workbook = new ExcelJS.Workbook();
+        var worksheet = workbook.addWorksheet('Hoja1');
+
+        DevExpress.excelExporter.exportDataGrid({
+            component: e.component,
+            worksheet: worksheet,
+            autoFilterEnabled: true
+        }).then(function () {
+            // https://github.com/exceljs/exceljs#writing-xlsx
+            workbook.xlsx.writeBuffer().then(function (buffer) {
+                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'Beneficiarios.xlsx');
+            });
+        });
+        e.cancel = true;
+    }
+
+     function grid_dataSource_beforeSend(operation, ajax) {
+        @* var data = ajaxSettings.data || {},
+            args = Object.keys(data).map(function (key) {
+                return key + "=" + data[key];
+            }).join(" "); *@
+
+             ajax.headers = {
+            RequestVerificationToken: "@Xsrf.GetAndStoreTokens(Model.HttpContext).RequestToken"
+        };
+    }
+
+</script>
