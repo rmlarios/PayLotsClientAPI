@@ -668,3 +668,5 @@ D:\GIT\DevExtremeAspNetCoreResponsiveApp\DevExtremeAspNetCoreResponsiveApp\obj\D
 D:\GIT\DevExtremeAspNetCoreResponsiveApp\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\DevExtremeAspNetCoreResponsiveApp.genruntimeconfig.cache
 D:\GIT\DevExtremeAspNetCoreResponsiveApp\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\Razor\Pages\Lote\Listado.cshtml.g.cs
 D:\GIT\DevExtremeAspNetCoreResponsiveApp\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\Razor\Pages\Mora\Listado.cshtml.g.cs
+D:\GIT\DevExtremeAspNetCoreResponsiveApp\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\Razor\Pages\Asignacion\Listado.cshtml.g.cs
+D:\GIT\DevExtremeAspNetCoreResponsiveApp\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\Razor\Pages\Asignacion\Registrar.cshtml.g.cs

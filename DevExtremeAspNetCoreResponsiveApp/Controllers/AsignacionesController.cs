@@ -6,7 +6,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controllers
 {
   public class AsignacionesController : GenericController<ViewAsignacionesLotes>
   {
-    public AsignacionesController(IGenericProxy genericProxy, IToastNotification toastNotification) : base(genericProxy, toastNotification, "Asignacion/", "GetAllUrl", "GetbyBenef/")
+    public AsignacionesController(IGenericProxy genericProxy, IToastNotification toastNotification) : base(genericProxy, toastNotification, "Asignacion/", "GetAsignaciones", "GetbyBenef/")
     {
     }
   }

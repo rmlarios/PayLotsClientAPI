@@ -14414,6 +14414,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Pages\\Asignacion\\Registrar.cshtml",
+      "TargetPath": "Pages\\Asignacion\\Registrar.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Areas\\Identity\\Pages\\_ValidationScriptsPartial.cshtml",
       "TargetPath": "Areas\\Identity\\Pages\\_ValidationScriptsPartial.cshtml",
       "FileKind": "mvc"
@@ -14526,6 +14531,11 @@
     {
       "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Pages\\Beneficiario\\Listado.cshtml",
       "TargetPath": "Pages\\Beneficiario\\Listado.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "d:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\Pages\\Asignacion\\Listado.cshtml",
+      "TargetPath": "Pages\\Asignacion\\Listado.cshtml",
       "FileKind": "mvc"
     }
   ],

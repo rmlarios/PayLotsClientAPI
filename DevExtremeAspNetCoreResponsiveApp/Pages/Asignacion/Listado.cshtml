@@ -1,11 +1,34 @@
 @page
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
 
+<div class="row text-center" style="padding-bottom: 10px;">
+  <div class="col-md-8"></div>
+  <div class="col-md-2 font-bold">Filtrar por Estado:</div>
+  <div class="col-md-2">
+   @{
+        var statuses = new[] { "Todos", "Anulada", "Vigente"};
+    }
+  @(Html.DevExtreme().SelectBox()
+        .DataSource(statuses)        
+        .Value(statuses[0])               
+        .OnValueChanged(@<text>
+            function(data) {
+                var dataGrid = $("#GridListado").dxDataGrid("instance");
+                if (data.value == "Todos")
+                    dataGrid.clearFilter();
+                else
+                    dataGrid.filter(["Estado", "=", data.value]);
+            }
+        </text>)
+    )
+    </div>
+</div>
 
-@(Html.DevExtreme().DataGrid<ViewLotes>
+
+@(Html.DevExtreme().DataGrid<ViewAsignacionesSaldo>
                     ()
                     .ID("GridListado")
-                    .DataSource(d=>d.Mvc().Controller("Lotes").Key("IdLote")
+                    .DataSource(d=>d.Mvc().Controller("Asignaciones").Key("IdAsignacion")
                     .LoadAction("GetAll")
                     .InsertAction("PostCreate")
                     .UpdateAction("PutUpdate")
@@ -28,22 +51,18 @@
                     /*Columnas del grid*/
                     .Columns(columns =>
                     {
-                        columns.AddFor(m => m.IdLote).Visible(false);
+                        columns.AddFor(m => m.IdAsignacion).Visible(false);
                         columns.AddFor(m => m.NombreProyecto);
                         columns.AddFor(m => m.NombreLote);
-                        columns.AddFor(m => m.Area);                     
-                        columns.AddFor(m => m.EstadoActual);                     
-                        columns.AddFor(m => m.Municipio);                     
-                        columns.AddFor(m => m.Departamento);
-                        columns.AddFor(m=>m.NumeroLote).Visible(false);
-                        columns.AddFor(m => m.IdBloque).Visible(false).Caption("Bloque").Lookup(look => look
-                                                                        .DataSource(d => d.Mvc().Controller("Bloques")
-                                                                                    .LoadAction("GetAll").Key("IdBloque"))   
-                                                                        .DisplayExpr(new JS("lookupExpr"))
-                                                                        .ValueExpr("IdBloque")
-                                                                        )
-                      .EditorOptions(new {  
-                    searchExpr = new string[] { "NombreProyecto", "Bloque" }});                  
+                        columns.AddFor(m => m.NombreCompleto);                     
+                        columns.AddFor(m => m.MontoTotal);                     
+                        columns.AddFor(m => m.Estado);                     
+                        columns.AddFor(m => m.Abonado);
+                        columns.AddFor(m=>m.Saldo);
+                        columns.Add().Type(GridCommandColumnType.Buttons).Buttons(buttons =>{
+                          buttons.Add().Name(GridColumnButtonName.Edit);
+                          buttons.Add().Name("Anular").Hint("Anular").Icon("clear");
+                        });                        
                     })
                     .HeaderFilter(h => h.AllowSearch(true).Visible(true))
                     /*Configuracion para la edicion*/
@@ -51,7 +70,7 @@
                         .UseIcons(true)
                         .AllowAdding(true)
                         .AllowUpdating(true)
-                        .AllowDeleting(true)
+                        //.AllowDeleting(true)
                         .UseIcons(true)
                         .Texts(t => t.AddRow("Nuevo").EditRow("Editar").DeleteRow("Eliminar").ConfirmDeleteMessage("¿Está seguro que desea Eliminar este Registro?")
                         .SaveRowChanges("Guardar").CancelRowChanges("Cancelar"))
@@ -68,6 +87,13 @@
                             }))
                           )
                        .ErrorRowEnabled(true)
+                       .OnEditingStart(@<text>
+                           function(e)
+                           {                               
+                               var id = e.data.IdAsignacion;
+                               window.location.href="/Asignacion/Registrar/?p=" + id ;
+                           }
+                       </text>)
 )
 
 <script>
