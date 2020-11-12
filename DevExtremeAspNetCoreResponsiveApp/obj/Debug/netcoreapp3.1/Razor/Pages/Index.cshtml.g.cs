@@ -41,6 +41,13 @@ using Data.Model;
 #line hidden
 #nullable disable
 #nullable restore
+#line 8 "D:\GIT\DevExtremeAspNetCoreResponsiveApp\DevExtremeAspNetCoreResponsiveApp\Pages\_ViewImports.cshtml"
+using DevExtremeAspNetCoreResponsiveApp.DTOs;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
 #line 2 "D:\GIT\DevExtremeAspNetCoreResponsiveApp\DevExtremeAspNetCoreResponsiveApp\Pages\Index.cshtml"
 using DevExtremeAspNetCoreResponsiveApp.Model;
 
@@ -48,7 +55,7 @@ using DevExtremeAspNetCoreResponsiveApp.Model;
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"33b0cc98753df5a26a4b83235b0ad6247eda6a7c", @"/Pages/Index.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"b8d66f5b6b80f032e48ac018b6bd23f7df879a10", @"/Pages/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"abefe4e372dfbabd28ca96f5957c69b2cb15bcf5", @"/Pages/_ViewImports.cshtml")]
     public class Pages_Index : global::Microsoft.AspNetCore.Mvc.RazorPages.Page
     {
         #pragma warning disable 1998

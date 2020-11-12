@@ -11,7 +11,7 @@ using NToastNotify;
 namespace DevExtremeAspNetCoreResponsiveApp.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     public class GenericController<T> : ControllerBase where T : class, new()
     {
         private readonly IGenericProxy _genericProxy;

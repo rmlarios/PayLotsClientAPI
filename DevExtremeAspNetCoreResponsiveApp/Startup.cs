@@ -135,15 +135,20 @@ namespace DevExtremeAspNetCoreResponsiveApp
             services.AddTransient<IGenericProxy, GenericProxy>();
 
 
-            services.AddControllers().AddNewtonsoftJson(o =>
+            services.AddControllers()
+            .AddNewtonsoftJson(o =>
             {
                 o.SerializerSettings.ContractResolver = new DefaultContractResolver();
                 o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
 
+            
+
             //Configuracion de JSON para evitar conflictos con el nombre de los campos
             services.AddMvc()
-            .AddMvcOptions(o => o.EnableEndpointRouting = false)
+            .AddMvcOptions(o =>{
+              o.EnableEndpointRouting = false;              
+            } )
             /*.AddJsonOptions(options => options.JsonSerializerOptions.ContractResolver = new DefaultContractResolver())
             .AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)*/
             .AddRazorPagesOptions(options =>
