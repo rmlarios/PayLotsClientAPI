@@ -38,6 +38,9 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.Asignacion
 
     public async Task OnPost([FromForm] int IdAsignacion,[FromForm]Asignaciones entity)
     {
+
+
+      
       var result = await _genericProxy.PostAsync<Asignaciones>("Asignacion/Save/"+IdAsignacion, entity);
       if (result.Succeeded)
       {

@@ -10,8 +10,9 @@
 {
 
 <input type="hidden" asp-for="Asignaciones.IdAsignacion" name="IdAsignacion">
+<input type="hidden" asp-for="Asignaciones.IdLote" name="IdLoteOld">
 @(Html.DevExtreme().Form<Asignaciones>()
-            .ID("form")
+            .ID("form")            
             .ColCount(2)
             .FormData(Model.Asignaciones)
             .LabelLocation(FormLabelLocation.Left)
@@ -20,7 +21,7 @@
             .Height("50%")
             .ReadOnly(false)            
             .ShowColonAfterLabel(true)
-            
+            .ShowValidationSummary(true)
             
             .Items(item =>{
                item.AddGroup().ColSpan(4).ColCount(6).Items(i => {
@@ -37,26 +38,32 @@
                });
                /*item.AddButton().Name("Guardar").ButtonOptions(o => o.Icon("save").Text("Guardar").Type(ButtonType.Success).UseSubmitBehavior(true));*/
                item.AddSimpleFor(m => m.IdAsignacion).Visible(false);
-               item.AddSimpleFor(m => m.IdLote).ColSpan(2).Label(l => l.Text("Seleccione el lote")).IsRequired(true).Editor(e => e.Lookup().DataSource(d => d.Mvc().Controller("Lotes").LoadAction("GetAll").Key("IdLote")).DisplayExpr(new JS("lookupExpr")).ValueExpr("IdLote").SearchEnabled(true).SearchMode(DropDownSearchMode.Contains).StylingMode(EditorStylingMode.Filled)               
+               
+               item.AddSimpleFor(m => m.IdLote).ColSpan(2).Label(l => l.Text("Seleccione el lote")).Editor(e => e.Lookup().DataSource(d => d.Mvc().Controller("Lotes").LoadAction("GetAll").Key("IdLote")).DataSourceOptions(o=>o.Filter("[['Estado', '=', 'Disponible'],'or',['IdLote','=',document.getElementsByName('IdLoteOld')[0].value]]"
+               ))
+               .SearchExpr("NombreLote").SearchMode(DropDownSearchMode.Contains).DisplayExpr(new JS("lookupExpr")).ValueExpr("IdLote").PageLoadingText("Cargando").NextButtonText("Más").PageLoadMode(ListPageLoadMode.NextButton).SearchEnabled(true).SearchMode(DropDownSearchMode.Contains).StylingMode(EditorStylingMode.Outlined)               
                );
+               
                item.AddSimpleFor(m => m.IdBeneficiario).ColSpan(2).Label(l => l.Text("Seleccione el beneficiario")).IsRequired(true).Editor(e => e.Lookup().DataSource(d => d.Mvc().Controller("Beneficiarios").LoadAction("GetAll").Key("IdBeneficiario")).DisplayExpr("NombreCompleto").ValueExpr("IdBeneficiario").SearchEnabled(true).SearchMode(DropDownSearchMode.Contains).StylingMode(EditorStylingMode.Outlined)               
                );
-               item.AddSimpleFor(m => m.MontoTotal).ColSpan(1).Label(l => l.Text("Valor del Lote")).IsRequired(true).Editor(e=>e.NumberBox().ShowSpinButtons(true).Mode(NumberBoxMode.Number).Format("$ #,##0.##").StylingMode(EditorStylingMode.Outlined));
-               item.AddSimpleFor(m => m.FechaInicioPago).ColSpan(1).Label(l => l.Text("Fecha de Incio de Pago")).IsRequired(true).Editor(e => e.DateBox().DisplayFormat("dd/MM/yyyy"));
-               item.AddSimpleFor(m => m.CuotaMinima).ColSpan(1).Label(l => l.Text("Cuota Mínima"));
-               item.AddSimpleFor(m => m.Prima).ColSpan(1);              
+
+               item.AddSimpleFor(m => m.MontoTotal).ColSpan(1).Label(l => l.Text("Valor del Lote")).Editor(e=>e.NumberBox().ShowSpinButtons(true).Mode(NumberBoxMode.Number).Format("$ #,##0.##").StylingMode(EditorStylingMode.Outlined));
+
+               item.AddSimpleFor(m => m.FechaInicioPago).ColSpan(1).Label(l => l.Text("Fecha de Incio de Pago")).IsRequired(true).Editor(e => e.DateBox().DisplayFormat("dd/MM/yyyy").StylingMode(EditorStylingMode.Outlined));
+               item.AddSimpleFor(m => m.CuotaMinima).ColSpan(1).Label(l => l.Text("Cuota Mínima")).Editor(e=>e.NumberBox().ShowSpinButtons(true).Mode(NumberBoxMode.Number).Format("$ #,##0.##").StylingMode(EditorStylingMode.Outlined));
+               item.AddSimpleFor(m => m.Prima).ColSpan(1).Editor(e=>e.NumberBox().ShowSpinButtons(true).Mode(NumberBoxMode.Number).Format("$ #,##0.##").StylingMode(EditorStylingMode.Outlined).Min(0));              
                item.AddSimpleFor(m => m.Donado).ColSpan(1);
                item.AddSimpleFor(m => m.AplicaMora).ColSpan(1).Label(l => l.Text("Aplicar Mora"));
                item.AddSimpleFor(m => m.AplicaInteres).ColSpan(1).Label(l => l.Text("Aplicar interés"));
-               item.AddSimpleFor(m => m.TasaInteres).ColSpan(1).Label(l => l.Text("Tasa de Interés"));
-               item.AddSimpleFor(m => m.Plazo).ColSpan(1);
-               item.AddSimpleFor(m => m.Observaciones).ColSpan(3);
+               item.AddSimpleFor(m => m.TasaInteres).ColSpan(1).Label(l => l.Text("Tasa de Interés")).Editor(e=>e.NumberBox().ShowSpinButtons(true).Mode(NumberBoxMode.Number).Format("$ #,##0.##").StylingMode(EditorStylingMode.Outlined));
+               item.AddSimpleFor(m => m.Plazo).ColSpan(1).Editor(e=>e.NumberBox().ShowSpinButtons(true).Mode(NumberBoxMode.Number).Format("$ #,##0.##").StylingMode(EditorStylingMode.Outlined));
+               item.AddSimpleFor(m => m.Observaciones).ColSpan(3).Editor(e=>e.TextArea().StylingMode(EditorStylingMode.Outlined));
 
             })
         ) 
 
 }
-<br>
+
 
 @(Html.DevExtreme().DataGrid<Asignacion_PlandePago>
                     ()
@@ -121,13 +128,16 @@
 
  <script>
     function lookupExpr(item) {
-      //alert(item);
-      return item.NombreProyecto + " " + item.NombreLote;      
+      if(item!=null)
+        return item.NombreProyecto + " " + item.NombreLote;      
+    }
+
+    function filterLote(itemData){
+        alert(itemData.Estado);
     }
 
     function getIdAsignacion(){
-        var r = $("#form").dxForm("option", "formData").IdAsignacion;
-       
+        var r = $("#form").dxForm("option", "formData").IdAsignacion;        
         return r;
     }
 
