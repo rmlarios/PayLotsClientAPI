@@ -16,14 +16,14 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.Asignacion
     private readonly IToastNotification _toastNotification;
     [BindProperty]
     public Asignaciones Asignaciones { get; set; }
-    public RegistrarModel(IGenericProxy genericProxy,IToastNotification toastNotification)
+    public RegistrarModel(IGenericProxy genericProxy, IToastNotification toastNotification)
     {
       _genericProxy = genericProxy;
       _toastNotification = toastNotification;
     }
     public async Task OnGet(int p = 0)
     {
-     
+
       if (p == 0)
         Asignaciones = new Asignaciones();
       else
@@ -36,9 +36,18 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.Asignacion
       }
     }
 
-    public async Task OnPost([FromForm] int IdAsignacion,[FromForm]Asignaciones entity)
+    public async Task OnPost([FromForm] int IdAsignacion, [FromForm] Asignaciones entity)
     {
-      var result = await _genericProxy.PostAsync<Asignaciones>("Asignacion/Save/"+IdAsignacion, entity);
+
+      if (!ModelState.IsValid)
+      {
+        var Errors = ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage).Aggregate((U, V) => U + "," + V);
+        _toastNotification.AddErrorToastMessage(Errors);
+        ModelState.AddModelError("custom", Errors);
+        return;
+      }
+
+      var result = await _genericProxy.PostAsync<Asignaciones>("Asignacion/Save/" + IdAsignacion, entity);
       if (result.Succeeded)
       {
         _toastNotification.AddSuccessToastMessage(result.Message);
@@ -50,7 +59,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.Asignacion
       else
       {
         _toastNotification.AddErrorToastMessage(result.Message);
-        
+
         //return BadRequest(result.Message);
       }
 
