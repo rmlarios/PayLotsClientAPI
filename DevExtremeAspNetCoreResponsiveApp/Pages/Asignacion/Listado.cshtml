@@ -89,11 +89,21 @@
                        .ErrorRowEnabled(true)
                        .OnEditingStart(@<text>
                            function(e)
-                           {                               
+                           { 
+                               e.cancel = true;                              
                                var id = e.data.IdAsignacion;
                                window.location.href="/Asignacion/Registrar/?p=" + id ;
                            }
                        </text>)
+                       .OnInitNewRow(@<text>
+                           function(e)
+                           { 
+                               e.cancel = true;                              
+                               var id = e.data.IdAsignacion;
+                               window.location.href="/Asignacion/Registrar/?p=0" ;
+                           }
+                       </text>
+                       )
 )
 
 <script>

@@ -197,7 +197,7 @@ id="logoutForm">
                         </a>
                         <ul class="treeview-menu">                            
                             <li><a href=@Url.Page("/Asignacion/Listado")><i class="fa fa-list-ol"></i> Listado</a></li>
-                            <li><a href=@Url.Page("/Asignacion/Registrar")><i class="fa fa-floppy-o"></i> Registrar</a></li>
+                            <li><a href=@Url.Page("/Asignacion/Registrar",new{p=0})><i class="fa fa-floppy-o"></i> Registrar</a></li>
                             <li><a href=@Url.Page("/Beneficiario/Proforma")><i class="fa fa-file-text">
                                     </i>Proformas</a></li>
                            
@@ -424,6 +424,9 @@ id="logoutForm">
         immediately after the control sidebar -->
         <div class="control-sidebar-bg"></div>
     </div>
+
+
+
     <!-- ./wrapper -->
     <!-- jQuery 3 -->
     @* <script src="~/AdminLTE/lib/jquery/dist/jquery.js"></script> *@
@@ -435,7 +438,7 @@ id="logoutForm">
     <script src="~/AdminLTE/lib/fastclick/lib/fastclick.js"></script>
     <!-- AdminLTE App -->
     <script src="~/AdminLTE/js/adminlte.min.js"></script>
-    @RenderSection("Scripts", required: false)
+   
     <!-- AdminLTE for demo purposes -->
     <script src="~/AdminLTE/js/demo.js"></script>
    
@@ -451,6 +454,8 @@ id="logoutForm">
         });
     </script>
     @await Component.InvokeAsync("NToastNotify")
+
+     @RenderSection("Scripts", required: false)
 </body>
 
 </html>

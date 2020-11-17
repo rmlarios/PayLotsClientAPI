@@ -22,10 +22,11 @@
             .ReadOnly(false)            
             .ShowColonAfterLabel(true)
             .ShowValidationSummary(true)
-            
+            //.Disabled(new JS("disableForm"))
             .Items(item =>{
                item.AddGroup().ColSpan(4).ColCount(6).Items(i => {
                    i.AddButton().Name("Guardar").ColSpan(1).ButtonOptions(o=>o.Icon("save").Text("Guardar").Type(ButtonType.Success).UseSubmitBehavior(true).Width("100%"));
+
                    i.AddButton().Name("Nuevo").ColSpan(1).ButtonOptions(o=>o.Icon("fa fa-file-o").Text("Nuevo").Type(ButtonType.Success).Width("100%").OnClick(
                        @<text>
                            function(e)
@@ -35,10 +36,18 @@
                            }
                        </text>
                    ));
+                   i.AddButton().Name("Cancelar").ColSpan(1).ButtonOptions(o=>o.Icon("").Text("Cancelar").Type(ButtonType.Success).Width("100%").OnClick(
+                       @<text>
+                           function(e)
+                           {
+                               window.location.reload();
+                           }
+                       </text>
+                   ));
                });
                /*item.AddButton().Name("Guardar").ButtonOptions(o => o.Icon("save").Text("Guardar").Type(ButtonType.Success).UseSubmitBehavior(true));*/
                item.AddSimpleFor(m => m.IdAsignacion).Visible(false);
-               
+               item.AddSimpleFor(m=>m.Estado).Visible(false);
                item.AddSimpleFor(m => m.IdLote).ColSpan(2).Label(l => l.Text("Seleccione el lote")).Editor(e => e.Lookup().DataSource(d => d.Mvc().Controller("Lotes").LoadAction("GetAll").Key("IdLote")).DataSourceOptions(o=>o.Filter("[['Estado', '=', 'Disponible'],'or',['IdLote','=',document.getElementsByName('IdLoteOld')[0].value]]"
                ))
                .SearchExpr("NombreLote").SearchMode(DropDownSearchMode.Contains).DisplayExpr(new JS("lookupExpr")).ValueExpr("IdLote").PageLoadingText("Cargando").NextButtonText("Más").PageLoadMode(ListPageLoadMode.NextButton).SearchEnabled(true).SearchMode(DropDownSearchMode.Contains).StylingMode(EditorStylingMode.Outlined)               
@@ -49,22 +58,22 @@
 
                item.AddSimpleFor(m => m.MontoTotal).ColSpan(1).Label(l => l.Text("Valor del Lote")).Editor(e=>e.NumberBox().ShowSpinButtons(true).Mode(NumberBoxMode.Number).Format("$ #,##0.##").StylingMode(EditorStylingMode.Outlined));
 
-               item.AddSimpleFor(m => m.FechaInicioPago).ColSpan(1).Label(l => l.Text("Fecha de Incio de Pago")).IsRequired(true).Editor(e => e.DateBox().DisplayFormat("dd/MM/yyyy").StylingMode(EditorStylingMode.Outlined));
+               item.AddSimpleFor(m => m.FechaInicioPago).ColSpan(1).Label(l => l.Text("Fecha de Incio de Pago")).Editor(e => e.DateBox().DisplayFormat("dd/MM/yyyy").StylingMode(EditorStylingMode.Outlined));
                
-               item.AddSimpleFor(m => m.CuotaMinima).ColSpan(1).Label(l => l.Text("Cuota Mínima")).Editor(e=>e.NumberBox().ShowSpinButtons(true).Mode(NumberBoxMode.Number).Format("$ #,##0.##").StylingMode(EditorStylingMode.Outlined));
+               item.AddSimpleFor(m => m.CuotaMinima).Name("CuotaMinima").ColSpan(1).Label(l => l.Text("Cuota Mínima")).Editor(e=>e.NumberBox().ShowSpinButtons(true).Mode(NumberBoxMode.Number).Format("$ #,##0.##").StylingMode(EditorStylingMode.Outlined));
                
                item.AddSimpleFor(m => m.Prima).ColSpan(1).Editor(e=>e.NumberBox().ShowSpinButtons(true).Mode(NumberBoxMode.Number).Format("$ #,##0.##").StylingMode(EditorStylingMode.Outlined).Min(0));              
                item.AddSimpleFor(m => m.Donado).ColSpan(1);
                item.AddSimpleFor(m => m.AplicaMora).ColSpan(1).Label(l => l.Text("Aplicar Mora"));
-               item.AddSimpleFor(m => m.AplicaInteres).ColSpan(1).Label(l => l.Text("Aplicar interés"));
+               item.AddSimpleFor(m => m.AplicaInteres).ColSpan(1).Label(l => l.Text("Aplicar interés")).Editor(e=>e.CheckBox().OnValueChanged("chkInteresChanged"));
                item.AddSimpleFor(m => m.TasaInteres).ColSpan(1).Label(l => l.Text("Tasa de Interés")).Editor(e=>e.NumberBox().ShowSpinButtons(true).Mode(NumberBoxMode.Number).Format("$ #,##0.##").StylingMode(EditorStylingMode.Outlined));
                item.AddSimpleFor(m => m.Plazo).ColSpan(1).Editor(e=>e.NumberBox().ShowSpinButtons(true).Mode(NumberBoxMode.Number).Format("$ #,##0.##").StylingMode(EditorStylingMode.Outlined));
                item.AddSimpleFor(m => m.Observaciones).ColSpan(3).Editor(e=>e.TextArea().StylingMode(EditorStylingMode.Outlined));
 
-            })
+            }).OnInitialized("onFormInitialized").OnContentReady("onFormReady")
         ) 
 
-}
+ }
 
 
 @(Html.DevExtreme().DataGrid<Asignacion_PlandePago>
@@ -128,7 +137,48 @@
                       
 )
 
+
+
+
  <script>
+var vform,isFirstLoad=true;
+
+ function onFormInitialized(e) {
+        vform = e.component;        
+    }
+
+    function onFormReady(e) {
+        if (isFirstLoad) {
+            var aplicainteres = vform.getEditor("AplicaInteres").option("value") == null ? false : true;
+            vform.getEditor("CuotaMinima").option("disabled", aplicainteres);
+            vform.getEditor("Plazo").option("disabled", !aplicainteres);
+            vform.getEditor("TasaInteres").option("disabled", !aplicainteres);
+            isFirstLoad = false;
+            var estado = vform.option("formData").Estado;
+            if (estado == "Anulada")
+                vform.option("disabled", true);
+            else
+                vform.option("disabled", false);
+        }}
+
+function disableForm(){
+    var estado = vform.option("formData").Estado;   
+}
+
+    function chkInteresChanged(e){
+        vform.getEditor("CuotaMinima").option("disabled", e.value);
+        vform.getEditor("CuotaMinima").option("value", 0);
+        //vform.getEditor("CuotaMinima").option("isValid", e.value);
+        //vform.getEditor("CuotaMinima").option("validationStatus","valid");
+        vform.getEditor("Plazo").option("disabled", !e.value);
+        vform.getEditor("Plazo").option("value", 0);
+        //vform.getEditor("Plazo").option("isValid", e.value);
+        vform.getEditor("TasaInteres").option("disabled", !e.value);
+        vform.getEditor("TasaInteres").option("value", 0);
+        //vform.getEditor("Plazo").option("isValid", e.value);
+        //vform.itemOption("CuotaMinima","isrequired",!e.value);
+    }
+
     function lookupExpr(item) {
       if(item!=null)
         return item.NombreProyecto + " " + item.NombreLote;      
