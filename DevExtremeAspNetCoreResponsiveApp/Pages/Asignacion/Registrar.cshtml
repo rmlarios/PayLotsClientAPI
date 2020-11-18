@@ -149,7 +149,7 @@ var vform,isFirstLoad=true;
 
     function onFormReady(e) {
         if (isFirstLoad) {
-            var aplicainteres = vform.getEditor("AplicaInteres").option("value") == null ? false : true;
+            var aplicainteres = vform.getEditor("AplicaInteres").option("value") == null ? false : vform.getEditor("AplicaInteres").option("value");
             vform.getEditor("CuotaMinima").option("disabled", aplicainteres);
             vform.getEditor("Plazo").option("disabled", !aplicainteres);
             vform.getEditor("TasaInteres").option("disabled", !aplicainteres);

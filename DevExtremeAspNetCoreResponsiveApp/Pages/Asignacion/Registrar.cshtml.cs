@@ -51,15 +51,18 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.Asignacion
       if (result.Succeeded)
       {
         _toastNotification.AddSuccessToastMessage(result.Message);
+        IdAsignacion = result.Data.IdAsignacion;
         //return Page();
         //return LocalRedirect(Url.Page("/Asignacion/Registrar?p=" + IdAsignacion));
-        //RedirectToPage(Url.Page(("/Asignacion/Registrar?p=" + IdAsignacion));
+        //RedirectToPage(Url.Page("/Asignacion/Registrar?p=" + IdAsignacion));
         //return new OkObjectResult(result.Message);
+        //await OnGet(IdAsignacion);
+        Response.Redirect("/Asignacion/Registrar/?p=" + IdAsignacion);
       }
       else
       {
         _toastNotification.AddErrorToastMessage(result.Message);
-
+        return;
         //return BadRequest(result.Message);
       }
 

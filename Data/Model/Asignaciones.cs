@@ -37,7 +37,7 @@ namespace Data.Model
     public bool? AplicaMora { get; set; } = false;
 
     [CustomCuotaValidator]
-    public int? Plazo { get; set; }
+    public int? Plazo { get; set; } = 0;
     public string Observaciones { get; set; } = string.Empty;
     public string Uar { get; set; }
     public DateTime Far { get; set; }
