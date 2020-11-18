@@ -1,6 +1,7 @@
 @page
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
 
+
 <div class="row text-center" style="padding-bottom: 10px;">
   <div class="col-md-8"></div>
   <div class="col-md-2 font-bold">Filtrar por Estado:</div>
@@ -61,7 +62,7 @@
                         columns.AddFor(m=>m.Saldo);
                         columns.Add().Type(GridCommandColumnType.Buttons).Buttons(buttons =>{
                           buttons.Add().Name(GridColumnButtonName.Edit);
-                          buttons.Add().Name("Anular").Hint("Anular").Icon("clear");
+                          buttons.Add().Name("Anular").Hint("Anular").Icon("clear").OnClick("openAnular");
                         });                        
                     })
                     .HeaderFilter(h => h.AllowSearch(true).Visible(true))
@@ -106,7 +107,67 @@
                        )
 )
 
+ 
+<input type="hidden" id="IdAsignacion" name="IdAsignacion">
+@(Html.DevExtreme().Popup
+            ()
+            .ID("PopAnular")
+            .Height(400)
+            .Position(PositionAlignment.Center)            
+            .Width(600)
+            .Title("Lotes Asignados: ")
+            .ShowCloseButton(true)            
+            .ContentTemplate(@<text>                
+@using (Html.BeginForm("Anular","Asignaciones",FormMethod.Post))
+{  
+    
+
+                @(Html.DevExtreme().Form<AnularAsignacionRequest>().ID("formAnular").ColCount(2).Height(350).ShowValidationSummary(true)
+                    .Items(item => {
+                        item.AddSimpleFor(m=>m.Observaciones).IsRequired(true).ColSpan(2).Editor(e=>e.TextBox().StylingMode(EditorStylingMode.Outlined).Height(50));                        
+                        item.AddSimpleFor(m=>m.IdAsignacion).Editor(e=>e.TextBox().Visible(false)).Visible(true);
+                        item.AddGroup().ColSpan(2).ColCount(2).Items(i=>{
+                            i.AddButton().Name("Anular").ColSpan(1).ButtonOptions(o=>o.Text("Aceptar").UseSubmitBehavior(true).Type(ButtonType.Danger).Width("100%"));
+                            i.AddButton().Name("Cancelar").ColSpan(1).ButtonOptions(o=>o.Text("Cancelar").Type(ButtonType.Success).Width("100%"));
+                        });
+                    })
+                    .OnInitialized("onFormInitialized").OnContentReady("onFormReady")
+                )                }
+            </text>)
+            
+            .Visible(false).CloseOnOutsideClick(true).Position(PositionAlignment.Center)
+)
+
+
+
 <script>
+    var IdAsignacionS,vform;
+
+     $(function(){
+     var msg = "@(TempData["Msg"] as string)";
+     if (msg !== "") {
+         alert(msg);
+     }
+  });
+
+    function onFormInitialized(e) {
+        vform = e.component;        
+        
+    }
+
+    function onFormReady(e){
+        vform.getEditor("IdAsignacion").option("value",IdAsignacionS);
+    }
+
+    function openAnular(e){
+        IdAsignacionS = e.row.key;
+        document.getElementById("IdAsignacion").value = IdAsignacionS;
+        var popup = $("#PopAnular").dxPopup("instance");       
+        popup.option('title',e.row.data.NombreCompleto + ' ' + e.row.data.NombreLote);
+        popup.show();
+    }
+
+
     function lookupExpr(item) {
       //alert(item);
       return item.NombreProyecto + " " + item.Bloque;

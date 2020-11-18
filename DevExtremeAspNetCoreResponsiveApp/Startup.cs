@@ -187,6 +187,11 @@ namespace DevExtremeAspNetCoreResponsiveApp
                        .AllowAnyHeader();
             }));
 
+      services.Configure<CookieTempDataProviderOptions>(options =>
+      {
+        options.Cookie.IsEssential = true;
+      });
+
             
         }
 
@@ -202,7 +207,7 @@ namespace DevExtremeAspNetCoreResponsiveApp
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            //app.UseRouting();
+            app.UseRouting();
             app.UseCors("MyPolicy");
             app.UseStaticFiles();
             app.UseAuthentication();

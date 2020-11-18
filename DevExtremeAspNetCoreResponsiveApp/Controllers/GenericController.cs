@@ -12,9 +12,9 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class GenericController<T> : ControllerBase where T : class, new()
+    public class GenericController<T> : Controller where T : class, new()
     {
-        private readonly IGenericProxy _genericProxy;
+        public readonly IGenericProxy _genericProxy;
         private readonly IToastNotification _toastNotification;
         private readonly string _ClassName;
         private readonly string _GetAllUrl;
