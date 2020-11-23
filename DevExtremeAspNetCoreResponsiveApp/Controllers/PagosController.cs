@@ -11,10 +11,10 @@ using NToastNotify;
 
 namespace DevExtremeAspNetCoreResponsiveApp.Controllers
 {
-  public class PagosController : GenericController<Pagos>
+  public class PagosController : GenericController<ViewPagosAsignaciones>
   {
     private readonly IGenericProxy _proxy;
-    public PagosController(IGenericProxy genericProxy, IToastNotification toastNotification) : base(genericProxy, toastNotification, "Pago", "GetAllUrl", "GetbyIdUrl")
+    public PagosController(IGenericProxy genericProxy, IToastNotification toastNotification) : base(genericProxy, toastNotification, "Pago/", "GetListado?vigentes="+false, "GetbyIdUrl")
     {
       _proxy = genericProxy;
     }

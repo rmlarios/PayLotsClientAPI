@@ -1445,3 +1445,4 @@ D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\bin\Debug\netcoreapp3.
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\bin\Debug\netcoreapp3.1\DevExtremeAspNetCoreResponsiveApp.Views.dll
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\bin\Debug\netcoreapp3.1\DevExtremeAspNetCoreResponsiveApp.Views.pdb
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\DevExtremeAspNetCoreResponsiveApp.genruntimeconfig.cache
+D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\Razor\Pages\Pago\Listado.cshtml.g.cs

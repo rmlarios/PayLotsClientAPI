@@ -1,6 +1,8 @@
 @page
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
-
+@{ 
+    TempData["ReportName"] = "PlandePago";
+}
 
 <div class="row text-center" style="padding-bottom: 10px;">
   <div class="col-md-8"></div>
@@ -55,16 +57,17 @@
                         columns.AddFor(m => m.IdAsignacion).Visible(false);
                         columns.AddFor(m => m.NombreProyecto);
                         columns.AddFor(m => m.NombreLote);
-                        columns.AddFor(m => m.NombreCompleto);                     
-                        columns.AddFor(m => m.MontoTotal);                     
-                        columns.AddFor(m => m.Estado);                     
+                        columns.AddFor(m => m.NombreCompleto);
+                        columns.AddFor(m => m.MontoTotal);
+                        columns.AddFor(m => m.Estado);
                         columns.AddFor(m => m.Abonado);
                         columns.AddFor(m=>m.Saldo);
-                        columns.Add().Type(GridCommandColumnType.Buttons).Buttons(buttons =>{
-                          buttons.Add().Name(GridColumnButtonName.Edit);
-                          buttons.Add().Name("Anular").Hint("Anular").Icon("clear").OnClick("openAnular");
-                        });                        
-                    })
+                        columns.Add().Type(GridCommandColumnType.Buttons).Fixed(true).FixedPosition(HorizontalEdge.Left).Buttons(buttons => {
+                        buttons.Add().Name(GridColumnButtonName.Edit);
+                        buttons.Add().Name("Anular").Hint("Anular").Icon("clear").OnClick("openAnular");
+                        buttons.Add().Name("PlanPago").Hint("Ver Plan de Pago").Icon("fa fa-calendar").OnClick("printPlan");
+                    });
+       })
                     .HeaderFilter(h => h.AllowSearch(true).Visible(true))
                     /*Configuracion para la edicion*/
                     .Editing(e => e.Mode(GridEditMode.Popup)
@@ -165,6 +168,13 @@
         var popup = $("#PopAnular").dxPopup("instance");       
         popup.option('title',e.row.data.NombreCompleto + ' ' + e.row.data.NombreLote);
         popup.show();
+    }
+
+    function printPlan(e) {
+        IdAsignacionS = e.row.key;
+        //alert(IdAsignacionS);
+        window.open('/ReportViewer/?p='+IdAsignacionS, '_newtab');
+        //window.location.href = "/ReportViewer/?p=";
     }
 
 

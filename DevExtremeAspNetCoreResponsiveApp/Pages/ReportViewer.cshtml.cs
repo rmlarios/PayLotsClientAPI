@@ -27,12 +27,17 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages
         public XtraReport Report { get; set; }
 
 
-        public async Task OnGet()
+        public async Task OnGet(int? p)
         {
-            Report = new RptPlandePago();
-            var source = await _genericproxy.GetAsync<Asignacion_PlandePago>("Pago/GetPlanPago/12352");            
-            Report.DataSource = source.Datas;
-            Report.DataMember = Report.DataMember;
+            switch (TempData["ReportName"])
+            {
+                case "PlandePago":
+                    Report = new RptPlandePago();
+                    var source = await _genericproxy.GetAsync<Asignacion_PlandePago>("Pago/GetPlanPago/"+p);
+                    Report.DataSource = source.Datas;
+                    Report.DataMember = Report.DataMember;
+                    break;
+            }
 
 
         }
