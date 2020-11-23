@@ -155,10 +155,14 @@ var vform,isFirstLoad=true;
             vform.getEditor("TasaInteres").option("disabled", !aplicainteres);
             isFirstLoad = false;
             var estado = vform.option("formData").Estado;
-            if (estado == "Anulada")
-                vform.option("disabled", true);
-            else
-                vform.option("disabled", false);
+            if (estado == "Anulada") {
+                vform.option("readOnly", true);
+                vform.getEditor("Guardar").option("disabled", true);
+            }
+            else {
+                vform.option("readOnly", false);
+                vform.getEditor("Guardar").option("disabled", false);
+            }
         }}
 
 function disableForm(){

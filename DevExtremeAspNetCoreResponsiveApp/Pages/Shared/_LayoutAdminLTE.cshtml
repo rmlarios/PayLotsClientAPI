@@ -6,23 +6,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Sistema de Pagos | @ViewData["Title"]</title>
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-    <!-- Theme style -->   
+    <!-- Theme style -->
     <link rel="stylesheet" href="~/AdminLTE/css/AdminLTE.css">
-    
+
     <link rel="stylesheet" href="~/css/vendor.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" />
     @*<link rel="stylesheet" href="~/css/devextreme/dx.light.css">*@
     @*<link rel="stylesheet" href="~/Identity/lib/bootstrap/dist/css/bootstrap.css" />*@
     @*<link href="~/css/boostrap/bootstrap.min.css" rel="stylesheet" />*@
     @* <link href="~/css/fontawesome/css/all.css" rel="stylesheet" /> *@
-   <style>
-       .dx-icon-xlsxfile {
-    font: 14px/1 DXIcons;
-}
-.dx-icon-xlsxfile::before {
-  content: "\f060";
-}
-   </style>
+    <style>
+        .dx-icon-xlsxfile {
+            font: 14px/1 DXIcons;
+        }
+
+            .dx-icon-xlsxfile::before {
+                content: "\f060";
+            }
+    </style>
 
     <script src="~/js/vendor.js" asp-append-version="true"></script>
 
@@ -35,8 +36,8 @@
     <link rel="stylesheet" href="~/AdminLTE/lib/font-awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="~/AdminLTE/lib/Ionicons/css/ionicons.min.css">
-    
-    
+
+
 
     <!-- AdminLTE Skins. Choose a skin from the css/skins
     folder instead of downloading all of them to reduce the load. -->
@@ -49,7 +50,12 @@
     <![endif]-->
     <!-- Google Font -->
     <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+    @*<link rel="stylesheet" href="~/css/thirdparty.bundle.css" />
+    <link rel="stylesheet" href="~/css/site.css" />*@
+    
+    <script src="~/js/site.js" asp-append-version="true"></script>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -430,6 +436,7 @@ id="logoutForm">
     <!-- ./wrapper -->
     <!-- jQuery 3 -->
     @* <script src="~/AdminLTE/lib/jquery/dist/jquery.js"></script> *@
+    @*<script src="~/js/devextreme/jquery.js"></script>*@
     <!-- Bootstrap 3.3.7 -->
     <script src="~/AdminLTE/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- SlimScroll -->

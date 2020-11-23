@@ -1,19 +1,88 @@
 [
-    {
-        "outputFileName": "wwwroot/css/vendor.css",
-        "inputFiles": [
-            "wwwroot/css/devextreme/dx.common.css",
-            "wwwroot/css/devextreme/theme.base.css",
-            "wwwroot/css/devextreme/theme.additional.css"
-        ],
-        "minify": {
-            "enabled": false
-        }
+  {
+    "outputFileName": "wwwroot/css/thirdparty.bundle.css",
+    "inputFiles": [
+      "node_modules/jquery-ui-dist/jquery-ui.min.css",
+      "node_modules/bootstrap/dist/css/bootstrap.min.css",
+      "node_modules/devextreme/dist/css/dx.common.css",
+      "node_modules/devextreme/dist/css/dx.light.css"
+    ],
+    "minify": {
+      "enabled": false,
+      "adjustRelativePaths": false
+    }
+  },
+  {
+    "outputFileName": "wwwroot/css/viewer.part.bundle.css",
+    "inputFiles": [
+      "node_modules/@devexpress/analytics-core/dist/css/dx-analytics.common.css",
+      "node_modules/@devexpress/analytics-core/dist/css/dx-analytics.light.css",
+      "node_modules/devexpress-reporting/dist/css/dx-webdocumentviewer.css"
+    ],
+    "minify": {
+      "enabled": false,
+      "adjustRelativePaths": false
+    }
+  },
+
+  {
+    "outputFileName": "wwwroot/css/designer.part.bundle.css",
+    "inputFiles": [
+      "node_modules/@devexpress/analytics-core/dist/css/dx-querybuilder.css",
+      "node_modules/devexpress-reporting/dist/css/dx-reportdesigner.css"
+    ],
+    "minify": {
+      "enabled": false,
+      "adjustRelativePaths": false
+    }
+  },
+
+  {
+    "outputFileName": "wwwroot/js/thirdparty.bundle.js",
+    "inputFiles": [
+      "node_modules/jquery/dist/jquery.min.js",
+      "node_modules/jquery-ui-dist/jquery-ui.min.js",
+      "node_modules/knockout/build/output/knockout-latest.js",
+      "node_modules/bootstrap/dist/js/bootstrap.min.js",
+      "node_modules/cldrjs/dist/cldr.js",
+      "node_modules/cldrjs/dist/cldr/event.js",
+      "node_modules/cldrjs/dist/cldr/supplemental.js",
+      "node_modules/cldrjs/dist/cldr/unresolved.js",
+      "node_modules/globalize/dist/globalize.js",
+      "node_modules/globalize/dist/globalize/message.js",
+      "node_modules/globalize/dist/globalize/number.js",
+      "node_modules/globalize/dist/globalize/currency.js",
+      "node_modules/globalize/dist/globalize/date.js",
+      "node_modules/devextreme/dist/js/dx.all.js",
+
+      "node_modules/ace-builds/src-min-noconflict/ace.js",
+      "node_modules/ace-builds/src-min-noconflict/ext-language_tools.js",
+      "node_modules/ace-builds/src-min-noconflict/theme-dreamweaver.js",
+      "node_modules/ace-builds/src-min-noconflict/theme-ambiance.js",
+      "node_modules/ace-builds/src-min-noconflict/snippets/text.js"
+    ],
+    "minify": {
+      "enabled": false
     },
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/js/viewer.part.bundle.js",
+    "inputFiles": [
+      "node_modules/@devexpress/analytics-core/dist/js/dx-analytics-core.min.js",
+      "node_modules/devexpress-reporting/dist/js/dx-webdocumentviewer.min.js"
+    ],
+    "minify": {
+      "enabled": false
+    },
+    "sourceMap": false
+  },
+
   {
     "outputFileName": "wwwroot/js/vendor.js",
     "inputFiles": [
       "wwwroot/js/devextreme/jquery.js",
+      "node_modules/jquery-ui-dist/jquery-ui.min.js",
 
       "wwwroot/js/devextreme/cldr.js",
       "wwwroot/js/devextreme/cldr/event.js",
@@ -26,16 +95,26 @@
       "wwwroot/js/devextreme/globalize/currency.js",
       "wwwroot/js/devextreme/globalize/date.js",
 
-      // JSZip for client side export
-      // "wwwroot/js/devextreme/jszip.js",
+      // JSZip for client side export  
+      // "wwwroot/js/devextreme/jszip.js",  
+
+      "node_modules/knockout/build/output/knockout-latest.js",
 
       "wwwroot/js/devextreme/dx.all.js",
       "wwwroot/js/devextreme/vectormap-data/world.js",
       "wwwroot/js/devextreme/aspnet/dx.aspnet.data.js",
-      "wwwroot/js/devextreme/aspnet/dx.aspnet.mvc.js"
+      "wwwroot/js/devextreme/aspnet/dx.aspnet.mvc.js",
+
+      //If your application contains the Document Viewer only  
+      "node_modules/@devexpress/analytics-core/dist/js/dx-analytics-core.js",
+      "node_modules/devexpress-reporting/dist/js/dx-webdocumentviewer.js",
+      //If your application constains the Report Designer
+      "node_modules/@devexpress/analytics-core/dist/js/dx-querybuilder.min.js",
+      "node_modules/devexpress-reporting/dist/js/dx-reportdesigner.min.js"
     ],
     "minify": {
       "enabled": false
     }
-  } 
+  }  
+
 ]

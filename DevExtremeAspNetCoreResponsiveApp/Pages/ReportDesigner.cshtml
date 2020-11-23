@@ -1,0 +1,8 @@
+﻿@page
+@using DevExpress.AspNetCore
+@model DevExtremeAspNetCoreResponsiveApp.Pages.ReportDesignerModel
+
+<link rel="stylesheet" href="~/css/viewer.part.bundle.css" />
+<link rel="stylesheet" href="~/css/designer.part.bundle.css" />
+
+@Html.DevExpress().ReportDesigner("ReportDesigner").AllowMDI(true).Height("1000px")

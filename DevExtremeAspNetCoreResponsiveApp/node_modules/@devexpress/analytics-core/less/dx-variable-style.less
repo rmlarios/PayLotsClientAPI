@@ -1,0 +1,366 @@
+﻿.dx-designer-viewport {
+    /* Borders -------------------------*/
+    .dxd-border-primary {
+        border-color: @color3;
+    }
+
+    .dxd-border-secondary {
+        border-color: @color4;
+    }
+
+    .dxd-border-accented {
+        border-color: @color9;
+    }
+
+    .dxd-back-contrast .dxd-border-primary {
+        border-color: @color5;
+    }
+    /* Icons -------------------------*/
+    .dxd-icon-accented .dxd-icon-fill {
+        fill: @color9;
+    }
+
+    .dxd-icon-fill {
+        fill: @color6;
+    }
+
+    .dxd-back-contrast .dxd-icon-fill {
+        fill: @color5;
+    }
+
+    .dxd-state-active, .dxd-back-contrast .dxd-back-highlighted:hover {
+        .dxd-icon-fill {
+            fill: @color1;
+        }
+    }
+    /* Text -------------------------*/
+    .dxd-text-primary {
+        color: @color8;
+    }
+
+    .dxd-text-info {
+        color: @color7;
+    }
+
+    .dxd-text-accented {
+        color: @color9;
+    }
+
+    .dxd-state-active, .dxd-back-contrast {
+        .dxd-text-primary {
+            color: @color1;
+        }
+    }
+    /* Background -------------------------*/
+    .dxd-back-primary {
+        background-color: @color2;
+    }
+
+    .dxd-back-primary2 {
+        background-color: @color1;
+    }
+
+    .dxd-back-secondary {
+        background-color: @color3;
+    }
+
+    .dxd-back-highlighted.dxd-state-normal:hover:not(.dxd-state-no-hover) {
+        background-color: @color4;
+    }
+
+    .dxd-back-highlighted {
+        &:hover:not(.dxd-state-no-hover) {
+            background-color: @color2;
+        }
+
+        &.dxd-state-selected, &.dxd-state-selected:hover {
+            background-color: @color4;
+        }
+
+        &.dxd-state-active {
+            background-color: @color5;
+
+            &:hover:not(.dxd-state-no-hover) {
+                background-color: @color6;
+            }
+        }
+    }
+
+    .dxd-back-contrast {
+        background-color: @color6;
+    }
+
+    .dxd-back-contrast .dxd-back-highlighted {
+        &.dxd-state-active, &.dxd-state-active:hover, &:hover {
+            background-color: @color7;
+        }
+    }
+
+    .dxd-back-accented {
+        background-color: @color9;
+    }
+    /* Customization -------------------------*/
+    .dxd-hyperlink-color {
+    }
+
+    .dxd-popup-back-color {
+    }
+
+    .dxd-toolbox-item-back-color {
+    }
+
+    .dxd-list-item-back-color.dxd-state-selected {
+    }
+
+    .dxd-list-item-back-color:hover {
+    }
+
+    .dxd-button-back-color {
+        &.dxd-state-selected, &:not(.dxd-state-active):hover {
+        }
+
+        &.dxd-state-active:hover {
+        }
+    }
+
+    .dxd-surface-back-color {
+    }
+
+    .dxd-menu-back-color {
+    }
+
+    .dxd-toolbar-back-color {
+    }
+
+    .dxd-toolbox-back-color {
+    }
+
+    .dxd-side-panel-tabs-back-color {
+    }
+
+    .dxd-side-panel-tab-back-color {
+        &:hover, &.dxd-state-active {
+        }
+    }
+
+    .dxd-toolbar-separator-color {
+    }
+
+    .dxd-property-grid-group-header-back-color {
+    }
+
+    .dxd-empty-area-placeholder-text-color {
+    }
+
+    .dxd-property-grid-menu-box-color {
+    }
+
+    .dxrd-tab-item {
+        .dxd-icon-fill {
+        }
+    }
+
+    .dxd-format-string-editor-border-color {
+    }
+
+    .dxd-scrollbar-color {
+        scrollbar-face-color: @color3;
+        scrollbar-track-color: @color5;
+        scrollbar-arrow-color: @color6;
+        -ms-scrollbar-face-color: @color3;
+        -ms-scrollbar-track-color: @color5;
+        -ms-scrollbar-arrow-color: @color6;
+
+        ::-webkit-scrollbar-corner {
+            background-color: @color3;
+        }
+
+        ::-webkit-scrollbar {
+            background-color: @color3;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: @color5;
+        }
+    }
+    /* AceEditor -------------------------*/
+    .dxrd-scripts-editor, .dx-sql_editor, .dx-expressioneditor-textarea, .dx-filtereditor-ace {
+        &.ace_editor {
+            background-color: @color1;
+
+            .ace_gutter {
+                background-color: @color2;
+                color: @color8;
+                border-color: @color3;
+            }
+        }
+    }
+    /* DevExtreme -------------------------*/
+    .dxrd-navigation-panel-wrapper {
+        .dx-tab {
+            background-color: @color1;
+            border-color: @color5;
+            color: @color8;
+        }
+
+        .dx-tab:hover {
+            background-color: @color2;
+        }
+
+        .dx-icon {
+            color: @color7;
+        }
+
+        .dx-tab.dx-tab-selected {
+            &, &:hover {
+                background-color: @color5;
+            }
+
+            color: @color1;
+
+            .dx-icon {
+                color: @color1;
+            }
+        }
+    }
+}
+
+/* FilterEditor -------------------------*/
+.dx-filtereditor {
+    .dxd-filter-editor-group-back-color {
+        background-color: @filtereditor-criteria-operator-group;
+    }
+
+    .dxd-filter-editor-group-back-color:hover:not(.dxd-state-no-hover) {
+        background-color: @filtereditor-criteria-operator-group-hover;
+    }
+
+    .dxd-filter-editor-group-back-color.dxd-state-selected {
+        background-color: @filtereditor-criteria-operator-group-selected;
+    }
+
+    .dxd-filter-editor-field-back-color {
+        background-color: @filtereditor-criteria-operator-field;
+    }
+
+    .dxd-filter-editor-field-back-color:hover:not(.dxd-state-no-hover) {
+        background-color: @filtereditor-criteria-operator-field-hover;
+    }
+
+    .dxd-filter-editor-field-back-color.dxd-state-selected {
+        background-color: @filtereditor-criteria-operator-field-selected;
+    }
+
+    .dxd-filter-editor-parameter-back-color {
+        background-color: @filtereditor-criteria-operator-parameter;
+    }
+
+    .dxd-filter-editor-parameter-back-color:hover:not(.dxd-state-no-hover) {
+        background-color: @filtereditor-criteria-operator-parameter-hover;
+    }
+
+    .dxd-filter-editor-parameter-back-color.dxd-state-selected {
+        background-color: @filtereditor-criteria-operator-parameter-selected;
+    }
+
+    .dxd-filter-editor-operator-back-color {
+        background-color: @filtereditor-criteria-operator-operator;
+    }
+
+    .dxd-filter-editor-operator-back-color:hover:not(.dxd-state-no-hover) {
+        background-color: @filtereditor-criteria-operator-operator-hover;
+    }
+
+    .dxd-filter-editor-operator-back-color.dxd-state-selected {
+        background-color: @filtereditor-criteria-operator-operator-selected;
+    }
+
+    .dxd-filter-editor-value-back-color {
+        background-color: @filtereditor-criteria-operator-value;
+    }
+
+    .dxd-filter-editor-value-back-color:hover:not(.dxd-state-no-hover) {
+        background-color: @filtereditor-criteria-operator-value-hover;
+    }
+
+    .dxd-filter-editor-text-color {
+        color: @filtereditor-criteria-operator-text-color;
+        fill: @filtereditor-criteria-operator-text-color;
+    }
+
+    .dxd-filter-editor-text-color.dxd-state-selected {
+        color: @filtereditor-criteria-operator-selected-text-color;
+    }
+
+    .dxd-state-selected .dxd-filter-editor-text-color {
+        color: @filtereditor-criteria-operator-selected-text-color;
+    }
+
+    .dxd-filter-editor-add-icon-fill-color {
+        fill: @filtereditor-criteria-operator-operator-selected;
+    }
+
+    .dxd-filter-editor-remove-icon-fill-color {
+        fill: @filtereditor-criteria-operator-group-selected;
+    }
+}
+/* QueryBuilder -------------------------*/
+.dx-querybuilder {
+
+    .dxd-surface-back-color {
+    }
+
+    .dxrd-toolbar-item .dxd-button-back-color:hover {
+    }
+
+    .dxd-qb-table-back-color {
+    }
+
+    .dxd-qb-table-border-color {
+    }
+
+    .dxrd-selected .dxd-qb-table-border-color {
+    }
+
+    .dxd-qb-table-field-border-color {
+    }
+
+    .dxrd-selected .dxd-qb-table-back-color {
+    }
+
+    .dxd-qb-table-field-back-color:hover {
+    }
+
+    .dxd-qb-table-field-back-color.dxd-state-joined {
+    }
+
+    .dxd-qb-table-field-back-color.dxd-state-active {
+    }
+
+    .dxqb-table-field.dxd-state-selected .dxd-qb-table-field-text-color {
+    }
+
+    .dxqb-table-field.dxd-qb-table-field-border-color {
+        &.dxd-state-joined, &.dxd-state-active {
+        }
+    }
+    // connection-line
+    .dxd-qb-relationship-line-color {
+        stroke: @color5;
+    }
+
+    .dxdd-connector.dxd-state-selected .dxd-qb-relationship-line-color {
+        stroke: @color9;
+    }
+
+    .dxd-qb-data-preview-cell-text-color {
+    }
+}
+/* Wizard -------------------------*/
+.dxrd-wizard {
+    .dxd-list-item-back-color {
+    }
+
+    .dxd-wizard-title-back-color {
+    }
+}

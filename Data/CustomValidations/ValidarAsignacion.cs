@@ -7,7 +7,7 @@ namespace Data.CustomValidations
 {
 
 [Route("[controller]/[action]")]
-  public class ValidarAsignacion : Controller
+  public class ValidarAsignacion : ControllerBase
   {
     public class Stuff
     {
@@ -17,27 +17,27 @@ namespace Data.CustomValidations
     public IActionResult EvalCuota(bool? AplicaInteres,decimal cuotaminima)
     {
       if(AplicaInteres==false && (cuotaminima<=0))
-        return Json("Debe ingresar el monto de la cuota.");
+        return Ok("Debe ingresar el monto de la cuota.");
 
-      return Json(true);
+      return Ok(true);
     }
 
     [AcceptVerbs("GET","POST")]
     public IActionResult EvalTasa(bool AplicaInteres,decimal TasaInteres)
     {
         if((TasaInteres<=0))
-        return Json("Debe ingresar la tasa de interés a aplicar.");
+        return Ok("Debe ingresar la tasa de interés a aplicar.");
 
-      return Json(true);
+      return Ok(true);
     }
 
     [AcceptVerbs("GET", "POST")]
      public IActionResult EvalPlazo(decimal? plazo,bool? aplicainteres)
     {
         if(aplicainteres==true && (plazo==null || plazo<=0))
-        return Json("Debe ingresar el Plazo de la asignación.");
+        return Ok("Debe ingresar el Plazo de la asignación.");
 
-      return Json(true);
+      return Ok(true);
     }  
 
   }

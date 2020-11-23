@@ -27,6 +27,12 @@ using Microsoft.Extensions.Hosting;
 using SimpleInjector;
 using NToastNotify;
 using Microsoft.AspNetCore.Mvc.Cors;
+using DevExpress.AspNetCore;
+using DevExpress.AspNetCore.Reporting;
+using Microsoft.Extensions.Logging;
+using DevExpress.XtraReports.Web.Extensions;
+using DevExtremeAspNetCoreResponsiveApp.Services;
+using DevExpress.XtraReports.Web.WebDocumentViewer;
 
 namespace DevExtremeAspNetCoreResponsiveApp
 {
@@ -43,6 +49,20 @@ namespace DevExtremeAspNetCoreResponsiveApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Configurando DevExpress
+            services.AddDevExpressControls();
+            services.AddScoped<ReportStorageWebExtension, CustomReportStorageWebExtension>();
+            services.AddTransient<IWebDocumentViewerReportResolver, CustomWebDocumentViewerReportResolver>();
+            services.ConfigureReportingServices(configurator => {
+                configurator.ConfigureWebDocumentViewer(viewerConfigurator => {
+                    viewerConfigurator.UseCachedReportSourceBuilder();
+                configurator.ConfigureReportDesigner(designerConfigurator => {
+                    designerConfigurator.RegisterDataSourceWizardConfigFileConnectionStringsProvider().EnableCustomSql();
+                    });
+                
+                });
+            });
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;
@@ -196,8 +216,16 @@ namespace DevExtremeAspNetCoreResponsiveApp
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
+            var reportingLogger = loggerFactory.CreateLogger("DXReporting");
+            DevExpress.XtraReports.Web.ClientControls.LoggerService.Initialize((exception, message) => {
+                var logMessage = $"[{DateTime.Now}]: Exception occurred. Message: '{message}'. Exception Details:\r\n{exception}";
+                reportingLogger.LogError(logMessage);
+            });
+
+            app.UseDevExpressControls();
+            System.Net.ServicePointManager.SecurityProtocol |= System.Net.SecurityProtocolType.Tls12;
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();

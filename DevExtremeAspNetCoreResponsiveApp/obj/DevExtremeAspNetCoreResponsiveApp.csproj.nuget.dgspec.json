@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp.csproj": {}
+    "D:\\GIT\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp.csproj": {}
   },
   "projects": {
-    "D:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\Data\\Data.csproj": {
+    "D:\\GIT\\PayLotsClientAPI\\Data\\Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\Data\\Data.csproj",
+        "projectUniqueName": "D:\\GIT\\PayLotsClientAPI\\Data\\Data.csproj",
         "projectName": "Data",
-        "projectPath": "D:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\Data\\Data.csproj",
+        "projectPath": "D:\\GIT\\PayLotsClientAPI\\Data\\Data.csproj",
         "packagesPath": "C:\\Users\\Miguel.Larios.MEM\\.nuget\\packages\\",
-        "outputPath": "D:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\Data\\obj\\",
+        "outputPath": "D:\\GIT\\PayLotsClientAPI\\Data\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -51,9 +51,9 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
-            "Microsoft.AspNetCore.Mvc": {
+            "Microsoft.AspNetCore.Mvc.Core": {
               "target": "Package",
-              "version": "[2.2.0, )"
+              "version": "[2.2.5, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
@@ -85,20 +85,19 @@
         }
       }
     },
-    "D:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp.csproj": {
+    "D:\\GIT\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp.csproj",
+        "projectUniqueName": "D:\\GIT\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp.csproj",
         "projectName": "DevExtremeAspNetCoreResponsiveApp",
-        "projectPath": "D:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp.csproj",
+        "projectPath": "D:\\GIT\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp.csproj",
         "packagesPath": "C:\\Users\\Miguel.Larios.MEM\\.nuget\\packages\\",
-        "outputPath": "D:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\obj\\",
+        "outputPath": "D:\\GIT\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "D:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp\\NuGet.Config",
           "C:\\Users\\Miguel.Larios.MEM\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 18.2.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.1.config",
@@ -115,7 +114,6 @@
           "C:\\Program Files (x86)\\DevExpress 19.1\\Components\\System\\Components\\Packages": {},
           "C:\\Program Files (x86)\\DevExpress 19.2\\Components\\System\\Components\\Packages": {},
           "C:\\Program Files (x86)\\DevExpress 20.1\\Components\\System\\Components\\Packages": {},
-          "C:\\Program Files (x86)\\DevExpress 20.1\\DevExtreme\\System\\DevExtreme\\Bin\\AspNetCore": {},
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "D:\\TFS2020\\SISLIC\\packages": {},
           "https://api.nuget.org/v3/index.json": {}
@@ -123,8 +121,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "D:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\Data\\Data.csproj": {
-                "projectPath": "D:\\GIT\\DevExtremeAspNetCoreResponsiveApp\\Data\\Data.csproj"
+              "D:\\GIT\\PayLotsClientAPI\\Data\\Data.csproj": {
+                "projectPath": "D:\\GIT\\PayLotsClientAPI\\Data\\Data.csproj"
               }
             }
           }
@@ -141,6 +139,14 @@
             "BuildBundlerMinifier": {
               "target": "Package",
               "version": "[2.9.406, )"
+            },
+            "DevExpress.AspNetCore.Reporting": {
+              "target": "Package",
+              "version": "[20.1.3, )"
+            },
+            "DevExpress.Reporting.Core": {
+              "target": "Package",
+              "version": "[20.1.3, )"
             },
             "DevExtreme.AspNet.Core": {
               "target": "Package",
@@ -189,6 +195,10 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[3.1.4, )"
+            },
+            "Microsoft.Web.LibraryManager.Build": {
+              "target": "Package",
+              "version": "[2.1.113, )"
             },
             "NToastNotify": {
               "target": "Package",

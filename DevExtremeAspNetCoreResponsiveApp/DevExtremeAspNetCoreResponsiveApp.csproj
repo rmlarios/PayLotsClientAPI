@@ -2,45 +2,106 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <IdentityUIFrameworkVersion>Bootstrap4</IdentityUIFrameworkVersion>
+    <DefaultItemExcludes>Reports\**</DefaultItemExcludes>
     <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
     <UserSecretsId>a6df1995-27be-4a43-bf4c-f5d916ef73a9</UserSecretsId>
   </PropertyGroup>
+  
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <WarningLevel>0</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="Pages\ListaBeneficiarios\Beneficiarios.cshtml.cs"/>
+    <Compile Remove="Pages\ListaBeneficiarios\Beneficiarios.cshtml.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Remove="Pages\ListaBeneficiarios\Beneficiarios.cshtml"/>
+    <Content Remove="Pages\ListaBeneficiarios\Beneficiarios.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MailKit" Version="2.8.0"/>
-    <PackageReference Include="DevExtreme.AspNet.Data" Version="2.6.1"/>
-    <PackageReference Include="DevExtreme.AspNet.Core" Version="20.1.3"/>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Cors" Version="2.2.0"/>
-    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.1.1"/>
-    <PackageReference Include="BuildBundlerMinifier" Version="2.9.406"/>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.7"/>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.7"/>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.7"/>
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.7"/>
-    <PackageReference Include="System.Data.SqlClient" Version="4.6.1"/>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.7"/>
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.7"/>
-    <PackageReference Include="SimpleInjector.Integration.AspNetCore.Mvc" Version="4.7.1"/>
-    <PackageReference Include="NToastNotify" Version="7.0.0"/>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4"/>
+    <Compile Remove="Reports\**" />
+    <Content Remove="Reports\**" />
+    <EmbeddedResource Remove="Reports\**" />
+    <None Remove="Reports\**" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Identity\Services\"/>
+    <Compile Remove="node_modules\**" />
+    <Content Remove="node_modules\**" />
+    <EmbeddedResource Remove="node_modules\**" />
+    <None Remove="node_modules\**" />
+  </ItemGroup>
+  <Target Name="DebugEnsureNodeEnv" BeforeTargets="LibraryManagerRestore" Condition="!Exists('node_modules') ">
+    <!-- Ensure Node.js is installed -->
+    <Exec Command="node --version" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+    </Exec>
+    <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
+    <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
+    <Exec Command="npm install" />
+  </Target>
+  <ItemGroup>
+    <Compile Include="Reports\Asignaciones.cs">
+      <DependentUpon>Asignaciones.repx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\Asignaciones.Designer.cs">
+      <DependentUpon>Asignaciones.repx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\PlandePago.cs">
+      <DependentUpon>PlandePago.repx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\PlandePago.Designer.cs">
+      <DependentUpon>PlandePago.repx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\RptPlandePago.cs">
+      <DependentUpon>RptPlandePago.repx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\RptPlandePago.Designer.cs">
+      <DependentUpon>RptPlandePago.repx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\TestReport.cs">
+      <DependentUpon>TestReport.repx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\TestReport.Designer.cs">
+      <DependentUpon>TestReport.repx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="DevExpress.AspNetCore.Reporting" Version="20.1.3" />
+    <PackageReference Include="DevExpress.Reporting.Core" Version="20.1.3" />
+    <PackageReference Include="MailKit" Version="2.8.0" />
+    <PackageReference Include="DevExtreme.AspNet.Data" Version="2.6.1" />
+    <PackageReference Include="DevExtreme.AspNet.Core" Version="20.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Cors" Version="2.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.1.1" />
+    <PackageReference Include="BuildBundlerMinifier" Version="2.9.406" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.7" />
+    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="2.1.113" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.6.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.7" />
+    <PackageReference Include="SimpleInjector.Integration.AspNetCore.Mvc" Version="4.7.1" />
+    <PackageReference Include="NToastNotify" Version="7.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Data\Data.csproj"/>
+    <Folder Include="Areas\Identity\Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reports\Asignaciones.repx" />
+    <EmbeddedResource Include="Reports\PlandePago.repx" />
+    <EmbeddedResource Include="Reports\TestReport.repx" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reports\RptPlandePago.repx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Data\Data.csproj" />
   </ItemGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties TemplateFeatures="NETCORE CS RESPONSIVE"/>
+      <UserProperties TemplateFeatures="NETCORE CS RESPONSIVE" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

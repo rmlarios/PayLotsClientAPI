@@ -1,0 +1,91 @@
+﻿@import 'colors/contrast-colors.less';
+@import 'dx-variable-style.less';
+
+.dx-designer-viewport {
+    .dxd-back-secondary {
+        background-color: @color7;
+    }
+
+    .dx-background-inheritor.dxd-back-highlighted {
+        .dxd-back-secondary {
+            background-color: @color8;
+        }
+    }
+
+    .dxd-back-highlighted.dxd-state-normal:hover:not(.dxd-state-no-hover) {
+        background-color: @color7;
+    }
+
+    .dxd-back-highlighted {
+        &:hover:not(.dxd-state-no-hover) {
+            background-color: @color7;
+        }
+
+        &.dxd-state-selected {
+            background-color: @color8;
+        }
+
+        &.dxd-state-selected:hover {
+            background-color: @color7;
+        }
+
+        &.dxd-state-active {
+            background-color: @color8;
+
+            &:hover:not(.dxd-state-no-hover) {
+                background-color: @color7;
+            }
+        }
+    }
+
+    .dxd-back-contrast .dxd-back-highlighted {
+        &:hover, &.dxd-state-active {
+            background-color: @color7;
+
+            .dxd-icon-fill {
+                fill: @color8;
+            }
+        }
+    }
+
+    .dx-contrast-color-mixin(@color) {
+        color: @color;
+
+        .dxd-text-primary {
+            color: @color;
+        }
+
+        .dxd-icon-fill {
+            fill: @color;
+        }
+    }
+
+    .dxd-state-selected, .dxd-state-active {
+        &:not(.dx-background-inheritor) {
+            .dx-contrast-color-mixin(@color1);
+
+            &:hover:not(.dxd-state-no-hover), .dx-button, .dx-overlay-content {
+                .dx-contrast-color-mixin(@color8);
+            }
+        }
+    }
+
+    .dxrd-navigation-panel-wrapper {
+        .dx-tab {
+            border-color: @color8;
+        }
+
+        .dx-tab:hover {
+            background-color: @color7;
+        }
+
+        .dx-tab.dx-tab-selected, .dx-tab.dx-tab-selected:hover {
+            background-color: @color8;
+        }
+    }
+}
+
+
+.dx-querybuilder .dxd-qb-relationship-line-color {
+    stroke: @color8;    
+}
