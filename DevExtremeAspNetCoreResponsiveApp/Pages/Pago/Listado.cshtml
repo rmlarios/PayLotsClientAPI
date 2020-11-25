@@ -21,30 +21,43 @@
                     .SearchPanel(s => s.Visible(true).HighlightSearchText(true).Width(400))
                     .FilterRow(f => f.ApplyFilter(GridApplyFilterMode.Auto).Visible(true).ShowAllText("Todo"))
                     .FilterSyncEnabled(true)
+                    .Grouping(c=>c.AutoExpandAll(false))
                     .WordWrapEnabled(true)
                     .ColumnAutoWidth(true)
 
                     /*Columnas del grid*/
                     .Columns(columns =>
                     {
-                    columns.Add().GroupIndex(0).AutoExpandGroup(false).Caption("Lote").AllowSearch(true).CalculateCellValue(@<text>
-                                function(rowData){
-                                    return rowData.NombreCompleto + ' ' + rowData.NombreLote;
-                                }
-                                                    </text>);
-                        columns.AddFor(m => m.IdAsignacion).Visible(false).AllowGrouping(true).AutoExpandGroup(false);
-                        columns.AddFor(m => m.IdPago).Visible(false);                        
+                    columns.AddFor(m=>m.IdAsignacion).Visible(false).Caption("Lote").AllowSearch(true).CalculateDisplayValue(new JS("groupDisplay")).CalculateCellValue(@<text>
+  function (rowData) {
+       // alert(rowData.IdAsignacion);
+        return rowData.IdAsignacion;
+    }
+</text>)
+                    .GroupCellTemplate(new JS("groupTemplate")).CalculateGroupValue(new JS("groupValue"));
+
+                        columns.AddFor(m => m.IdAsignacion).GroupIndex(0)
+        .GroupCellTemplate(new JS("groupTemplate"))
+        .Caption("Asignacion").Lookup(c => c.DataSource(d => d.Mvc().Controller("Asignaciones").LoadAction("GetAll")).DisplayExpr(new JS("groupDisplay")).ValueExpr("IdAsignacion"));
+                        columns.AddFor(m => m.IdPago).Visible(false);
                         columns.AddFor(m => m.NumeroAbono);
                         columns.AddFor(m => m.NumeroRecibo);
                         columns.AddFor(m => m.MesPagado);
                         columns.AddFor(m => m.MontoPago);
                         columns.AddFor(m => m.Mora);
                         columns.AddFor(m => m.Interés);
+                        columns.AddFor(m => m.Abonado).Visible(false);
+                        columns.AddFor(m => m.Saldo).Visible(false);
 
                         columns.Add().Type(GridCommandColumnType.Buttons).Fixed(true).FixedPosition(HorizontalEdge.Left).Buttons(buttons => {
                             buttons.Add().Name(GridColumnButtonName.Edit);
                         });
                     })
+                    
+                    .Summary(c=>c.GroupItems(g=> {
+                        g.AddFor(m => m.MontoPago).ShowInColumn("MontoPago").Column("MontoPago").SummaryType(SummaryType.Sum);
+                        g.AddFor(m => m.Saldo).Column("Saldo").SummaryType(SummaryType.Avg);
+                    }))
                     .HeaderFilter(h => h.AllowSearch(true).Visible(true))
                     /*Configuracion para la edicion*/
                     .Editing(e => e.Mode(GridEditMode.Popup)
@@ -88,7 +101,33 @@
 )
 
 <script>
-      function grid_dataSource_beforeSend(operation, ajax) {
+
+
+    function groupTemplate(cellElement, cellInfo) {
+        var groupKey = cellInfo.displayValue + ' Abonado: ' + cellInfo.summaryItems[0].value + ' Saldo: ' + cellInfo.summaryItems[1].value;
+        $('<span>')
+            .text(groupKey)
+            .appendTo(cellElement);
+        $("<div>")
+            .css({ 'float': 'left'})
+            .dxButton({
+                text: "",
+                icon: "fa fa-floppy-o",
+                onClick: function (e) {
+                    alert(cellInfo.data.key);
+                }
+            }).appendTo(cellElement);
+    }
+
+    function groupDisplay(rowData) {
+        return 'Lote: ' + rowData.NombreLote + ' Nombre: ' + rowData.NombreCompleto ;
+    }
+
+    function groupValue(rowData) {
+        return rowData.IdAsignacion;
+    }
+
+    function grid_dataSource_beforeSend(operation, ajax) {
         @* var data = ajaxSettings.data || {},
             args = Object.keys(data).map(function (key) {
                 return key + "=" + data[key];
