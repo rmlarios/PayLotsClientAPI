@@ -14,7 +14,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controllers
   public class PagosController : GenericController<ViewPagosAsignaciones>
   {
     private readonly IGenericProxy _proxy;
-    public PagosController(IGenericProxy genericProxy, IToastNotification toastNotification) : base(genericProxy, toastNotification, "Pago/", "GetListado?vigentes="+false, "GetbyIdUrl")
+    public PagosController(IGenericProxy genericProxy, IToastNotification toastNotification) : base(genericProxy, toastNotification, "Pago/", "GetListado?vigentes="+true, "")
     {
       _proxy = genericProxy;
     }
@@ -35,6 +35,16 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controllers
         return new JsonResult(DataSourceLoader.Load(result.Datas, loadOptions));
       }
     }
+
+        [HttpGet("GetMeses")]
+        public async Task<IActionResult> GetMeses(int idasignacion,DataSourceLoadOptions loadOptions, int? idpago = 0)
+        {
+            var result = await _proxy.GetAsync<Asignacion_PlandePago>("Pago/GetMesesPagar/"+idasignacion+"?idpago="+idpago);
+            if (result.Succeeded == true)
+                return new JsonResult(DataSourceLoader.Load(result.Datas, loadOptions));
+
+            return new JsonResult(DataSourceLoader.Load(new List<Asignacion_PlandePago>(), loadOptions));
+        }
 
 
 

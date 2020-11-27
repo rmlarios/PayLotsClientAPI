@@ -47,7 +47,7 @@
                         columns.AddFor(m => m.Mora);
                         columns.AddFor(m => m.Interés);
                         columns.AddFor(m => m.Abonado).Visible(false);
-                        columns.AddFor(m => m.Saldo).Visible(false);
+                        columns.AddFor(m => m.Saldo).Visible(false).Format("$ #,##0.##");
 
                         columns.Add().Type(GridCommandColumnType.Buttons).Fixed(true).FixedPosition(HorizontalEdge.Left).Buttons(buttons => {
                             buttons.Add().Name(GridColumnButtonName.Edit);
@@ -55,9 +55,9 @@
                     })
                     
                     .Summary(c=>c.GroupItems(g=> {
-                        g.AddFor(m => m.MontoPago).ShowInColumn("MontoPago").Column("MontoPago").SummaryType(SummaryType.Sum);
-                        g.AddFor(m => m.Saldo).Column("Saldo").SummaryType(SummaryType.Avg);
-                    }))
+                        g.AddFor(m => m.MontoPago).ShowInColumn("MontoPago").Column("MontoPago").SummaryType(SummaryType.Sum).DisplayFormat("$ #,##0.##");
+                        g.AddFor(m => m.Saldo).Column("Saldo").SummaryType(SummaryType.Max).ValueFormat("currency");
+                    }).TotalItems(t=>t.AddFor(m=>m.MontoPago).ShowInColumn("MontoPago").ValueFormat("currency").SummaryType(SummaryType.Sum)))
                     .HeaderFilter(h => h.AllowSearch(true).Visible(true))
                     /*Configuracion para la edicion*/
                     .Editing(e => e.Mode(GridEditMode.Popup)
@@ -85,8 +85,9 @@
                            function(e)
                            {
                                e.cancel = true;
-                               var id = e.data.IdAsignacion;
-                               window.location.href="/Asignacion/Registrar/?p=" + id ;
+                               var idasignacion = e.data.IdAsignacion;
+                               var idpago = e.data.IdPago;
+                               window.location.href="/Pago/Registrar/?p=" + idasignacion+"."+idpago ;
                            }
                        </text>)
                        .OnInitNewRow(@<text>
@@ -94,7 +95,7 @@
                            {
                                e.cancel = true;
                                var id = e.data.IdAsignacion;
-                               window.location.href="/Asignacion/Registrar/?p=0" ;
+                               window.location.href="/Pago/Registrar/?p="+ id ;
                            }
                        </text>
                        )
@@ -112,9 +113,13 @@
             .css({ 'float': 'left'})
             .dxButton({
                 text: "",
-                icon: "fa fa-floppy-o",
+                icon: "fa fa-plus",
+                stylingMode: "contained",
+                hint:"Registrar pago",
+                type: "success",
                 onClick: function (e) {
-                    alert(cellInfo.data.key);
+                    var idpago= cellInfo.data.key;
+                    window.location.href = "/Pago/Registrar/?p=" + idpago;
                 }
             }).appendTo(cellElement);
     }
