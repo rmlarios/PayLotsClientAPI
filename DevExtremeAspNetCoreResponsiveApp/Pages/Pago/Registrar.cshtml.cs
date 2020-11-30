@@ -39,24 +39,54 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.Pago
             else// if(parameters.Count()==1)
             {
                 idasignacion = Convert.ToInt32(parameters[0]);
+                idpago = 0;
             }
 
-            if (idpago != 0)
+            pago = new ViewPagosAsignaciones();
+            pago.IdPago = idpago;
+
+            var resultasig = await _genericProxy.GetAsync<ViewAsignacionesSaldo>("Asignacion/GetDatosbyId/"+idasignacion);
+            if (resultasig.Succeeded)
             {
-                var result = await _genericProxy.GetAsync<ViewPagosAsignaciones>("Pago/GetDatosPago/" + idpago);
-                if (result.Succeeded)
+                if (idpago != 0)
                 {
-                    pago = result.Data;
-                    var DatosMes = await _genericProxy.GetAsync<Asignacion_PlandePago>("Pago/GetMesesPagar/"+idasignacion+" ?idpago="+idpago);
-                    pago.MontoPago = DatosMes.Datas.SingleOrDefault(m => m.MesPagado == pago.MesPagado).MontoMinimo;
-                    pago.Interés = DatosMes.Datas.SingleOrDefault(m => m.MesPagado == pago.MesPagado).Interes;
-                    pago.Mora = DatosMes.Datas.SingleOrDefault(m => m.MesPagado == pago.MesPagado).Mora;
-                    
+                    //var result = await _genericProxy.GetAsync<Pagos>("Pago/GetDatosPago/" + idpago);
+                    var result = await _genericProxy.GetAsync<Pagos>("Pago/" + idpago);
+                    if (result.Succeeded)
+                    {
+                        //pago = (ViewPagosAsignaciones)result.Data;                        
+                        pago.IdPago = result.Data.IdPago;
+                        pago.MesPagado = result.Data.MesPagado;
+                        pago.NumeroRecibo = result.Data.NumeroRecibo;
+                        pago.FechaRecibo = result.Data.FechaRecibo;
+                        pago.MontoEfectivo = result.Data.MontoEfectivo;
+                        pago.Moneda = result.Data.Moneda;
+                        pago.TasaCambio = result.Data.TasaCambio;
+                        pago.Observaciones = result.Data.Observaciones;
 
+                        var DatosMes = await _genericProxy.GetAsync<Asignacion_PlandePago>("Pago/GetMesesPagar/" + idasignacion + " ?idpago=" + idpago);
+                        pago.MontoPago = DatosMes.Datas.SingleOrDefault(m => m.MesPagado == pago.MesPagado).MontoMinimo;
+                        pago.Interés = DatosMes.Datas.SingleOrDefault(m => m.MesPagado == pago.MesPagado).Interes;
+                        pago.Mora = DatosMes.Datas.SingleOrDefault(m => m.MesPagado == pago.MesPagado).Mora;
+                    }
+                    else
+                        pago = new ViewPagosAsignaciones();
                 }
-                else
-                    pago = new ViewPagosAsignaciones();
+
+                pago.IdAsignacion = resultasig.Datas[0].IdAsignacion;
+                pago.IdLote = resultasig.Datas[0].IdLote;
+                pago.NombreCompleto = resultasig.Datas[0].NombreCompleto;
+                pago.MontoTotal = resultasig.Datas[0].MontoTotal;
+                pago.Prima = resultasig.Datas[0].Prima;
+                pago.Abonado = resultasig.Datas[0].Abonado;
+                pago.Saldo = resultasig.Datas[0].Saldo;
             }
+         
+
+
+
+
+           
         }
     }
 }

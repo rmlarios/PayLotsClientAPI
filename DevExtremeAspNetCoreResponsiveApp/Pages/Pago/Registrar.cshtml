@@ -44,12 +44,19 @@
                    ));
                });
                 /*item.AddButton().Name("Guardar").ButtonOptions(o => o.Icon("save").Text("Guardar").Type(ButtonType.Success).UseSubmitBehavior(true));*/
-                item.AddSimpleFor(m => m.IdAsignacion).Visible(false);
+                //item.AddSimpleFor(m => m.IdAsignacion).Visible(false);
                 item.AddSimpleFor(m=>m.Estado).Visible(false);
-                item.AddSimpleFor(m => m.IdLote).ColSpan(2).Label(l => l.Text("Lote")).Editor(e => e.Lookup().DataSource(d => d.Mvc().Controller("Asignaciones").LoadAction("GetAll").Key("IdLote")).DataSourceOptions(o=>o.Filter("['Estado', '=', 'Vigente']"
+                item.AddSimpleFor(m => m.IdAsignacion).ColSpan(2).Label(l => l.Text("Lote")).Editor(e => e.Lookup().DataSource(d => d.Mvc().Controller("Asignaciones").LoadAction("GetAll").Key("IdAsignacion")).DataSourceOptions(o=>o.Filter("['Estado', '=', 'Vigente']"
                 ))
-                .SearchExpr("NombreLote").SearchMode(DropDownSearchMode.Contains).DisplayExpr(new JS("lookupExpr")).ValueExpr("IdLote").PageLoadingText("Cargando").NextButtonText("Más").PageLoadMode(ListPageLoadMode.NextButton).SearchEnabled(true).SearchMode(DropDownSearchMode.Contains).StylingMode(EditorStylingMode.Outlined)
-                );
+                .SearchExpr("NombreLote").SearchMode(DropDownSearchMode.Contains).DisplayExpr(new JS("lookupExpr")).ValueExpr("IdAsignacion").PageLoadingText("Cargando").NextButtonText("Más").PageLoadMode(ListPageLoadMode.NextButton).SearchEnabled(true).SearchMode(DropDownSearchMode.Contains).StylingMode(EditorStylingMode.Outlined)
+
+                .OnValueChanged(@<text>
+                function(e){
+                    window.location.href="/Pago/Registrar/?p=" + e.value+".0";
+                }
+                </text>)
+                )
+                ;
 
                 item.AddSimpleFor(m => m.NombreCompleto).ColSpan(2).Label(l => l.Text("Beneficiario")).Editor(e=>e.TextBox().ReadOnly(true).StylingMode(EditorStylingMode.Outlined));
 
@@ -74,7 +81,7 @@
                     item.AddSimpleFor(m => m.NumeroRecibo).Editor(e => e.TextBox().ReadOnly(true).StylingMode(EditorStylingMode.Outlined));
                     item.AddSimpleFor(m => m.FechaRecibo).Editor(e => e.DateBox().StylingMode(EditorStylingMode.Outlined));
                     item.AddSimpleFor(m => m.MontoEfectivo).Editor(e => e.NumberBox().ShowSpinButtons(true).StylingMode(EditorStylingMode.Outlined));
-                    item.AddSimpleFor(m => m.Moneda).Editor(e => e.SelectBox().Items(new string[] {"Dólares","Córdobas"}).StylingMode(EditorStylingMode.Outlined));
+                    item.AddSimpleFor(m => m.Moneda).Editor(e => e.SelectBox().Items(new string[] {"Dólares","Córdobas"}).OnSelectionChanged("onMonedaChanged").StylingMode(EditorStylingMode.Outlined));
                     item.AddSimpleFor(m => m.TasaCambio).Editor(e => e.NumberBox().ShowSpinButtons(true).StylingMode(EditorStylingMode.Outlined).Min(0));
                     item.AddSimpleFor(m => m.Observaciones).Editor(e=>e.TextBox().StylingMode(EditorStylingMode.Outlined));
                 }
@@ -87,9 +94,91 @@
 
 }
 
+@(Html.DevExtreme().DataGrid<Pagos>
+                    ()
+                    .ID("GridListado")
+                    .DataSource(d=>d.Mvc().Controller("Pagos").Key("IdPago")
+                    //.LoadMethod("Plan")
+                    .LoadAction("GetbyId")
+                    .LoadParams(new { id = new JS("getIdAsignacion") })
+                    )
+                    .ColumnResizingMode(ColumnResizingMode.NextColumn)
+                    .NoDataText("No hay registros que mostrar")
+                    .ShowBorders(true)
+                    .ElementAttr(new { @class = "dx-card wide-card" })
+                    .Export(e => e.Enabled(true)).OnExporting("exporting")
+                    .Paging(pag => pag.PageSize(6))
+                    .Pager(p => p.ShowPageSizeSelector(false).ShowNavigationButtons(true).ShowInfo(true).InfoText("Página {0} de {1} ({2} Registros)"))
+                    .RowAlternationEnabled(true)
+                    .HoverStateEnabled(true)
+                    .Selection(s => s.Mode(SelectionMode.Single).AllowSelectAll(false))
+                    .SearchPanel(s => s.Visible(true).HighlightSearchText(true).Width(400))
+                    .FilterRow(f => f.ApplyFilter(GridApplyFilterMode.Auto).Visible(true).ShowAllText("Todo"))
+                    .FilterSyncEnabled(true)
+                    .WordWrapEnabled(true)
+                    .ColumnAutoWidth(true)
+                    /*Columnas del grid*/
+                    .Columns(c =>{
+                    c.Add().Type(GridCommandColumnType.Buttons).Buttons(b=> {
+                        b.Add().Name(GridColumnButtonName.Edit);
+                        b.Add().Name(GridColumnButtonName.Delete);
+                    });
+                    c.AddFor(m => m.IdPago).Visible(false);
+                    c.AddFor(m => m.IdAsignacion).Visible(false);
+                    c.AddFor(m=>m.MesPagado);
+                    c.AddFor(m=>m.NumeroRecibo);
+                    c.AddFor(m=>m.FechaRecibo).DataType(GridColumnDataType.Date).Format("dd/MM/yyyy");
+                    c.AddFor(m=>m.MontoPago).Caption("Principal");
+                    c.AddFor(m=>m.Interés);
+                    c.AddFor(m=>m.Mora);
+                    c.Add().Caption("Total").CalculateCellValue(@<text>
+                        function(rowData) {
+                            return rowData.MontoPago + rowData.Interés + rowData.Mora;
+                        }
+                        </text>);
+                    })
+                    .Summary(s => s.TotalItems(t => {
+                        t.Add().Column("Total").SummaryType(SummaryType.Sum).DisplayFormat("Total Pagado: ${0}").ShowInColumn("Total").ValueFormat(Format.Decimal);
+                        t.AddFor(m => m.MontoPago).SummaryType(SummaryType.Sum).DisplayFormat("Total Abonado: ${0}").ValueFormat(Format.Decimal).ShowInColumn("MontoPago");
+                    }
+                    ))
+                    .HeaderFilter(h => h.AllowSearch(true).Visible(true))
+                    /*Configuracion para la edicion*/
+                    .Editing(e => e.Mode(GridEditMode.Popup)
+                        .UseIcons(true)
+                        .AllowAdding(true)
+                        .AllowUpdating(true)
+                        //.AllowDeleting(true)
+                        .UseIcons(true)
+                        .Texts(t => t.AddRow("Nuevo").EditRow("Editar").DeleteRow("Eliminar").ConfirmDeleteMessage("¿Está seguro que desea Eliminar este Registro?")
+                        .SaveRowChanges("Guardar").CancelRowChanges("Cancelar"))
+                        /*Configuracion del Popup*/
+                        .Popup(p => p.Width(700).Title("Formulario de Edición").ShowTitle(true).Position(PositionAlignment.Center).Height(350).CloseOnOutsideClick(false).ShowCloseButton(false))
+                        /*Configuracion del EditForm*/
+                        .Form(f => f.ColCount(1).ShowRequiredMark(true).LabelLocation(FormLabelLocation.Left)
+                            .Items(items =>
+                            {
+
+
+                            }))
+                          )
+                       .ErrorRowEnabled(true)
+                       .OnEditingStart(@<text>
+                           function(e)
+                           {
+                               e.cancel = true;
+                               var idasignacion = e.data.IdAsignacion;
+                               var idpago = e.data.IdPago;
+                               window.location.href="/Pago/Registrar/?p=" + idasignacion+"."+idpago ;
+                           }
+                        </text>)
+                       .OnInitNewRow("newPago")
+
+)
+
 
 <script>
-    var vform, isFirstLoad = true,IdAsignacion, IdPago;
+    var vform, isFirstLoad = true, IdAsignacion, IdPago;
 
     function onFormInitialized(e) {
         vform = e.component;
@@ -97,20 +186,36 @@
 
     function onFormReady(e) {
         if (isFirstLoad) {
-            var moneda = vform.getEditor("Moneda").option("value");            
+            var moneda = vform.getEditor("Moneda").option("value");
             isFirstLoad = false;
             //var estado = vform.option("formData").Estado;
-            if (moneda == "Dólares") {                
+            if (moneda == "Dólares") {
                 vform.getEditor("TasaCambio").option("disabled", true);
             }
             else {
                 vform.getEditor("TasaCambio").option("disabled", false);
+                vform.getEditor("TasaCambio").option("value", 0);
             }
+
         }
     }
 
+    function onMonedaChanged(e) {
+        var moneda = e.selectedItem;
+        if (!isFirstLoad) {
+            if (moneda == "Dólares") {
+                vform.getEditor("TasaCambio").option("disabled", true);
+            }
+            else {
+                vform.getEditor("TasaCambio").option("disabled", false);
+                vform.getEditor("TasaCambio").option("value", 0);
+            }
+        }
+
+    }
+
     function onMesReady(e) {
-       // alert(e);
+        // alert(e);
     }
 
     function onMesChanged(e) {
@@ -119,6 +224,10 @@
         vform.getEditor("Mora").option("value", e.selectedItem.Mora);
         vform.getEditor("TotalPagar").option("value", e.selectedItem.MontoMinimo + e.selectedItem.Interes + e.selectedItem.Mora);
         //vform.option("formData").IdPago = 0;
+    }
+
+    function newPago() {
+        window.location.href = "/Pago/Registrar/?p=" + IdAsignacion + "." + 0;
     }
 
     function getIdAsignacion() {
@@ -141,5 +250,22 @@
     function lookupExpr(item) {
         if (item != null)
             return item.NombreProyecto + " " + item.NombreLote;
+    }
+
+    function exporting(e) {
+        var workbook = new ExcelJS.Workbook();
+        var worksheet = workbook.addWorksheet('Hoja1');
+
+        DevExpress.excelExporter.exportDataGrid({
+            component: e.component,
+            worksheet: worksheet,
+            autoFilterEnabled: true
+        }).then(function () {
+            // https://github.com/exceljs/exceljs#writing-xlsx
+            workbook.xlsx.writeBuffer().then(function (buffer) {
+                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'PlandePago.xlsx');
+            });
+        });
+        e.cancel = true;
     }
 </script>
