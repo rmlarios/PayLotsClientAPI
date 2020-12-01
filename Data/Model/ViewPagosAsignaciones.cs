@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data.CustomValidations;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -35,6 +36,7 @@ namespace Data.Model
         public bool? Donado { get; set; }
         [Required(ErrorMessage = "Debe seleccionar la moneda del pago.")]
         public string Moneda { get; set; } = "Córdobas";
+        [CustomTasaCambioValidator]
         public decimal? TasaCambio { get; set; } = 0;
         [Required(ErrorMessage = "Debe ingresar el monto efectivo pagado.")]
         [Range(1, 1000, ErrorMessage = "Debe ingresar un monto mayor a 0")]

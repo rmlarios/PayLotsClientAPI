@@ -88,5 +88,17 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.Pago
 
            
         }
+
+        public async Task OnPost([FromForm] int IdPago, [FromForm]Pagos entity)
+        {
+            if (!ModelState.IsValid)
+            {
+                var Errors = ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage).Aggregate((U, V) => U + "," + V);
+                _toastNotification.AddErrorToastMessage(Errors);
+                ModelState.AddModelError("custom", Errors);
+                return;
+            }
+
+        }
     }
 }
