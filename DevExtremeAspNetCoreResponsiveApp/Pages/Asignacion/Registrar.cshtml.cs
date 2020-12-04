@@ -51,13 +51,14 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.Asignacion
       if (result.Succeeded)
       {
         _toastNotification.AddSuccessToastMessage(result.Message);
-        IdAsignacion = result.Data.IdAsignacion;
+        Asignaciones.IdAsignacion = result.Data.IdAsignacion;
+
         //return Page();
         //return LocalRedirect(Url.Page("/Asignacion/Registrar?p=" + IdAsignacion));
         //RedirectToPage(Url.Page("/Asignacion/Registrar?p=" + IdAsignacion));
         //return new OkObjectResult(result.Message);
         //await OnGet(IdAsignacion);
-        Response.Redirect("/Asignacion/Registrar/?p=" + IdAsignacion);
+        //Response.Redirect("/Asignacion/Registrar/?p=" + IdAsignacion);
       }
       else
       {
@@ -66,7 +67,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.Asignacion
         //return BadRequest(result.Message);
       }
 
-      await OnGet(IdAsignacion);
+      await OnGet(Asignaciones.IdAsignacion);
       //return RedirectToPage();
 
 

@@ -1,0 +1,10 @@
+﻿@using DevExpress.AspNetCore
+
+<link rel="stylesheet" href="~/css/viewer.part.bundle.css" />
+
+
+@{
+    Layout = null;
+}
+
+@(Html.DevExpress().WebDocumentViewer("Viewer").Height("700px").Bind(Model))

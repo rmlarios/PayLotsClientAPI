@@ -18,8 +18,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Reports\**" />
+    <Compile Remove="wwwroot\Areas\**" />
     <Content Remove="Reports\**" />
+    <Content Remove="wwwroot\Areas\**" />
     <EmbeddedResource Remove="Reports\**" />
+    <EmbeddedResource Remove="wwwroot\Areas\**" />
     <None Remove="Reports\**" />
   </ItemGroup>
   <ItemGroup>
@@ -27,6 +30,7 @@
     <Content Remove="node_modules\**" />
     <EmbeddedResource Remove="node_modules\**" />
     <None Remove="node_modules\**" />
+    <None Remove="wwwroot\Areas\**" />
   </ItemGroup>
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="LibraryManagerRestore" Condition="!Exists('node_modules') ">
     <!-- Ensure Node.js is installed -->
@@ -38,23 +42,17 @@
     <Exec Command="npm install" />
   </Target>
   <ItemGroup>
-    <Compile Include="Reports\Asignaciones.cs">
-      <DependentUpon>Asignaciones.repx</DependentUpon>
-    </Compile>
-    <Compile Include="Reports\Asignaciones.Designer.cs">
-      <DependentUpon>Asignaciones.repx</DependentUpon>
-    </Compile>
-    <Compile Include="Reports\PlandePago.cs">
-      <DependentUpon>PlandePago.repx</DependentUpon>
-    </Compile>
-    <Compile Include="Reports\PlandePago.Designer.cs">
-      <DependentUpon>PlandePago.repx</DependentUpon>
-    </Compile>
     <Compile Include="Reports\RptPlandePago.cs">
       <DependentUpon>RptPlandePago.repx</DependentUpon>
     </Compile>
     <Compile Include="Reports\RptPlandePago.Designer.cs">
       <DependentUpon>RptPlandePago.repx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\RptTicketPago.cs">
+      <DependentUpon>RptTicketPago.repx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\RptTicketPago.Designer.cs">
+      <DependentUpon>RptTicketPago.repx</DependentUpon>
     </Compile>
     <Compile Include="Reports\TestReport.cs">
       <DependentUpon>TestReport.repx</DependentUpon>
@@ -86,15 +84,13 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Identity\Services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Reports\Asignaciones.repx" />
-    <EmbeddedResource Include="Reports\PlandePago.repx" />
     <EmbeddedResource Include="Reports\TestReport.repx" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reports\RptPlandePago.repx" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reports\RptTicketPago.repx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj" />

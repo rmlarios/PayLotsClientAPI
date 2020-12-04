@@ -3,9 +3,9 @@ using DevExpress.XtraReports.UI;
 
 namespace DevExtremeAspNetCoreResponsiveApp.Reports
 {
-    public partial class PlandePago
+    public partial class RptTicketPago
     {
-        public PlandePago()
+        public RptTicketPago()
         {
             InitializeComponent();
         }

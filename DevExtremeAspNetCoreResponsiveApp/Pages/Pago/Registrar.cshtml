@@ -1,4 +1,7 @@
 ﻿@page
+@using DevExpress.AspNetCore
+
+<link rel="stylesheet" href="~/css/viewer.part.bundle.css" />
 @model DevExtremeAspNetCoreResponsiveApp.Pages.Pago.RegistrarModel
 @{
     ViewData["Title"] = "Registrar Pago";
@@ -122,6 +125,7 @@
                     c.Add().Type(GridCommandColumnType.Buttons).Buttons(b=> {
                         b.Add().Name(GridColumnButtonName.Edit);
                         b.Add().Name(GridColumnButtonName.Delete);
+                        b.Add().Icon("fa fa-print").Hint("Imprimir").OnClick("printTicket");
                     });
                     c.AddFor(m => m.IdPago).Visible(false);
                     c.AddFor(m => m.IdAsignacion).Visible(false);
@@ -175,10 +179,29 @@
                        .OnInitNewRow("newPago")
 
 )
-
+@(Html.DevExtreme().Popup().ID("popRecibo").MaxWidth("600px").MaxHeight("800px").CloseOnOutsideClick(false).Title("Imprimir Recibo")
+        .Width("600px").Height("800px").Position(PositionAlignment.Center).ContentTemplate(@<text>
+@(Html.DevExpress().WebDocumentViewer("Viewer").Height("800px").Bind(Model.ticketPago).AutoBind(true))
+</text>))
+@(Html.DevExtreme().Popup().ID("popRecibo2").MaxWidth("600px").MaxHeight("800px").CloseOnOutsideClick(false).Title("Imprimir Recibo")
+        .Width("600px").Height("800px").Position(PositionAlignment.Center).ContentTemplate(
+    @<text>
+            <div id="result_Voucher_Item_popup">
+            </div></text>
+    ))
 
 <script>
     var vform, isFirstLoad = true, IdAsignacion, IdPago;
+
+    $(function () {
+        var msg = "@(TempData["Imprimir"] as string)";
+        if (msg == "S") {
+            alert(msg);
+            var popup = $("#popRecibo").dxPopup("instance");
+            popup.show();
+        }
+    });
+
 
     function onFormInitialized(e) {
         vform = e.component;
@@ -196,8 +219,23 @@
                 vform.getEditor("TasaCambio").option("disabled", false);
                 vform.getEditor("TasaCambio").option("value", 0);
             }
-
+            var queryParams = new URLSearchParams(window.location.search);
+            IdAsignacion = vform.getEditor("IdAsignacion").option("value");
+            IdPago = vform.option("formData").IdPago;
+            var param = IdAsignacion.toString() + "." + IdPago.toString();
+            queryParams.set("p", param);
+            // Replace current querystring with the new one.
+            history.replaceState(null, null, "?" + queryParams.toString());
+            //alert(queryParams);
         }
+    }
+    var PagoPrint = null;
+    function printTicket(e) {
+        PagoPrint= e.row.key;
+        var popup = $("#popRecibo2").dxPopup("instance");
+        popup.show();
+        $("#result_Voucher_Item_popup").html('');        
+        $("#result_Voucher_Item_popup").load("@Url.Action("GetTicket", "Pagos")?idpago=" + PagoPrint);
     }
 
     function onMonedaChanged(e) {

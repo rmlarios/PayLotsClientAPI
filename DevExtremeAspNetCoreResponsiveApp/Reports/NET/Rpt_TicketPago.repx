@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XtraReportsLayoutSerializer SerializerVersion="18.2.7.0" Ref="1" ControlType="DevExpress.XtraReports.UI.XtraReport, DevExpress.XtraReports.v18.2, Version=18.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Name="Rpt_TicketPago" DisplayName="TicketPago" SnapGridSize="25" VerticalContentSplitting="Smart" ReportUnit="TenthsOfAMillimeter" RollPaper="true" Margins="25, 25, 25, 25" PaperKind="Custom" PageWidth="770" PageHeight="1727" Version="18.2" RequestParameters="false" DataMember="SP_TicketPagoGenerar" DataSource="#Ref-0" Dpi="254" Font="Arial, 9.75pt">
+  <Parameters>
+    <Item1 Ref="3" ValueInfo="0" Name="IdPago" Type="#Ref-2" />
+  </Parameters>
+  <Bands>
+    <Item1 Ref="4" ControlType="TopMarginBand" Name="TopMargin" HeightF="25" Dpi="254" />
+    <Item2 Ref="5" ControlType="BottomMarginBand" Name="BottomMargin" HeightF="25" Dpi="254" />
+    <Item3 Ref="6" ControlType="DetailBand" Name="Detail" KeepTogetherWithDetailReports="true" HeightF="1278.207" Dpi="254">
+      <Controls>
+        <Item1 Ref="7" ControlType="XRTable" Name="xrTable2" TextAlignment="MiddleLeft" SizeF="720,63.5" LocationFloat="0, 1088.167" Dpi="254" Padding="5,5,0,0,254">
+          <Rows>
+            <Item1 Ref="8" ControlType="XRTableRow" Name="xrTableRow3" Weight="1" Dpi="254">
+              <Cells>
+                <Item1 Ref="9" ControlType="XRTableCell" Name="xrTableCell5" Weight="0.5104166673502053" Multiline="true" Text="Cajero:" Dpi="254" />
+                <Item2 Ref="10" ControlType="XRTableCell" Name="xrTableCell6" Weight="2.324229229865634" Multiline="true" Text="xrTableCell6" TextAlignment="MiddleCenter" Dpi="254">
+                  <ExpressionBindings>
+                    <Item1 Ref="11" Expression="[Cajero]" PropertyName="Text" EventName="BeforePrint" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="12" UseTextAlignment="false" />
+                </Item2>
+              </Cells>
+            </Item1>
+          </Rows>
+          <StylePriority Ref="13" UseTextAlignment="false" />
+        </Item1>
+        <Item2 Ref="14" ControlType="XRLabel" Name="xrLabel5" Multiline="true" Text="Todo pago deberá hacerse en Caja" TextAlignment="TopCenter" SizeF="720,50.79993" LocationFloat="0, 1227.407" Dpi="254" Padding="5,5,0,0,254">
+          <StylePriority Ref="15" UseTextAlignment="false" />
+        </Item2>
+        <Item3 Ref="16" ControlType="XRLabel" Name="xrLabel4" Multiline="true" Text="Válido con firma del Cajero" TextAlignment="TopCenter" SizeF="720,50.80005" LocationFloat="0, 1176.607" Dpi="254" Padding="5,5,0,0,254">
+          <StylePriority Ref="17" UseTextAlignment="false" />
+        </Item3>
+        <Item4 Ref="18" ControlType="XRTable" Name="xrTable1" TextAlignment="MiddleLeft" SizeF="720,762" LocationFloat="0, 210.82" Dpi="254" Font="Arial, 8pt" Padding="5,5,0,0,254">
+          <Rows>
+            <Item1 Ref="19" ControlType="XRTableRow" Name="xrTableRow1" Weight="0.88" Dpi="254">
+              <Cells>
+                <Item1 Ref="20" ControlType="XRTableCell" Name="xrTableCell1" Weight="0.95833341008169093" Multiline="true" Text="Número Recibo" Dpi="254" Font="Arial, 9pt, style=Bold" Padding="0,5,0,0,254">
+                  <StylePriority Ref="21" UseFont="false" UsePadding="false" />
+                </Item1>
+                <Item2 Ref="22" ControlType="XRTableCell" Name="xrTableCell2" Weight="1.8763124871341486" Multiline="true" Text="xrTableCell2" TextAlignment="MiddleRight" Dpi="254" Font="Arial, 9pt" Padding="0,0,0,0,254">
+                  <ExpressionBindings>
+                    <Item1 Ref="23" Expression="[NumeroRecibo]" PropertyName="Text" EventName="BeforePrint" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="24" UseFont="false" UsePadding="false" UseTextAlignment="false" />
+                </Item2>
+              </Cells>
+            </Item1>
+            <Item2 Ref="25" ControlType="XRTableRow" Name="xrTableRow2" Weight="0.88" Dpi="254">
+              <Cells>
+                <Item1 Ref="26" ControlType="XRTableCell" Name="xrTableCell3" Weight="0.95833341008169082" Multiline="true" Text="Fecha" Dpi="254" Font="Arial, 9pt, style=Bold" Padding="0,5,0,0,254">
+                  <StylePriority Ref="27" UseFont="false" UsePadding="false" />
+                </Item1>
+                <Item2 Ref="28" ControlType="XRTableCell" Name="xrTableCell4" Weight="1.8763124871341486" TextFormatString="{0:dd/MM/yyyy}" Multiline="true" Text="xrTableCell4" TextAlignment="MiddleRight" Dpi="254" Font="Arial, 9pt" Padding="0,0,0,0,254">
+                  <ExpressionBindings>
+                    <Item1 Ref="29" Expression="[FechaRecibo]" PropertyName="Text" EventName="BeforePrint" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="30" UseFont="false" UsePadding="false" UseTextAlignment="false" />
+                </Item2>
+              </Cells>
+            </Item2>
+            <Item3 Ref="31" ControlType="XRTableRow" Name="xrTableRow4" Weight="0.87999999999999989" Dpi="254">
+              <Cells>
+                <Item1 Ref="32" ControlType="XRTableCell" Name="xrTableCell7" Weight="0.95833341008169093" Multiline="true" Text="Lote" Dpi="254" Font="Arial, 9pt, style=Bold" Padding="0,5,0,0,254">
+                  <StylePriority Ref="33" UseFont="false" UsePadding="false" />
+                </Item1>
+                <Item2 Ref="34" ControlType="XRTableCell" Name="xrTableCell8" Weight="1.8763124871341486" Multiline="true" Text="xrTableCell8" TextAlignment="MiddleRight" Dpi="254" Font="Arial, 9pt" Padding="0,0,0,0,254">
+                  <ExpressionBindings>
+                    <Item1 Ref="35" Expression="[NumeroLote]" PropertyName="Text" EventName="BeforePrint" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="36" UseFont="false" UsePadding="false" UseTextAlignment="false" />
+                </Item2>
+              </Cells>
+            </Item3>
+            <Item4 Ref="37" ControlType="XRTableRow" Name="xrTableRow5" Weight="0.88000000000000012" Dpi="254">
+              <Cells>
+                <Item1 Ref="38" ControlType="XRTableCell" Name="xrTableCell9" Weight="0.95833341008169093" Multiline="true" Text="Mes Pagado" Dpi="254" Font="Arial, 9pt, style=Bold" Padding="0,5,0,0,254">
+                  <StylePriority Ref="39" UseFont="false" UsePadding="false" />
+                </Item1>
+                <Item2 Ref="40" ControlType="XRTableCell" Name="xrTableCell10" Weight="1.8763124871341486" Multiline="true" Text="xrTableCell10" TextAlignment="MiddleRight" Dpi="254" Font="Arial, 9pt" Padding="0,0,0,0,254">
+                  <ExpressionBindings>
+                    <Item1 Ref="41" Expression="[MesPagado]" PropertyName="Text" EventName="BeforePrint" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="42" UseFont="false" UsePadding="false" UseTextAlignment="false" />
+                </Item2>
+              </Cells>
+            </Item4>
+            <Item5 Ref="43" ControlType="XRTableRow" Name="xrTableRow13" Weight="0.88000000000000012" Dpi="254">
+              <Cells>
+                <Item1 Ref="44" ControlType="XRTableCell" Name="xrTableCell25" Weight="0.43749999748729074" Multiline="true" Text="Cliente" Dpi="254" Font="Arial, 9pt, style=Bold" Padding="0,5,0,0,254">
+                  <StylePriority Ref="45" UseFont="false" UsePadding="false" />
+                </Item1>
+                <Item2 Ref="46" ControlType="XRTableCell" Name="xrTableCell26" Weight="2.3971458997285482" Multiline="true" Text="xrTableCell26" TextAlignment="MiddleRight" Dpi="254" Font="Arial, 9pt" Padding="0,0,0,0,254">
+                  <ExpressionBindings>
+                    <Item1 Ref="47" Expression="[Beneficiario]" PropertyName="Text" EventName="BeforePrint" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="48" UseFont="false" UsePadding="false" UseTextAlignment="false" />
+                </Item2>
+              </Cells>
+            </Item5>
+            <Item6 Ref="49" ControlType="XRTableRow" Name="xrTableRow14" Weight="0.88" Dpi="254">
+              <Cells>
+                <Item1 Ref="50" ControlType="XRTableCell" Name="xrTableCell27" Weight="0.374999992461872" Multiline="true" Text="Lugar" Dpi="254" Font="Arial, 9pt, style=Bold" Padding="0,5,0,0,254">
+                  <StylePriority Ref="51" UseFont="false" UsePadding="false" />
+                </Item1>
+                <Item2 Ref="52" ControlType="XRTableCell" Name="xrTableCell28" Weight="2.4596459047539674" Multiline="true" Text="xrTableCell28" TextAlignment="MiddleRight" Dpi="254" Font="Arial, 9pt" Padding="0,0,0,0,254">
+                  <ExpressionBindings>
+                    <Item1 Ref="53" Expression="[Proyecto]" PropertyName="Text" EventName="BeforePrint" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="54" UseFont="false" UsePadding="false" UseTextAlignment="false" />
+                </Item2>
+              </Cells>
+            </Item6>
+            <Item7 Ref="55" ControlType="XRTableRow" Name="xrTableRow6" Weight="0.88000000000000034" Dpi="254">
+              <Cells>
+                <Item1 Ref="56" ControlType="XRTableCell" Name="xrTableCell11" Weight="1" Multiline="true" Dpi="254" Font="Arial, 9pt, style=Bold">
+                  <StylePriority Ref="57" UseFont="false" />
+                </Item1>
+                <Item2 Ref="58" ControlType="XRTableCell" Name="xrTableCell12" Weight="1.8346458972158395" Multiline="true" Dpi="254" />
+              </Cells>
+            </Item7>
+            <Item8 Ref="59" ControlType="XRTableRow" Name="xrTableRow7" Weight="0.88" Dpi="254">
+              <Cells>
+                <Item1 Ref="60" ControlType="XRTableCell" Name="xrTableCell13" Weight="1" Multiline="true" Text="Saldo Anterior" Dpi="254" Font="Arial, 9pt, style=Bold">
+                  <StylePriority Ref="61" UseFont="false" />
+                </Item1>
+                <Item2 Ref="62" ControlType="XRTableCell" Name="xrTableCell14" Weight="1.8346458972158395" Multiline="true" Text="xrTableCell14" TextAlignment="MiddleRight" Dpi="254" Font="Arial, 9pt">
+                  <ExpressionBindings>
+                    <Item1 Ref="63" Expression="[SaldoInicial]" PropertyName="Text" EventName="BeforePrint" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="64" UseFont="false" UseTextAlignment="false" />
+                </Item2>
+              </Cells>
+            </Item8>
+            <Item9 Ref="65" ControlType="XRTableRow" Name="xrTableRow16" Weight="0.88" Dpi="254">
+              <Cells>
+                <Item1 Ref="66" ControlType="XRTableCell" Name="xrTableCell31" Weight="1" Multiline="true" Text="Principal" Dpi="254" Font="Arial, 9pt, style=Bold">
+                  <StylePriority Ref="67" UseFont="false" />
+                </Item1>
+                <Item2 Ref="68" ControlType="XRTableCell" Name="xrTableCell32" Weight="1.8346458972158395" Multiline="true" Text="xrTableCell32" TextAlignment="MiddleRight" Dpi="254" Font="Arial, 9pt">
+                  <ExpressionBindings>
+                    <Item1 Ref="69" Expression="[MontoPago]" PropertyName="Text" EventName="BeforePrint" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="70" UseFont="false" UseTextAlignment="false" />
+                </Item2>
+              </Cells>
+            </Item9>
+            <Item10 Ref="71" ControlType="XRTableRow" Name="xrTableRow8" Weight="0.79999999999999982" Dpi="254">
+              <Cells>
+                <Item1 Ref="72" ControlType="XRTableCell" Name="xrTableCell15" Weight="1" Multiline="true" Text="Interés" Dpi="254" Font="Arial, 9pt, style=Bold">
+                  <StylePriority Ref="73" UseFont="false" />
+                </Item1>
+                <Item2 Ref="74" ControlType="XRTableCell" Name="xrTableCell16" Weight="1.8346458972158395" Multiline="true" Text="xrTableCell16" TextAlignment="MiddleRight" Dpi="254" Font="Arial, 9pt">
+                  <ExpressionBindings>
+                    <Item1 Ref="75" Expression="[Interes]" PropertyName="Text" EventName="BeforePrint" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="76" UseFont="false" UseTextAlignment="false" />
+                </Item2>
+              </Cells>
+            </Item10>
+            <Item11 Ref="77" ControlType="XRTableRow" Name="xrTableRow9" Weight="0.7999999999999996" Dpi="254">
+              <Cells>
+                <Item1 Ref="78" ControlType="XRTableCell" Name="xrTableCell17" Weight="1" Multiline="true" Text="Mora" Dpi="254" Font="Arial, 9pt, style=Bold">
+                  <StylePriority Ref="79" UseFont="false" />
+                </Item1>
+                <Item2 Ref="80" ControlType="XRTableCell" Name="xrTableCell18" Weight="1.8346458972158395" Multiline="true" Text="xrTableCell18" TextAlignment="MiddleRight" Dpi="254" Font="Arial, 9pt">
+                  <ExpressionBindings>
+                    <Item1 Ref="81" Expression="[Mora]" PropertyName="Text" EventName="BeforePrint" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="82" UseFont="false" UseTextAlignment="false" />
+                </Item2>
+              </Cells>
+            </Item11>
+            <Item12 Ref="83" ControlType="XRTableRow" Name="xrTableRow10" Weight="0.80000000000000027" Dpi="254">
+              <Cells>
+                <Item1 Ref="84" ControlType="XRTableCell" Name="xrTableCell19" Weight="1" Multiline="true" Text="Total Pagado" Dpi="254" Font="Arial, 9pt, style=Bold">
+                  <StylePriority Ref="85" UseFont="false" />
+                </Item1>
+                <Item2 Ref="86" ControlType="XRTableCell" Name="xrTableCell20" Weight="1.8346458972158395" Multiline="true" Text="xrTableCell20" TextAlignment="MiddleRight" Dpi="254" Font="Arial, 9pt">
+                  <ExpressionBindings>
+                    <Item1 Ref="87" Expression="[TotalPagar]" PropertyName="Text" EventName="BeforePrint" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="88" UseFont="false" UseTextAlignment="false" />
+                </Item2>
+              </Cells>
+            </Item12>
+            <Item13 Ref="89" ControlType="XRTableRow" Name="xrTableRow11" Weight="0.79999999999999982" Dpi="254">
+              <Cells>
+                <Item1 Ref="90" ControlType="XRTableCell" Name="xrTableCell21" Weight="1" Multiline="true" Text="&#xD;&#xA;" Dpi="254" Font="Arial, 9pt, style=Bold">
+                  <StylePriority Ref="91" UseFont="false" />
+                </Item1>
+                <Item2 Ref="92" ControlType="XRTableCell" Name="xrTableCell22" Weight="1.8346458972158395" Multiline="true" Dpi="254" />
+              </Cells>
+            </Item13>
+            <Item14 Ref="93" ControlType="XRTableRow" Name="xrTableRow12" Weight="0.88000000000000012" Dpi="254">
+              <Cells>
+                <Item1 Ref="94" ControlType="XRTableCell" Name="xrTableCell23" Weight="1" Multiline="true" Text="Saldo Principal" Dpi="254" Font="Arial, 9pt, style=Bold">
+                  <StylePriority Ref="95" UseFont="false" />
+                </Item1>
+                <Item2 Ref="96" ControlType="XRTableCell" Name="xrTableCell24" Weight="1.8346458972158395" Multiline="true" Text="xrTableCell24" TextAlignment="MiddleRight" Dpi="254" Font="Arial, 9pt, style=Bold">
+                  <ExpressionBindings>
+                    <Item1 Ref="97" Expression="[Saldo]" PropertyName="Text" EventName="BeforePrint" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="98" UseFont="false" UseTextAlignment="false" />
+                </Item2>
+              </Cells>
+            </Item14>
+          </Rows>
+          <StylePriority Ref="99" UseFont="false" UseTextAlignment="false" />
+        </Item4>
+        <Item5 Ref="100" ControlType="XRPageInfo" Name="xrPageInfo1" PageInfo="DateTime" TextFormatString="{0:H:mm:ss}" TextAlignment="MiddleCenter" SizeF="720,58.42" LocationFloat="0, 152.4" Dpi="254" Padding="5,5,0,0,254">
+          <StylePriority Ref="101" UseTextAlignment="false" />
+        </Item5>
+        <Item6 Ref="102" ControlType="XRLabel" Name="xrLabel3" Multiline="true" Text="Teléfono" TextAlignment="MiddleCenter" SizeF="720,50.8" LocationFloat="0, 101.6" Dpi="254" Font="Arial, 10pt, style=Italic" Padding="5,5,0,0,254">
+          <StylePriority Ref="103" UseFont="false" UseTextAlignment="false" />
+        </Item6>
+        <Item7 Ref="104" ControlType="XRLabel" Name="xrLabel2" Multiline="true" Text="Dirección:" TextAlignment="MiddleCenter" SizeF="720,50.79999" LocationFloat="0, 50.79999" Dpi="254" Font="Arial, 10pt, style=Italic" Padding="5,5,0,0,254">
+          <StylePriority Ref="105" UseFont="false" UseTextAlignment="false" />
+        </Item7>
+        <Item8 Ref="106" ControlType="XRLabel" Name="xrLabel1" Multiline="true" Text="Nombre Empresa" TextAlignment="MiddleCenter" SizeF="720,50.8" LocationFloat="0, 0" Dpi="254" Font="Arial, 10pt, style=Bold" Padding="5,5,0,0,254">
+          <StylePriority Ref="107" UseFont="false" UseTextAlignment="false" />
+        </Item8>
+      </Controls>
+    </Item3>
+  </Bands>
+  <ComponentStorage>
+    <Item1 Ref="0" ObjectType="DevExpress.DataAccess.Sql.SqlDataSource,DevExpress.DataAccess.v18.2" Name="sqlDataSource1" Base64="PFNxbERhdGFTb3VyY2UgTmFtZT0ic3FsRGF0YVNvdXJjZTEiPjxDb25uZWN0aW9uIE5hbWU9IlBheUxvdHNDb25uZWN0aW9uU3RyaW5nIiBGcm9tQXBwQ29uZmlnPSJ0cnVlIiAvPjxRdWVyeSBUeXBlPSJTdG9yZWRQcm9jUXVlcnkiIE5hbWU9IlNQX1RpY2tldFBhZ29HZW5lcmFyIj48UGFyYW1ldGVyIE5hbWU9IkBJZFBhZ28iIFR5cGU9IkRldkV4cHJlc3MuRGF0YUFjY2Vzcy5FeHByZXNzaW9uIj4oU3lzdGVtLkludDMyLCBtc2NvcmxpYiwgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkpKD9JZFBhZ28pPC9QYXJhbWV0ZXI+PFBhcmFtZXRlciBOYW1lPSJASWRlbnRpdHlVc2VyIiBUeXBlPSJEZXZFeHByZXNzLkRhdGFBY2Nlc3MuRXhwcmVzc2lvbiI+KFN5c3RlbS5TdHJpbmcsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OSkoRGV2TWFsYyk8L1BhcmFtZXRlcj48UHJvY05hbWU+U1BfVGlja2V0UGFnb0dlbmVyYXI8L1Byb2NOYW1lPjwvUXVlcnk+PFJlc3VsdFNjaGVtYT48RGF0YVNldCBOYW1lPSJzcWxEYXRhU291cmNlMSI+PFZpZXcgTmFtZT0iU1BfVGlja2V0UGFnb0dlbmVyYXIiPjxGaWVsZCBOYW1lPSJOdW1lcm9SZWNpYm8iIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iRmVjaGFSZWNpYm8iIFR5cGU9IkRhdGVUaW1lIiAvPjxGaWVsZCBOYW1lPSJOdW1lcm9Mb3RlIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9Ik51bWVyb0Fib25vIiBUeXBlPSJJbnQzMiIgLz48RmllbGQgTmFtZT0iQmVuZWZpY2lhcmlvIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IlByb3llY3RvIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkludGVyZXMiIFR5cGU9IkRlY2ltYWwiIC8+PEZpZWxkIE5hbWU9Ik1vcmEiIFR5cGU9IkRlY2ltYWwiIC8+PEZpZWxkIE5hbWU9IlNhbGRvIiBUeXBlPSJEZWNpbWFsIiAvPjxGaWVsZCBOYW1lPSJDYWplcm8iIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iTWVzUGFnYWRvIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IlNhbGRvSW5pY2lhbCIgVHlwZT0iRGVjaW1hbCIgLz48RmllbGQgTmFtZT0iTW9udG9QYWdvIiBUeXBlPSJEZWNpbWFsIiAvPjxGaWVsZCBOYW1lPSJQcmltYSIgVHlwZT0iRGVjaW1hbCIgLz48RmllbGQgTmFtZT0iSWRBc2lnbmFjaW9uIiBUeXBlPSJJbnQzMiIgLz48RmllbGQgTmFtZT0iVG90YWxQYWdhciIgVHlwZT0iRGVjaW1hbCIgLz48L1ZpZXc+PC9EYXRhU2V0PjwvUmVzdWx0U2NoZW1hPjxDb25uZWN0aW9uT3B0aW9ucyBDbG9zZUNvbm5lY3Rpb249InRydWUiIC8+PC9TcWxEYXRhU291cmNlPg==" />
+  </ComponentStorage>
+  <ObjectStorage>
+    <Item1 ObjectType="DevExpress.XtraReports.Serialization.ObjectStorageInfo, DevExpress.XtraReports.v18.2" Ref="2" Content="System.Int32" Type="System.Type" />
+  </ObjectStorage>
+</XtraReportsLayoutSerializer>

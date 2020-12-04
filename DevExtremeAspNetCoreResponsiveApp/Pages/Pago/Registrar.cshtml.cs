@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Data.Model;
+using DevExpress.XtraReports.UI;
 using DevExtremeAspNetCoreResponsiveApp.DTOs;
 using DevExtremeAspNetCoreResponsiveApp.Proxies;
+using DevExtremeAspNetCoreResponsiveApp.Reports;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NToastNotify;
@@ -20,6 +22,8 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.Pago
         public ViewAsignacionesSaldo Asignaciones { get; set; }
         [BindProperty]
         public ViewPagosAsignaciones pago { get; set; }
+
+        public RptTicketPago ticketPago { get; set; } = new RptTicketPago();
         public RegistrarModel(IGenericProxy genericProxy, IToastNotification toastNotification)
         {
             _genericProxy = genericProxy;
@@ -81,12 +85,17 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.Pago
                 pago.Abonado = resultasig.Datas[0].Abonado;
                 pago.Saldo = resultasig.Datas[0].Saldo;
             }
-         
-
-
-
 
            
+            /*if (TempData["IdImprimir"] != null)
+            {
+                var source = await _genericProxy.GetAsync<TicketPago>("Pago/GetTicket/" + TempData["IdImprimir"].ToString());
+                ticketPago = new RptTicketPago();
+            //    ticketPago.CreateDocument(true);
+                ticketPago.DataSource = source.Data;
+                ticketPago.DataMember = ticketPago.DataMember;
+                //await ticketPago.CreateDocumentAsync();
+            }*/
         }
 
         public async Task OnPost([FromForm] int IdPago, [FromForm]Pagos entity)
@@ -97,6 +106,43 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.Pago
                 _toastNotification.AddErrorToastMessage(Errors);
                 ModelState.AddModelError("custom", Errors);
                 return;
+            }
+
+            var result = await _genericProxy.PostAsync<Pagos>("Pago/Save/" + IdPago, entity);
+            if (result.Succeeded)
+            {
+                _toastNotification.AddSuccessToastMessage(result.Message);
+                IdPago = result.Data.IdPago;
+                //Ticket de Pago
+                TempData["Imprimir"] = "S";
+                TempData["IdImprimir"] = IdPago;
+               
+
+                pago.IdPago = 0;
+                pago.MontoPago = 0;
+                pago.Interés = 0;
+                pago.Mora = 0;
+                pago.MontoEfectivo = 0;
+                pago.Observaciones = "";
+                pago.NumeroRecibo = "";
+
+
+                var source = await _genericProxy.GetAsync<TicketPago>("Pago/GetTicket/" + TempData["IdImprimir"].ToString());
+                ticketPago.DataSource = source.Datas;
+                ticketPago.DataMember = ticketPago.DataMember;
+
+                //return Page();
+                //return LocalRedirect(Url.Page("/Asignacion/Registrar?p=" + IdAsignacion));
+                //RedirectToPage(Url.Page("/Asignacion/Registrar?p=" + IdAsignacion));
+                //return new OkObjectResult(result.Message);
+                await OnGet(pago.IdAsignacion.ToString());
+                //Response.Redirect("/Pago/Registrar/?p=" + result.Data.IdAsignacion);
+            }
+            else
+            {
+                _toastNotification.AddErrorToastMessage(result.Message);
+                return;
+                //return BadRequest(result.Message);
             }
 
         }

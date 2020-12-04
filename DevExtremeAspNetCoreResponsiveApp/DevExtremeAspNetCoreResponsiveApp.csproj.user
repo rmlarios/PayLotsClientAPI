@@ -28,13 +28,10 @@
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Update="Reports\Asignaciones.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Reports\PlandePago.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Update="Reports\RptPlandePago.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Reports\RptTicketPago.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="Reports\TestReport.cs">

@@ -163,6 +163,14 @@ var vform,isFirstLoad=true;
                 vform.option("readOnly", false);
                 vform.getEditor("Guardar").option("disabled", false);
             }
+
+            var queryParams = new URLSearchParams(window.location.search);            
+            IdAsignacion = vform.option("formData").IdAsignacion;            
+            queryParams.set("p", IdAsignacion.toString());
+            // Replace current querystring with the new one.
+            history.replaceState(null, null, "?" + queryParams.toString());
+
+
         }}
 
 function disableForm(){

@@ -100,7 +100,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Services
             //    return report;
             //}
             //else
-                return new Reports.PlandePago();
+            return new XtraReport(); //Reports.PlandePago();
         }
 
     }

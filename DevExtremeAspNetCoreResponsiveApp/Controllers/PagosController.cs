@@ -6,6 +6,7 @@ using DevExtreme.AspNet.Mvc;
 using DevExtremeAspNetCoreResponsiveApp.DTOs;
 using DevExtremeAspNetCoreResponsiveApp.Proxies;
 using DevExtremeAspNetCoreResponsiveApp.Proxies.Models;
+using DevExtremeAspNetCoreResponsiveApp.Reports;
 using Microsoft.AspNetCore.Mvc;
 using NToastNotify;
 
@@ -44,6 +45,18 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controllers
                 return new JsonResult(DataSourceLoader.Load(result.Datas, loadOptions));
 
             return new JsonResult(DataSourceLoader.Load(new List<Asignacion_PlandePago>(), loadOptions));
+        }
+
+        [HttpGet("GetTicket")]
+        public async Task<IActionResult> GetTicket(int idpago)
+        {
+            RptTicketPago ticketPago = new RptTicketPago();
+            var source = await _genericProxy.GetAsync<TicketPago>("Pago/GetTicket/" + idpago);
+            ticketPago.DataSource = source.Datas;
+            ticketPago.DataMember = ticketPago.DataMember;
+
+            return View("PartialTicket",ticketPago);
+
         }
 
 
