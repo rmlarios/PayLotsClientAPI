@@ -1448,3 +1448,4 @@ D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ViewImports.cshtml.g.cs
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ViewStart.cshtml.g.cs
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\Razor\Pages\Shared\PartialTicket.cshtml.g.cs
+D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\Razor\Pages\Pago\Consolidado.cshtml.g.cs

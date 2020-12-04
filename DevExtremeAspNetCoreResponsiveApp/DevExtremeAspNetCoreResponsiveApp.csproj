@@ -42,6 +42,12 @@
     <Exec Command="npm install" />
   </Target>
   <ItemGroup>
+    <Compile Include="Reports\RptEstadoCuenta.cs">
+      <DependentUpon>RptEstadoCuenta.repx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\RptEstadoCuenta.Designer.cs">
+      <DependentUpon>RptEstadoCuenta.repx</DependentUpon>
+    </Compile>
     <Compile Include="Reports\RptPlandePago.cs">
       <DependentUpon>RptPlandePago.repx</DependentUpon>
     </Compile>
@@ -91,6 +97,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reports\RptTicketPago.repx" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reports\RptEstadoCuenta.repx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj" />

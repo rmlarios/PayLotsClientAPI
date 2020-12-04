@@ -12,6 +12,10 @@ namespace Data.Model
         public int IdAsignacion { get; set; }
         public string NombreLote { get; set; }
         public string NombreCompleto { get; set; }
+
+        public string DatoCompleto {
+            get { return NombreLote + " - " + NombreCompleto; }
+         }
         public string NumeroRecibo { get; set; }
         [Required(ErrorMessage ="Debe ingresar la fecha del recibo.")]
         public DateTime? FechaRecibo { get; set; }

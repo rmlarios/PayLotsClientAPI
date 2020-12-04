@@ -1,0 +1,30 @@
+﻿@page
+
+   
+        @(Html.DevExtreme().PivotGrid<ViewPagosAsignaciones>()
+    .ID("pivot").Height(800)
+    .DataSource(c=>c.Store(m=>m.Mvc().Controller("Pagos").LoadAction("GetAll"))
+                    .Fields(c=>
+                    {
+                        c.AddFor(m => m.DatoCompleto).Area(PivotGridArea.Row).Width(200);
+                        c.AddFor(m => m.MesPagado).Area(PivotGridArea.Column);
+                        c.AddFor(m => m.TotalRecibo).Area(PivotGridArea.Data).SummaryType(SummaryType.Sum).RunningTotal(PivotGridRunningTotalMode.Row);
+                        c.AddFor(m => m.NombreProyecto).Area(PivotGridArea.Filter);
+                    })
+                    .Paginate(true).Filter("[['MesPagado', '!=', null]]")
+    )
+    
+    .HeaderFilter(c=>c.AllowSearch(true).Height(200).ShowRelevantValues(true))
+    .FieldPanel(c=>c.Visible(true).ShowFilterFields(true).AllowFieldDragging(false))
+    .AllowFiltering(true)
+    .ShowTotalsPrior(PivotGridTotalsDisplayMode.Columns).ShowRowTotals(false)
+    .Scrolling(c=>c.Mode(PivotGridScrollingMode.Virtual))
+    .Width("100%")
+    .Texts(c=>c.GrandTotal("Total Abonado"))
+    )
+
+
+
+    
+
+  

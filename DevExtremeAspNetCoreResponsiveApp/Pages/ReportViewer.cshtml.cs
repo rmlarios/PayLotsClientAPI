@@ -37,6 +37,9 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages
                     Report.DataSource = source.Datas;
                     Report.DataMember = Report.DataMember;
                     break;
+                case "EstadoCuenta":
+                    Report = new RptEstadoCuenta();                    
+                    break;
             }
 
 
