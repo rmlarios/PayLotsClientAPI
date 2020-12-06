@@ -72,9 +72,6 @@ namespace DevExtremeAspNetCoreResponsiveApp.Reports {
             this.xrTableCell32 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableCell>("xrTableCell32");
             this.xrTableCell33 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableCell>("xrTableCell33");
 
-            // Parameters
-            this.IdAsignacion = reportInitializer.GetParameter("IdAsignacion");
-
             // Data Sources
             this.sqlDataSource1 = reportInitializer.GetDataSource<DevExpress.DataAccess.Sql.SqlDataSource>("sqlDataSource1");
             this.sqlDataSource2 = reportInitializer.GetDataSource<DevExpress.DataAccess.Sql.SqlDataSource>("sqlDataSource2");
@@ -136,7 +133,6 @@ namespace DevExtremeAspNetCoreResponsiveApp.Reports {
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell32;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell33;
         private DevExpress.DataAccess.Sql.SqlDataSource sqlDataSource1;
-        private DevExpress.XtraReports.Parameters.Parameter IdAsignacion;
         private DevExpress.DataAccess.Sql.SqlDataSource sqlDataSource2;
     }
 }

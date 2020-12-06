@@ -1,0 +1,32 @@
+﻿@page
+@using DevExpress.AspNetCore
+@model DevExtremeAspNetCoreResponsiveApp.Pages.Reportes.EstadoCuentaModel
+@{
+    ViewData["Title"] = "Estado de Cuenta";
+}
+<link rel="stylesheet" href="~/css/viewer.part.bundle.css" />
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        @(Html.DevExtreme().Lookup().Placeholder("Seleccione la Asignacion").SearchEnabled(true).SearchMode(DropDownSearchMode.Contains).SearchExpr("DatoCompleto").StylingMode(EditorStylingMode.Outlined).DisplayExpr("DatoCompleto").ValueExpr("IdAsignacion").DataSource(
+        c=>c.Mvc().Controller("Asignaciones").LoadAction("GetAll").Key("IdAsignacion")).OnSelectionChanged(
+        @<text>
+        function(e){        
+        window.location.href = "/Reportes/EstadoCuenta/?id=" + e.selectedItem.IdAsignacion;
+        }
+        </text>
+        )
+
+    )
+    </div>
+    <div class="col-md-8"></div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        @(Html.DevExpress().WebDocumentViewer("Viewer").Height("600px").Bind(Model.rptEstadoCuenta)
+    )
+    </div>
+</div>
+
+<script>
+
+</script>

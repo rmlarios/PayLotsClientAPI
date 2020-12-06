@@ -105,8 +105,6 @@
     <ProjectReference Include="..\Data\Data.csproj" />
   </ItemGroup>
   <ProjectExtensions>
-    <VisualStudio>
-      <UserProperties TemplateFeatures="NETCORE CS RESPONSIVE" />
-    </VisualStudio>
+    <VisualStudio><UserProperties appsettings_1json__JsonSchema="" TemplateFeatures="NETCORE CS RESPONSIVE" /></VisualStudio>
   </ProjectExtensions>
 </Project>

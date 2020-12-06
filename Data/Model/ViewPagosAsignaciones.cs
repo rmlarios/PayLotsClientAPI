@@ -14,7 +14,7 @@ namespace Data.Model
         public string NombreCompleto { get; set; }
 
         public string DatoCompleto {
-            get { return NombreLote + " - " + NombreCompleto; }
+            get { return NombreLote + (Grupo!=""? " "+Grupo:"") + " - " + NombreCompleto; }
          }
         public string NumeroRecibo { get; set; }
         [Required(ErrorMessage ="Debe ingresar la fecha del recibo.")]
@@ -36,7 +36,7 @@ namespace Data.Model
         public string Observaciones { get; set; }
         public string NombreProyecto { get; set; }
         public int IdUbicacion { get; set; }
-        public string Grupo { get; set; }
+        public string Grupo { get; set; } = "";
         public bool? Donado { get; set; }
         [Required(ErrorMessage = "Debe seleccionar la moneda del pago.")]
         public string Moneda { get; set; } = "Córdobas";

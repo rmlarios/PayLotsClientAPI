@@ -1,5 +1,5 @@
 ﻿@page
-
+   
    
         @(Html.DevExtreme().PivotGrid<ViewPagosAsignaciones>()
     .ID("pivot").Height(800)
@@ -11,7 +11,7 @@
                         c.AddFor(m => m.TotalRecibo).Area(PivotGridArea.Data).SummaryType(SummaryType.Sum).RunningTotal(PivotGridRunningTotalMode.Row);
                         c.AddFor(m => m.NombreProyecto).Area(PivotGridArea.Filter);
                     })
-                    .Paginate(true).Filter("[['MesPagado', '!=', null]]")
+                    .Paginate(true).Filter("[['MesPagado', '<>', null]]")
     )
     
     .HeaderFilter(c=>c.AllowSearch(true).Height(200).ShowRelevantValues(true))
@@ -19,9 +19,31 @@
     .AllowFiltering(true)
     .ShowTotalsPrior(PivotGridTotalsDisplayMode.Columns).ShowRowTotals(false)
     .Scrolling(c=>c.Mode(PivotGridScrollingMode.Virtual))
-    .Width("100%")
+    .Width("100%").ShowBorders(true)
     .Texts(c=>c.GrandTotal("Total Abonado"))
+    .Export(c=>c.Enabled(true))//.OnExporting("exporting")
     )
+
+<script>
+    function exporting(e) { 
+        var workbook = new ExcelJS.Workbook(); 
+        var worksheet = workbook.addWorksheet('Main sheet'); 
+        DevExpress.excelExporter.exportPivotGrid({ 
+            worksheet: worksheet, 
+            component: e.component,
+            customizeCell: function(options) {
+                var excelCell = options;
+                excelCell.font = { name: 'Arial', size: 12 };
+                excelCell.alignment = { horizontal: 'left' };
+            } 
+        }).then(function() {
+            workbook.xlsx.writeBuffer().then(function(buffer) { 
+                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'PivotGrid.xlsx'); 
+            }); 
+        }); 
+        e.cancel = true; 
+    }
+</script>
 
 
 

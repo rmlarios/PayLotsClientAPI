@@ -30,6 +30,10 @@ namespace Data.Model
         public bool AplicaMora { get; set; }
         public int Plazo { get; set; }
         public int IdUbicacion { get; set; }
-        public string Grupo { get; set; }
+        public string Grupo { get; set; } = "";
+        public string DatoCompleto
+        {
+            get { return NombreLote + (Grupo != "" ? " " + Grupo : "") + " - " + NombreCompleto; }
+        }
     }
 }
