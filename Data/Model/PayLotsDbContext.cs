@@ -533,7 +533,7 @@ namespace Data.Model
             {
                 entity.HasKey(e => e.IdBeneficiario);
 
-                entity.Property(e => e.Far)
+              /*  entity.Property(e => e.Far)
                     .HasColumnName("FAR")
                     .HasColumnType("smalldatetime");
 
@@ -549,7 +549,7 @@ namespace Data.Model
 
                 entity.Property(e => e.Uua)
                     .IsRequired()
-                    .HasColumnName("UUA");
+                    .HasColumnName("UUA");*/
             });
 
             modelBuilder.Entity<Bloques>(entity =>

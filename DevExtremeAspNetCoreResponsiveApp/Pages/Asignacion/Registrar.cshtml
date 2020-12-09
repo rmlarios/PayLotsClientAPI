@@ -6,20 +6,20 @@
     ViewData["Title"] = "Registrar Asignación";
 }
 
-@using(Html.BeginForm(method: FormMethod.Post)) 
+@using (Html.BeginForm(method: FormMethod.Post))
 {
 
-<input type="hidden" asp-for="Asignaciones.IdAsignacion" name="IdAsignacion">
-<input type="hidden" asp-for="Asignaciones.IdLote" name="IdLoteOld">
-@(Html.DevExtreme().Form<Asignaciones>()
-            .ID("form")            
+    <input type="hidden" asp-for="Asignaciones.IdAsignacion" name="IdAsignacion">
+    <input type="hidden" asp-for="Asignaciones.IdLote" name="IdLoteOld">
+    @(Html.DevExtreme().Form<Asignaciones>()
+            .ID("form")
             .ColCount(2)
             .FormData(Model.Asignaciones)
             .LabelLocation(FormLabelLocation.Left)
             .MinColWidth(300)
             .ColCount(4)
             .Height("50%")
-            .ReadOnly(false)            
+            .ReadOnly(false)
             .ShowColonAfterLabel(true)
             .ShowValidationSummary(true)
             //.Disabled(new JS("disableForm"))
@@ -30,8 +30,8 @@
                    i.AddButton().Name("Nuevo").ColSpan(1).ButtonOptions(o=>o.Icon("fa fa-file-o").Text("Nuevo").Type(ButtonType.Success).Width("100%").OnClick(
                        @<text>
                            function(e)
-                           {                             
-                              
+                           {
+
                                window.location.href="/Asignacion/Registrar/?p=" + 0 ;
                            }
                        </text>
@@ -45,35 +45,37 @@
                        </text>
                    ));
                });
-               /*item.AddButton().Name("Guardar").ButtonOptions(o => o.Icon("save").Text("Guardar").Type(ButtonType.Success).UseSubmitBehavior(true));*/
-               item.AddSimpleFor(m => m.IdAsignacion).Visible(false);
-               item.AddSimpleFor(m=>m.Estado).Visible(false);
-               item.AddSimpleFor(m => m.IdLote).ColSpan(2).Label(l => l.Text("Seleccione el lote")).Editor(e => e.Lookup().DataSource(d => d.Mvc().Controller("Lotes").LoadAction("GetAll").Key("IdLote")).DataSourceOptions(o=>o.Filter("[['Estado', '=', 'Disponible'],'or',['IdLote','=',document.getElementsByName('IdLoteOld')[0].value]]"
-               ))
-               .SearchExpr("NombreLote").SearchMode(DropDownSearchMode.Contains).DisplayExpr(new JS("lookupExpr")).ValueExpr("IdLote").PageLoadingText("Cargando").NextButtonText("Más").PageLoadMode(ListPageLoadMode.NextButton).SearchEnabled(true).SearchMode(DropDownSearchMode.Contains).StylingMode(EditorStylingMode.Outlined)               
-               );
-               
-               item.AddSimpleFor(m => m.IdBeneficiario).ColSpan(2).Label(l => l.Text("Seleccione el beneficiario")).IsRequired(true).Editor(e => e.Lookup().DataSource(d => d.Mvc().Controller("Beneficiarios").LoadAction("GetAll").Key("IdBeneficiario")).DisplayExpr("NombreCompleto").ValueExpr("IdBeneficiario").SearchEnabled(true).SearchMode(DropDownSearchMode.Contains).StylingMode(EditorStylingMode.Outlined)               
-               );
+                /*item.AddButton().Name("Guardar").ButtonOptions(o => o.Icon("save").Text("Guardar").Type(ButtonType.Success).UseSubmitBehavior(true));*/
+                item.AddSimpleFor(m => m.IdAsignacion).Visible(false);
+                item.AddSimpleFor(m=>m.Estado).Visible(false);
+                item.AddSimpleFor(m => m.IdLote).ColSpan(2).Label(l => l.Text("Seleccione el lote")).Editor(e => e.Lookup().DataSource(d => d.Mvc().Controller("Lotes").LoadAction("GetAll").Key("IdLote")).DataSourceOptions(o=>o.Filter("[['Estado', '=', 'Disponible'],'or',['IdLote','=',document.getElementsByName('IdLoteOld')[0].value]]"
+                ))
+                .SearchExpr("NombreLote").SearchMode(DropDownSearchMode.Contains).DisplayExpr(new JS("lookupExpr")).ValueExpr("IdLote").PageLoadingText("Cargando").NextButtonText("Más").PageLoadMode(ListPageLoadMode.NextButton).SearchEnabled(true).SearchMode(DropDownSearchMode.Contains).StylingMode(EditorStylingMode.Outlined)
+                );
 
-               item.AddSimpleFor(m => m.MontoTotal).ColSpan(1).Label(l => l.Text("Valor del Lote")).Editor(e=>e.NumberBox().ShowSpinButtons(true).Mode(NumberBoxMode.Number).Format("$ #,##0.##").StylingMode(EditorStylingMode.Outlined));
+               // item.AddSimpleFor(m => m.IdBeneficiario).ColSpan(2).Label(l => l.Text("Seleccione el beneficiario")).IsRequired(true).Editor(e => e.Lookup().DataSource(d => d.Mvc().Controller("Beneficiarios").LoadAction("GetAll").Key("IdBeneficiario")).DisplayExpr("NombreCompleto").ValueExpr("IdBeneficiario").SearchEnabled(true).SearchMode(DropDownSearchMode.Contains).StylingMode(EditorStylingMode.Outlined)
+                //);
 
-               item.AddSimpleFor(m => m.FechaInicioPago).ColSpan(1).Label(l => l.Text("Fecha de Incio de Pago")).Editor(e => e.DateBox().DisplayFormat("dd/MM/yyyy").StylingMode(EditorStylingMode.Outlined));
-               
-               item.AddSimpleFor(m => m.CuotaMinima).Name("CuotaMinima").ColSpan(1).Label(l => l.Text("Cuota Mínima")).Editor(e=>e.NumberBox().ShowSpinButtons(true).Mode(NumberBoxMode.Number).Format("$ #,##0.##").StylingMode(EditorStylingMode.Outlined));
-               
-               item.AddSimpleFor(m => m.Prima).ColSpan(1).Editor(e=>e.NumberBox().ShowSpinButtons(true).Mode(NumberBoxMode.Number).Format("$ #,##0.##").StylingMode(EditorStylingMode.Outlined).Min(0));              
-               item.AddSimpleFor(m => m.Donado).ColSpan(1);
-               item.AddSimpleFor(m => m.AplicaMora).ColSpan(1).Label(l => l.Text("Aplicar Mora"));
-               item.AddSimpleFor(m => m.AplicaInteres).ColSpan(1).Label(l => l.Text("Aplicar interés")).Editor(e=>e.CheckBox().OnValueChanged("chkInteresChanged"));
-               item.AddSimpleFor(m => m.TasaInteres).ColSpan(1).Label(l => l.Text("Tasa de Interés")).Editor(e=>e.NumberBox().ShowSpinButtons(true).Mode(NumberBoxMode.Number).Format("% #,##0.##").StylingMode(EditorStylingMode.Outlined));
-               item.AddSimpleFor(m => m.Plazo).ColSpan(1).Editor(e=>e.NumberBox().ShowSpinButtons(true).Mode(NumberBoxMode.Number).Format("#,##0").StylingMode(EditorStylingMode.Outlined));
-               item.AddSimpleFor(m => m.Observaciones).ColSpan(3).Editor(e=>e.TextArea().StylingMode(EditorStylingMode.Outlined));
+                item.AddSimpleFor(m => m.IdBeneficiario).ColSpan(2).Label(l => l.Text("Seleccione el beneficiario")).Editor(e => e.SelectBox().DataSource(d => d.Mvc().Controller("Beneficiarios").LoadAction("GetAll").Key("IdBeneficiario")).DisplayExpr("NombreCompleto").ValueExpr("IdBeneficiario").SearchEnabled(true).SearchMode(DropDownSearchMode.Contains).StylingMode(EditorStylingMode.Outlined).OpenOnFieldClick(true).Buttons(b => b.Add().Name("Agregar").Widget(w => w.Button().Icon("fa fa-plus").Text("").Hint("Agregar").OnClick("onNewBeneficiarioClick"))));
+
+                item.AddSimpleFor(m => m.MontoTotal).ColSpan(1).Label(l => l.Text("Valor del Lote")).Editor(e=>e.NumberBox().ShowSpinButtons(true).Mode(NumberBoxMode.Number).Format("$ #,##0.##").StylingMode(EditorStylingMode.Outlined));
+
+                item.AddSimpleFor(m => m.FechaInicioPago).ColSpan(1).Label(l => l.Text("Fecha de Incio de Pago")).Editor(e => e.DateBox().DisplayFormat("dd/MM/yyyy").StylingMode(EditorStylingMode.Outlined));
+
+                item.AddSimpleFor(m => m.CuotaMinima).Name("CuotaMinima").ColSpan(1).Label(l => l.Text("Cuota Mínima")).Editor(e=>e.NumberBox().ShowSpinButtons(true).Mode(NumberBoxMode.Number).Format("$ #,##0.##").StylingMode(EditorStylingMode.Outlined));
+
+                item.AddSimpleFor(m => m.Prima).ColSpan(1).Editor(e=>e.NumberBox().ShowSpinButtons(true).Mode(NumberBoxMode.Number).Format("$ #,##0.##").StylingMode(EditorStylingMode.Outlined).Min(0));
+                item.AddSimpleFor(m => m.Donado).ColSpan(1);
+                item.AddSimpleFor(m => m.AplicaMora).ColSpan(1).Label(l => l.Text("Aplicar Mora"));
+                item.AddSimpleFor(m => m.AplicaInteres).ColSpan(1).Label(l => l.Text("Aplicar interés")).Editor(e=>e.CheckBox().OnValueChanged("chkInteresChanged"));
+                item.AddSimpleFor(m => m.TasaInteres).ColSpan(1).Label(l => l.Text("Tasa de Interés")).Editor(e=>e.NumberBox().ShowSpinButtons(true).Mode(NumberBoxMode.Number).Format("% #,##0.##").StylingMode(EditorStylingMode.Outlined));
+                item.AddSimpleFor(m => m.Plazo).ColSpan(1).Editor(e=>e.NumberBox().ShowSpinButtons(true).Mode(NumberBoxMode.Number).Format("#,##0").StylingMode(EditorStylingMode.Outlined));
+                item.AddSimpleFor(m => m.Observaciones).ColSpan(3).Editor(e=>e.TextArea().StylingMode(EditorStylingMode.Outlined));
 
             }).OnInitialized("onFormInitialized").OnContentReady("onFormReady")
-        ) 
+        )
 
- }
+}
 
 
 @(Html.DevExtreme().DataGrid<Asignacion_PlandePago>
@@ -81,10 +83,10 @@
                     .ID("GridListado")
                     .DataSource(d=>d.Mvc().Controller("Pagos")//.Key("IdAsignacion")
                     //.LoadMethod("Plan")
-                    .LoadAction("GetPlan")                    
-                    .LoadParams(new { idasignacion = new JS("getIdAsignacion") })                                       
+                    .LoadAction("GetPlan")
+                    .LoadParams(new { idasignacion = new JS("getIdAsignacion") })
                     )
-                    .ColumnResizingMode(ColumnResizingMode.NextColumn)           
+                    .ColumnResizingMode(ColumnResizingMode.NextColumn)
                     .NoDataText("No hay registros que mostrar")
                     .ShowBorders(true)
                     .ElementAttr(new { @class = "dx-card wide-card" })
@@ -112,7 +114,7 @@
                         c.AddFor(m=>m.Saldo);
                         c.AddFor(m=>m.Estado);
                     })
-                   
+
                     .HeaderFilter(h => h.AllowSearch(true).Visible(true))
                     /*Configuracion para la edicion*/
                     .Editing(e => e.Mode(GridEditMode.Popup)
@@ -129,22 +131,58 @@
                         .Form(f => f.ColCount(1).ShowRequiredMark(true).LabelLocation(FormLabelLocation.Left)
                             .Items(items =>
                             {
-                                
-                                
+
+
                             }))
                           )
                        .ErrorRowEnabled(true)
-                      
+
+)
+@(Html.DevExtreme().Popup
+            ()
+            .ID("PopBeneficiario")
+            .Height(550)
+            .Position(PositionAlignment.Center)
+            .Width(600)
+            .Title("Registrar Beneficiario: ")
+            .ShowCloseButton(true)
+            .ContentTemplate(@<text>
+
+@using (Html.BeginForm())
+{
+    @using (Html.DevExtreme().ValidationGroup())
+    {
+           @Html.AntiForgeryToken()
+
+                @(Html.DevExtreme().Form<Beneficiarios>().ID("formBeneficiario").FormData(Model.Beneficiario).ColCount(2).Height(500).ShowValidationSummary(true)
+                .Items(item =>
+                {
+                    item.AddSimpleFor(m => m.NombreCompleto).IsRequired(true).ColSpan(2).Editor(e => e.TextBox().StylingMode(EditorStylingMode.Outlined).Height(50));
+                    item.AddSimpleFor(m => m.CedulaIdentidad).IsRequired(true).Editor(e => e.TextBox().StylingMode(EditorStylingMode.Outlined));
+                    item.AddSimpleFor(m => m.Telefono).Editor(e => e.TextBox().StylingMode(EditorStylingMode.Outlined));
+                    item.AddSimpleFor(m => m.Direccion).ColSpan(2).Editor(e => e.TextBox().StylingMode(EditorStylingMode.Outlined));
+                    item.AddGroup().ColSpan(2).ColCount(2).Items(i =>
+                    {
+                        i.AddButton().Name("Anular").ColSpan(1).ButtonOptions(o => o.Text("Aceptar").UseSubmitBehavior(false).OnClick("saveBeneficiario").Type(ButtonType.Danger).Width("100%"));
+                        i.AddButton().Name("Cancelar").ColSpan(1).ButtonOptions(o => o.Text("Cancelar").Type(ButtonType.Success).Width("100%"));
+                    });
+                })
+
+                )               } }
+            </text>)
+
+            .Visible(false).CloseOnOutsideClick(true).Position(PositionAlignment.Center)
 )
 
 
 
 
- <script>
-var vform,isFirstLoad=true;
 
- function onFormInitialized(e) {
-        vform = e.component;        
+<script>
+    var vform, isFirstLoad = true;
+
+    function onFormInitialized(e) {
+        vform = e.component;
     }
 
     function onFormReady(e) {
@@ -164,20 +202,21 @@ var vform,isFirstLoad=true;
                 vform.getEditor("Guardar").option("disabled", false);
             }
 
-            var queryParams = new URLSearchParams(window.location.search);            
-            IdAsignacion = vform.option("formData").IdAsignacion;            
+            var queryParams = new URLSearchParams(window.location.search);
+            IdAsignacion = vform.option("formData").IdAsignacion;
             queryParams.set("p", IdAsignacion.toString());
             // Replace current querystring with the new one.
             history.replaceState(null, null, "?" + queryParams.toString());
 
 
-        }}
+        }
+    }
 
-function disableForm(){
-    var estado = vform.option("formData").Estado;   
-}
+    function disableForm() {
+        var estado = vform.option("formData").Estado;
+    }
 
-    function chkInteresChanged(e){
+    function chkInteresChanged(e) {
         vform.getEditor("CuotaMinima").option("disabled", e.value);
         vform.getEditor("CuotaMinima").option("value", 0);
         //vform.getEditor("CuotaMinima").option("isValid", e.value);
@@ -192,20 +231,56 @@ function disableForm(){
     }
 
     function lookupExpr(item) {
-      if(item!=null)
-        return item.NombreProyecto + " " + item.NombreLote;      
+        if (item != null)
+            return item.NombreProyecto + " " + item.NombreLote;
     }
 
-    function filterLote(itemData){
+    function filterLote(itemData) {
         alert(itemData.Estado);
     }
 
-    function getIdAsignacion(){
-        var r = $("#form").dxForm("option", "formData").IdAsignacion;        
+    function getIdAsignacion() {
+        var r = $("#form").dxForm("option", "formData").IdAsignacion;
         return r;
     }
 
-     function exporting(e) {
+    function onNewBeneficiarioClick(e) {
+        var popup = $("#PopBeneficiario").dxPopup("instance");
+        popup.show();
+    }
+
+    function saveBeneficiario(e) {
+        var dxFormInstance = $("#formBeneficiario").dxForm("instance");
+        var validationResult = dxFormInstance.validate();
+        var values = dxFormInstance.option("formData");
+        //var datas = JSON.stringify(values);
+        //alert(datas);        
+        if (validationResult.isValid) {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("PostCrearBenef", "Beneficiarios")',
+                data: JSON.stringify(values),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                //contentType: "application/json; charset=utf-8",
+                success : function(data, textStatus, jqXHR) {
+                    alert(data + " - " + textStatus + " - " + jqXHR);
+                    var popup = $("#PopBeneficiario").dxPopup("instance");
+                    popup.hide();
+                    vform.getEditor("IdBeneficiario").option("value", data);
+                    
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    //alert('Request Status: ' + xhr.status + '; Status Text: ' + textStatus + '; Error: ' + errorThrown);
+                }                
+            });
+        }
+        else {
+            alert("Datos Incompletos");
+        }
+    }
+
+    function exporting(e) {
         var workbook = new ExcelJS.Workbook();
         var worksheet = workbook.addWorksheet('Hoja1');
 
@@ -220,7 +295,7 @@ function disableForm(){
             });
         });
         e.cancel = true;
-    }   
+    }
 
-   
-        </script>
+
+</script>
