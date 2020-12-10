@@ -1,19 +1,18 @@
 ﻿@page
-   
-   
-        @(Html.DevExtreme().PivotGrid<ViewPagosAsignaciones>()
+@(Html.DevExtreme().PivotGrid<ViewPagosAsignaciones>()
     .ID("pivot").Height(800)
     .DataSource(c=>c.Store(m=>m.Mvc().Controller("Pagos").LoadAction("GetAll"))
                     .Fields(c=>
                     {
                         c.AddFor(m => m.DatoCompleto).Area(PivotGridArea.Row).Width(200);
-                        c.AddFor(m => m.MesPagado).Area(PivotGridArea.Column);
+                        c.AddFor(m => m.MesPagadoFecha).Format("MMMM/yyyy").Area(PivotGridArea.Column);                        
                         c.AddFor(m => m.TotalRecibo).Area(PivotGridArea.Data).SummaryType(SummaryType.Sum).RunningTotal(PivotGridRunningTotalMode.Row);
-                        c.AddFor(m => m.NombreProyecto).Area(PivotGridArea.Filter);
+                        c.AddFor(m => m.NombreProyecto).Area(PivotGridArea.Filter);                        
+
                     })
-                    .Paginate(true).Filter("[['MesPagado', '<>', null]]")
+                    .Paginate(true).RetrieveFields(false).Filter("[['MesPagado', '<>', null]]")
     )
-    
+
     .HeaderFilter(c=>c.AllowSearch(true).Height(200).ShowRelevantValues(true))
     .FieldPanel(c=>c.Visible(true).ShowFilterFields(true).AllowFieldDragging(false))
     .AllowFiltering(true)
@@ -25,28 +24,32 @@
     )
 
 <script>
-    function exporting(e) { 
-        var workbook = new ExcelJS.Workbook(); 
-        var worksheet = workbook.addWorksheet('Main sheet'); 
-        DevExpress.excelExporter.exportPivotGrid({ 
-            worksheet: worksheet, 
+
+
+
+    function exporting(e) {
+        var workbook = new ExcelJS.Workbook();
+        var worksheet = workbook.addWorksheet('Main sheet');
+        DevExpress.excelExporter.exportPivotGrid({
+            worksheet: worksheet,
             component: e.component,
-            customizeCell: function(options) {
+            customizeCell: function (options) {
                 var excelCell = options;
                 excelCell.font = { name: 'Arial', size: 12 };
                 excelCell.alignment = { horizontal: 'left' };
-            } 
-        }).then(function() {
-            workbook.xlsx.writeBuffer().then(function(buffer) { 
-                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'PivotGrid.xlsx'); 
-            }); 
-        }); 
-        e.cancel = true; 
+            }
+        }).then(function () {
+            workbook.xlsx.writeBuffer().then(function (buffer) {
+                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'PivotGrid.xlsx');
+            });
+        });
+        e.cancel = true;
     }
 </script>
 
 
 
-    
 
-  
+
+
+

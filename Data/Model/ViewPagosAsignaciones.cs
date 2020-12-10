@@ -21,6 +21,19 @@ namespace Data.Model
         public DateTime? FechaRecibo { get; set; }
         [Required(ErrorMessage ="Debe seleccionar el mes a pagar.")]
         public string MesPagado { get; set; }
+        public DateTime? MesPagadoFecha
+        {
+            get
+            {
+                if (MesPagado != null)
+                {
+                    string mes = MesPagado.Split("/")[0];
+                    string anio = MesPagado.Split("/")[1];
+                    return Convert.ToDateTime("01/" + mes + "/" + anio);
+                }
+                return null;
+            }
+        }
         public decimal? MontoPago { get; set; }
         public decimal? Mora { get; set; } = 0;
         public decimal? Interés { get; set; } = 0;

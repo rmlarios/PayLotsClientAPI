@@ -104,6 +104,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Pages\Proforma\" />
+  </ItemGroup>
   <ProjectExtensions>
     <VisualStudio><UserProperties appsettings_1json__JsonSchema="" TemplateFeatures="NETCORE CS RESPONSIVE" /></VisualStudio>
   </ProjectExtensions>

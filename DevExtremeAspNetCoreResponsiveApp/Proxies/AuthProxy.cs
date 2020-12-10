@@ -25,7 +25,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Proxies
       var client = _proxyHttpClient.Get();
       var Content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
       var response = await client.PostAsync("Account/authenticate",Content);
-      response.EnsureSuccessStatusCode();
+      //response.EnsureSuccessStatusCode();
       var result = await response.Content.ReadAsStringAsync();
       var Json = JsonConvert.DeserializeObject<Response<AuthenticationResponse>>(result);   
       return Json;

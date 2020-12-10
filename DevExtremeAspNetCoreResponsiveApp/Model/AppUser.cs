@@ -9,7 +9,6 @@ namespace DevExtremeAspNetCoreResponsiveApp.Model
 {
     public class AppUser : IdentityUser
     {
-      
-
+        public bool? IsActive { get; set; } = true;
     }
 }

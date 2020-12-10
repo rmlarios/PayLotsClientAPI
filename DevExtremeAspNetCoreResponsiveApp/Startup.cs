@@ -53,13 +53,16 @@ namespace DevExtremeAspNetCoreResponsiveApp
             services.AddDevExpressControls();
             services.AddScoped<ReportStorageWebExtension, CustomReportStorageWebExtension>();
             services.AddTransient<IWebDocumentViewerReportResolver, CustomWebDocumentViewerReportResolver>();
-            services.ConfigureReportingServices(configurator => {
-                configurator.ConfigureWebDocumentViewer(viewerConfigurator => {
+            services.ConfigureReportingServices(configurator =>
+            {
+                configurator.ConfigureWebDocumentViewer(viewerConfigurator =>
+                {
                     viewerConfigurator.UseCachedReportSourceBuilder();
-                configurator.ConfigureReportDesigner(designerConfigurator => {
-                    designerConfigurator.RegisterDataSourceWizardConfigFileConnectionStringsProvider().EnableCustomSql();
+                    configurator.ConfigureReportDesigner(designerConfigurator =>
+                    {
+                        designerConfigurator.RegisterDataSourceWizardConfigFileConnectionStringsProvider().EnableCustomSql();
                     });
-                
+
                 });
             });
 
@@ -162,19 +165,20 @@ namespace DevExtremeAspNetCoreResponsiveApp
                 o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
 
-            
+
 
             //Configuracion de JSON para evitar conflictos con el nombre de los campos
-            services.AddMvc()
-            .AddMvcOptions(o =>{
-              o.EnableEndpointRouting = false;              
-            } )
+            services.AddMvc()                
+            .AddMvcOptions(o =>
+            {
+                o.EnableEndpointRouting = false;
+            })
             /*.AddJsonOptions(options => options.JsonSerializerOptions.ContractResolver = new DefaultContractResolver())
             .AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)*/
             .AddRazorPagesOptions(options =>
             {
-          //options.AllowAreas = true;                    
-          options.Conventions.AuthorizeFolder("/");
+                //options.AllowAreas = true;                    
+                options.Conventions.AuthorizeFolder("/");
                 options.Conventions.AllowAnonymousToPage("/Identity/Account/Login");
 
             }
@@ -196,8 +200,8 @@ namespace DevExtremeAspNetCoreResponsiveApp
                 options.DefaultPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
                 options.AddPolicy("AdminPolicy", config =>
           {
-                  config.RequireAuthenticatedUser().Build();
-              });
+              config.RequireAuthenticatedUser().Build();
+          });
             });
 
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
@@ -207,19 +211,22 @@ namespace DevExtremeAspNetCoreResponsiveApp
                        .AllowAnyHeader();
             }));
 
-      services.Configure<CookieTempDataProviderOptions>(options =>
-      {
-        options.Cookie.IsEssential = true;
-      });
 
-            
+
+            services.Configure<CookieTempDataProviderOptions>(options =>
+            {
+                options.Cookie.IsEssential = true;
+            });
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             var reportingLogger = loggerFactory.CreateLogger("DXReporting");
-            DevExpress.XtraReports.Web.ClientControls.LoggerService.Initialize((exception, message) => {
+            DevExpress.XtraReports.Web.ClientControls.LoggerService.Initialize((exception, message) =>
+            {
                 var logMessage = $"[{DateTime.Now}]: Exception occurred. Message: '{message}'. Exception Details:\r\n{exception}";
                 reportingLogger.LogError(logMessage);
             });
@@ -239,7 +246,7 @@ namespace DevExtremeAspNetCoreResponsiveApp
             app.UseCors("MyPolicy");
             app.UseStaticFiles();
             app.UseAuthentication();
-            
+
             app.UseCookiePolicy();
             app.UseNToastNotify();
 

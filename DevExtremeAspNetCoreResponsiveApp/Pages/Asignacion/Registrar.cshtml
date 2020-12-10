@@ -154,7 +154,7 @@
     {
            @Html.AntiForgeryToken()
 
-                @(Html.DevExtreme().Form<Beneficiarios>().ID("formBeneficiario").FormData(Model.Beneficiario).ColCount(2).Height(500).ShowValidationSummary(true)
+                @(Html.DevExtreme().Form<Beneficiarios>().ID("formBeneficiario").ColCount(2).Height(500).ShowValidationSummary(true)
                 .Items(item =>
                 {
                     item.AddSimpleFor(m => m.NombreCompleto).IsRequired(true).ColSpan(2).Editor(e => e.TextBox().StylingMode(EditorStylingMode.Outlined).Height(50));
@@ -264,11 +264,11 @@
                 contentType: "application/json; charset=utf-8",
                 //contentType: "application/json; charset=utf-8",
                 success : function(data, textStatus, jqXHR) {
-                    alert(data + " - " + textStatus + " - " + jqXHR);
+                    //alert(data + " - " + textStatus + " - " + jqXHR);
                     var popup = $("#PopBeneficiario").dxPopup("instance");
                     popup.hide();
                     vform.getEditor("IdBeneficiario").option("value", data);
-                    
+                    dxFormInstance.resetValues();                    
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     //alert('Request Status: ' + xhr.status + '; Status Text: ' + textStatus + '; Error: ' + errorThrown);

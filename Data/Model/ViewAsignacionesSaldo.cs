@@ -26,5 +26,11 @@ namespace Data.Model
         public decimal TasaInteres { get; set; }
         public bool AplicaMora { get; set; }
         public int Plazo { get; set; }
+        public string Grupo { get; set; } = "";
+
+        public string DatoCompleto
+        {
+            get { return NombreLote + (Grupo != "" ? " " + Grupo : "") + " - " + NombreCompleto; }
+        }
     }
 }

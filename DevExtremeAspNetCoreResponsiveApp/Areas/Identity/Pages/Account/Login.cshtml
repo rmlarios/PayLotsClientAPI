@@ -9,41 +9,40 @@
 }
 
 @*<style>
-    * {
-        margin: 0;
-        padding: 0;
-    }
-
-    body {
-        /*background-color: #9e9e9e33;*/
-    }
-
-        body:before {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            border-left: 130px solid #9C27B0;
-            border-bottom: 130px solid #00064a;
-            border-right: 450px solid transparent;
-            border-top: 450px solid #ffff0000;
+        * {
+            margin: 0;
+            padding: 0;
         }
 
-        body:after {
-            content: "";
-            position: absolute;
-            top: 0;
-            right: 0;
-            border-right: 130px solid #00cc4b;
-            border-top: 130px solid #d7ff3f;
-            border-left: 450px solid transparent;
-            border-bottom: 450px solid #ffff0000;
+        body {
+            /*background-color: #9e9e9e33;*/
         }
-</style>*@
+
+            body:before {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                border-left: 130px solid #9C27B0;
+                border-bottom: 130px solid #00064a;
+                border-right: 450px solid transparent;
+                border-top: 450px solid #ffff0000;
+            }
+
+            body:after {
+                content: "";
+                position: absolute;
+                top: 0;
+                right: 0;
+                border-right: 130px solid #00cc4b;
+                border-top: 130px solid #d7ff3f;
+                border-left: 450px solid transparent;
+                border-bottom: 450px solid #ffff0000;
+            }
+    </style>*@
 
 <style>
 
     body {
-        
         background: -webkit-linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* Chrome 10+, Saf5.1+ */
         background: -moz-linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* FF3.6+ */
         background: -ms-linear-gradient(90deg, #16222A 10%, #3A6073 90%); /* IE10 */
@@ -55,7 +54,6 @@
     .wrapper {
         margin-top: 180px;
         margin-bottom: 20px;
-        
     }
 
     .form-signin {
@@ -64,7 +62,7 @@
         margin: 0 auto;
         background-color: #eee;
         border: 3px dotted rgba(0,0,0,0.1);
-        z-index:99999999;
+        z-index: 99999999;
     }
 
     .form-signin-heading {
@@ -110,8 +108,8 @@
 
 <div class="container">
 
-    <div class="alert alert-warning alert-dismissible fade hide" asp-validation-summary="All"></div> 
-    
+    <div class="alert alert-warning alert-dismissible fade hide" asp-validation-summary="All"></div>
+
     <div class="wrapper">
         <form method="post" name="Login_Form" class="form-signin">
             <h3 class="form-signin-heading">@ViewData["Title"]</h3>
@@ -227,6 +225,8 @@
               </div>
           </div>
     </div>*@
+<script src="~/AdminLTE/lib/jquery/dist/jquery.js"></script>
+@await Component.InvokeAsync("NToastNotify")
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

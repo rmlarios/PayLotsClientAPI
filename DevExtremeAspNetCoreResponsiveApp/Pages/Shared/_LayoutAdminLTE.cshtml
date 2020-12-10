@@ -25,7 +25,10 @@
             }
     </style>
 
+    <script src="~/js/devextreme/jszip.js"></script>
+
     <script src="~/js/vendor.js" asp-append-version="true"></script>
+
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -53,9 +56,10 @@
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
     @*<link rel="stylesheet" href="~/css/thirdparty.bundle.css" />
-    <link rel="stylesheet" href="~/css/site.css" />*@
-    
+        <link rel="stylesheet" href="~/css/site.css" />*@
+
     <script src="~/js/site.js" asp-append-version="true"></script>
+    
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -482,6 +486,8 @@
             $('.sidebar-menu').tree();
         });
     </script>
+  
+
     @await Component.InvokeAsync("NToastNotify")
 
     @RenderSection("Scripts", required: false)

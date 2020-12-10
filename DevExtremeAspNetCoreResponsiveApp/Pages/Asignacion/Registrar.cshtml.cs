@@ -15,8 +15,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.Asignacion
     private IGenericProxy _genericProxy;
     private readonly IToastNotification _toastNotification;
     [BindProperty]
-    public Asignaciones Asignaciones { get; set; }
-        public Beneficiarios Beneficiario { get; set; } = new Beneficiarios();
+    public Asignaciones Asignaciones { get; set; }    
     public RegistrarModel(IGenericProxy genericProxy, IToastNotification toastNotification)
     {
       _genericProxy = genericProxy;

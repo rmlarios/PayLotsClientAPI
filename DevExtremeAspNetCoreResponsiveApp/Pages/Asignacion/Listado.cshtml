@@ -64,7 +64,7 @@
                         columns.AddFor(m=>m.Saldo);
                         columns.Add().Type(GridCommandColumnType.Buttons).Fixed(true).FixedPosition(HorizontalEdge.Left).Buttons(buttons => {
                         buttons.Add().Name(GridColumnButtonName.Edit);
-                        buttons.Add().Name("Anular").Hint("Anular").Icon("clear").OnClick("openAnular");
+                        buttons.Add().Name("Anular").Hint("Anular").Icon("clear").Visible(new JS("isAnularVisible")).OnClick("openAnular");
                         buttons.Add().Name("PlanPago").Hint("Ver Plan de Pago").Icon("fa fa-calendar").OnClick("printPlan");
                     });
        })
@@ -106,8 +106,12 @@
                                var id = e.data.IdAsignacion;
                                window.location.href="/Asignacion/Registrar/?p=0" ;
                            }
-                       </text>
+                       </text>                       
                        )
+                       .OnCellPrepared("onCellPrepared")
+                       .OnRowPrepared("onRowPrepared")
+                       
+                      
 )
 
  
@@ -181,6 +185,23 @@
     function lookupExpr(item) {
       //alert(item);
       return item.NombreProyecto + " " + item.Bloque;
+    }
+
+    function onCellPrepared(e) {
+        if (e.rowType === "data" && e.column.command === "edit") {
+            var $links = e.cellElement.find(".dx-link");
+            if (e.row.data.Estado == "Anulada")
+                $links.filter(".dx-link-edit").remove();
+        }         
+    }
+
+    function onRowPrepared(e) {
+        if (e.rowType === "data" && e.data.Estado === "Anulada")
+            e.rowElement.css("color","red");
+    }
+
+    function isAnularVisible(e) {
+        return !e.row.isEditing && e.row.data.Estado=="Vigente";
     }
 
     function exporting(e) {

@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace DevExtremeAspNetCoreResponsiveApp.Controllers
 {
-  public class AsignacionesController : GenericController<ViewAsignacionesLotes>
+  public class AsignacionesController : GenericController<ViewAsignacionesSaldo>
   {
     IToastNotification _toastNotification;
 
