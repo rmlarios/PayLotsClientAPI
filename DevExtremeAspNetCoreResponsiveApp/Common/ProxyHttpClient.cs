@@ -32,7 +32,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Common
           var access_token = claims.FirstOrDefault(x => x.Type.Equals("access_token")).Value;
           client.DefaultRequestHeaders.Add("Authorization",$"Bearer {access_token}");
       }
-
+            client.DefaultRequestHeaders.Add("origin", _httpContextAccesor.HttpContext.Request.Host.Value);
       return client;
 
     }

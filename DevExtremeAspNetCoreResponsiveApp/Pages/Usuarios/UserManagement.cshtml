@@ -1,4 +1,5 @@
-﻿@using DevExtremeAspNetCoreResponsiveApp.Model
+﻿@page  
+@using DevExtremeAspNetCoreResponsiveApp.Model
 
 @{
     ViewData["Title"] = "Administracion de Usuarios";
@@ -7,14 +8,14 @@
 @(Html.DevExtreme().DataGrid<AppUser>
                     ()
                     .ID("GridListado")
-                    .DataSource(d=>d.Mvc().Controller("Ubicaciones").Key("IdUbicacion").LoadAction("GetAll")
+                    .DataSource(d=>d.Mvc().Controller("Users").Key("Id").LoadAction("GetAll")
                     .InsertAction("PostCreate").UpdateAction("PutUpdate").DeleteAction("DeletebyId"))
                     .ShowBorders(false)
                     .ElementAttr(new { @class = "dx-card wide-card" })
                     .ColumnHidingEnabled(true)
                     .FilterPanel(f => f.Visible(true))
                     .FilterBuilder(c => c.Visible(true))
-                    .Export(e => e.Enabled(true).AllowExportSelectedData(true)).OnExporting("exporting")
+                    //.Export(e => e.Enabled(true).AllowExportSelectedData(true)).OnExporting("exporting")
                     .Paging(pag => pag.PageSize(10))
                     .Pager(p => p.ShowPageSizeSelector(false).ShowNavigationButtons(true).ShowInfo(true).InfoText("Página {0} de {1} ({2} Registros)"))
                     .RowAlternationEnabled(true)
@@ -28,9 +29,10 @@
                     /*Columnas del grid*/
                     .Columns(columns =>
                     {
-                        columns.AddFor(m => m.UserName);
-                        columns.AddFor(m => m.Email);
-                        columns.AddFor(m => m.IsActive);
+                        columns.AddFor(m => m.UserName).Caption("Nombre de Usuario");
+                        columns.AddFor(m => m.Email).Caption("Correo Electrónico");
+                        columns.AddFor(m => m.IsActive).Caption("Activo");
+                        columns.AddFor(m => m.EmailConfirmed).Caption("Correo Confirmado");
 
 
                         columns.Add().Type(GridCommandColumnType.Buttons).Width(200).Buttons(b =>
@@ -51,14 +53,16 @@
                         /*Configuracion del Popup*/
                         .Popup(p => p.Width(400).Title("Formulario de Edición").ShowTitle(true).Position(PositionAlignment.Center).Height(350).CloseOnOutsideClick(false).ShowCloseButton(false))
                         /*Configuracion del EditForm*/
-                        .Form(f => f.ColCount(2).ShowRequiredMark(true).LabelLocation(FormLabelLocation.Left)
+                        .Form(f => f.ColCount(1).ShowRequiredMark(true).LabelLocation(FormLabelLocation.Left)
                             .Items(items =>
                             {
-
+                                items.AddSimpleFor(m => m.UserName);
+                                items.AddSimpleFor(m => m.Email);
+                                items.AddSimpleFor(m => m.IsActive);
 
                             }))
                           )
-                       .ErrorRowEnabled(true)
+                       //.ErrorRowEnabled(true)
                        /*Eventos*/
                        .OnRowDblClick(@<text>
                            function(e)
