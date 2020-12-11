@@ -28,8 +28,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Proxies
       //response.EnsureSuccessStatusCode();
       var result = await response.Content.ReadAsStringAsync();
       var Json = JsonConvert.DeserializeObject<Response<AuthenticationResponse>>(result);   
-      return Json;
-      
-    }
+      return Json;      
+    }    
   }
 }

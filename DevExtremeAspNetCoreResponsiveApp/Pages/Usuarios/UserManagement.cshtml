@@ -1,74 +1,96 @@
-﻿@page  
-@using DevExtremeAspNetCoreResponsiveApp.Model
+﻿@page
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+
 
 @{
     ViewData["Title"] = "Administracion de Usuarios";
 }
 
-@(Html.DevExtreme().DataGrid<AppUser>
-                    ()
-                    .ID("GridListado")
-                    .DataSource(d=>d.Mvc().Controller("Users").Key("Id").LoadAction("GetAll")
-                    .InsertAction("PostCreate").UpdateAction("PutUpdate").DeleteAction("DeletebyId"))
-                    .ShowBorders(false)
-                    .ElementAttr(new { @class = "dx-card wide-card" })
-                    .ColumnHidingEnabled(true)
-                    .FilterPanel(f => f.Visible(true))
-                    .FilterBuilder(c => c.Visible(true))
-                    //.Export(e => e.Enabled(true).AllowExportSelectedData(true)).OnExporting("exporting")
-                    .Paging(pag => pag.PageSize(10))
-                    .Pager(p => p.ShowPageSizeSelector(false).ShowNavigationButtons(true).ShowInfo(true).InfoText("Página {0} de {1} ({2} Registros)"))
-                    .RowAlternationEnabled(true)
-                    .HoverStateEnabled(true)
-                    .Selection(s => s.Mode(SelectionMode.Single).AllowSelectAll(false))
-                    .SearchPanel(s => s.Visible(true).HighlightSearchText(true).Width(400).Placeholder("Buscar..."))
-                    .FilterRow(f => f.ApplyFilter(GridApplyFilterMode.Auto).Visible(true).ShowAllText("Todos"))
+@using (Html.BeginForm())
+{
 
-                    .WordWrapEnabled(true)
-                    .ColumnAutoWidth(true)
-                    /*Columnas del grid*/
-                    .Columns(columns =>
-                    {
-                        columns.AddFor(m => m.UserName).Caption("Nombre de Usuario");
-                        columns.AddFor(m => m.Email).Caption("Correo Electrónico");
-                        columns.AddFor(m => m.IsActive).Caption("Activo");
-                        columns.AddFor(m => m.EmailConfirmed).Caption("Correo Confirmado");
+    @(Html.DevExtreme().DataGrid<AppUserModel>
+                        ()
+                        .ID("GridListado")
+                        .DataSource(d => d.Mvc().Controller("Users").Key("Id").LoadAction("GetAll")
+                        .InsertAction("PostCreate").UpdateAction("PutUpdate").DeleteAction("DeletebyId").OnBeforeSend("grid_dataSource_beforeSend"))
 
+                        .ShowBorders(false)
+                        .ElementAttr(new { @class = "dx-card wide-card" })
+                        .ColumnHidingEnabled(true)
+                        .FilterPanel(f => f.Visible(true))
+                        .FilterBuilder(c => c.Visible(true))
+                        //.Export(e => e.Enabled(true).AllowExportSelectedData(true)).OnExporting("exporting")
+                        .Paging(pag => pag.PageSize(10))
+                        .Pager(p => p.ShowPageSizeSelector(false).ShowNavigationButtons(true).ShowInfo(true).InfoText("Página {0} de {1} ({2} Registros)"))
+                        .RowAlternationEnabled(true)
+                        .HoverStateEnabled(true)
+                        .Selection(s => s.Mode(SelectionMode.Single).AllowSelectAll(false))
+                        .SearchPanel(s => s.Visible(true).HighlightSearchText(true).Width(400).Placeholder("Buscar..."))
+                        .FilterRow(f => f.ApplyFilter(GridApplyFilterMode.Auto).Visible(true).ShowAllText("Todos"))
 
-                        columns.Add().Type(GridCommandColumnType.Buttons).Width(200).Buttons(b =>
+                        .WordWrapEnabled(true)
+                        .ColumnAutoWidth(true)
+                        /*Columnas del grid*/
+                        .Columns(columns =>
                         {
-                            b.Add().Name(GridColumnButtonName.Edit);
-                            b.Add().Name(GridColumnButtonName.Delete);
-                        });
-                    }).HeaderFilter(h => h.AllowSearch(true).Visible(true))
-                    /*Configuracion para la edicion*/
-                    .Editing(e => e.Mode(GridEditMode.Popup)
-                        .UseIcons(true)
-                        .AllowAdding(true)
-                        .AllowUpdating(true)
-                        .AllowDeleting(true)
-                        .UseIcons(true)
-                        .Texts(t => t.AddRow("Nuevo").EditRow("Editar").DeleteRow("Eliminar").ConfirmDeleteMessage("¿Está seguro que desea Eliminar este Registro?")
-                        .SaveRowChanges("Guardar").CancelRowChanges("Cancelar"))
-                        /*Configuracion del Popup*/
-                        .Popup(p => p.Width(400).Title("Formulario de Edición").ShowTitle(true).Position(PositionAlignment.Center).Height(350).CloseOnOutsideClick(false).ShowCloseButton(false))
-                        /*Configuracion del EditForm*/
-                        .Form(f => f.ColCount(1).ShowRequiredMark(true).LabelLocation(FormLabelLocation.Left)
-                            .Items(items =>
-                            {
-                                items.AddSimpleFor(m => m.UserName);
-                                items.AddSimpleFor(m => m.Email);
-                                items.AddSimpleFor(m => m.IsActive);
+                            columns.AddFor(m => m.Id).Visible(false);
+                            columns.AddFor(m => m.UserName).Caption("Nombre de Usuario");
+                            columns.AddFor(m => m.Email).Caption("Correo Electrónico");
+                            columns.AddFor(m => m.IsActive).Caption("Activo");
+                            columns.AddFor(m => m.EmailConfirmed).Caption("Correo Confirmado");
+                            columns.AddFor(m => m.Rol).Lookup(l=>l.DataSource(d=>d.Mvc().Controller("Users").LoadAction("GetRoles")));
 
-                            }))
-                          )
-                       //.ErrorRowEnabled(true)
-                       /*Eventos*/
-                       .OnRowDblClick(@<text>
+
+                            columns.Add().Type(GridCommandColumnType.Buttons).Width(200).Buttons(b =>
+                            {
+                                b.Add().Name(GridColumnButtonName.Edit);
+                                b.Add().Name(GridColumnButtonName.Delete);
+                            });
+                        }).HeaderFilter(h => h.AllowSearch(true).Visible(true))
+                        /*Configuracion para la edicion*/
+                        .Editing(e => e.Mode(GridEditMode.Popup)
+                            .UseIcons(true)
+                            .AllowAdding(true)
+                            .AllowUpdating(true)
+                            .AllowDeleting(true)
+                            .UseIcons(true)
+                            .Texts(t => t.AddRow("Nuevo").EditRow("Editar").DeleteRow("Eliminar").ConfirmDeleteMessage("¿Está seguro que desea Eliminar este Registro?")
+                            .SaveRowChanges("Guardar").CancelRowChanges("Cancelar"))
+                            /*Configuracion del Popup*/
+                            .Popup(p => p.Width(400).Title("Formulario de Edición").ShowTitle(true).Position(PositionAlignment.Center).Height(350).CloseOnOutsideClick(false).ShowCloseButton(false))
+                            /*Configuracion del EditForm*/
+                            .Form(f => f.ColCount(1).ShowRequiredMark(true).LabelLocation(FormLabelLocation.Left)
+                                .Items(items =>
+                                {
+                                    items.AddSimpleFor(m => m.UserName);
+                                    items.AddSimpleFor(m => m.Email);
+                                    items.AddSimpleFor(m => m.IsActive);
+                                    items.AddSimpleFor(m => m.Rol);
+
+                                }))
+                              )
+                           //.ErrorRowEnabled(true)
+                           /*Eventos*/
+                           .OnRowDblClick(@<text>
                            function(e)
                            {
                                var dataGrid = $("#GridListado").dxDataGrid("instance");
                                dataGrid.editRow(e.rowIndex);
                            }
-                       </text>)                      
+                       </text>)
 )
+}
+
+<script>
+     function grid_dataSource_beforeSend(operation, ajax) {
+        @* var data = ajaxSettings.data || {},
+            args = Object.keys(data).map(function (key) {
+                return key + "=" + data[key];
+            }).join(" "); *@
+
+             ajax.headers = {
+            RequestVerificationToken: "@Xsrf.GetAndStoreTokens(Model.HttpContext).RequestToken"
+        };
+    }
+</script>

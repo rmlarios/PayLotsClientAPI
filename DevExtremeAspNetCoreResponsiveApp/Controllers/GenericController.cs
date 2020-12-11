@@ -64,8 +64,9 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> PutUpdate([FromForm] int key, [FromForm] string values)
+        public async Task<IActionResult> PutUpdate([FromForm] string key, [FromForm] string values)
         {
+            
             var current = await _genericProxy.GetAsync<T>(_ClassName + key);
             T entity = new T();
             entity = current.Data;
