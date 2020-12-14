@@ -127,7 +127,7 @@
                                 <!-- Menu Footer-->
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                        <a href=@Url.Page("/Usuarios/ChangePassword") class="btn btn-default btn-flat">Profile</a>
                                     </div>
 
                                     <div class="pull-right">
@@ -244,13 +244,16 @@
                         </a>
                         <ul class="treeview-menu">
                             <li><a href=@Url.Page("/Reportes/EstadoCuenta")><i class="fa fa-calculator"></i> Estados de Cuenta</a></li>
-                            <li><a href=@Url.Page("/Reportes/PagosFecha")><i class="fa fa-calendar-day"></i> Pagos por Fecha</a></li>
+                            <li><a href=@Url.Page("/Reportes/PagosFecha")><i class="fa fa-calendar-check-o"></i> Pagos por Fecha</a></li>
                         </ul>
                     </li>
+                    @if (User.Claims.FirstOrDefault(c => c.Type.Equals("rol")).Value == "Administrador")
+                    {
                     <li class="header">Administración</li>
+                    <li><a href=@Url.Page("/Usuarios/UserManagement")><i class="fa fa-users"></i> <span>Usuarios</span></a></li>
                     <li><a href=@Url.Page("/Empresa/RegistrarDatosEmpresa")><i class="fa fa-building"></i> <span>Datos Empresa</span></a></li>
-                    <li><a href=@Url.Page("/ReportDesigner")><i class="fa fa-newspaper-o"></i> <span>Editor de Reportes</span></a></li>
-                    <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+                    <li><a href=@Url.Page("/ReportDesigner")><i class="fa fa-newspaper-o"></i> <span>Editor de Reportes</span></a></li>                    
+                    }
                 </ul>
             </section>
             <!-- /.sidebar -->

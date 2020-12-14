@@ -101,6 +101,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Areas.Identity.Pages.Account
             new Claim(ClaimTypes.NameIdentifier,result.Data.UserName),
             new Claim(ClaimTypes.Email,result.Data.Email),
             new Claim("access_token",result.Data.JWToken),
+            new Claim("rol",result.Data.Roles[0])
         };
 
                 var user = await _userHelper.GetUserByNameAsync(model.Email);

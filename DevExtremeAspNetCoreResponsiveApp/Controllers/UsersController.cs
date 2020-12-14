@@ -26,6 +26,12 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controllers
             return new JsonResult(DataSourceLoader.Load(result.Datas, loadOptions));
         }
 
+        [HttpPost("ForgotPassword")]
+        public async Task<IActionResult> ForgotPassword([FromForm]string Email)
+        {
+            return Ok();
+        }
+
 
     }
 }

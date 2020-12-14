@@ -79,7 +79,7 @@ namespace DevExtremeAspNetCoreResponsiveApp
             //services.AddDbContext<IdentityContext>(options => options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
 
             //Configuracion de Identity
-            services.AddIdentity<AppUser, IdentityRole>(options =>
+           services.AddIdentity<AppUser, IdentityRole>(options =>
                     {
                         options.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
                         options.Password.RequireDigit = true;
@@ -92,7 +92,9 @@ namespace DevExtremeAspNetCoreResponsiveApp
                         options.Lockout.MaxFailedAccessAttempts = 5;
 
                     })
-                .AddEntityFrameworkStores<PayLotsDBContext>().AddDefaultTokenProviders().AddDefaultUI();
+                .AddEntityFrameworkStores<PayLotsDBContext>()                
+                .AddDefaultTokenProviders().AddDefaultUI();
+           
 
             //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
             //.AddRazorPagesOptions(options =>
