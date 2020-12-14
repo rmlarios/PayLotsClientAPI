@@ -28,7 +28,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.Asignacion
         Asignaciones = new Asignaciones();
       else
       {
-        var result = await _genericProxy.GetAsync<Asignaciones>("Asignacion/GetDatosbyId/" + p);
+        var result = await _genericProxy.GetAsync<Asignaciones>("Asignacion/");
         if (result.Succeeded)
           Asignaciones = result.Datas[0];
         else

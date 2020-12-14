@@ -1,0 +1,91 @@
+﻿@page
+
+
+@model DevExtremeAspNetCoreResponsiveApp.Pages.Empresa.RegistrarDatosEmpresaModel
+@{
+    ViewData["Title"] = "Datos de la Empresa";
+}
+
+
+@using (Html.BeginForm(method: FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+<button type="submit">Guardar</button>
+    @(Html.DevExtreme().Form<DatosEmpresa>()
+                .ID("form")
+                .ColCount(3)
+                .FormData(Model.datosEmpresa)
+                .LabelLocation(FormLabelLocation.Top)
+                .MinColWidth(300)
+                .ColCount(3)
+                .Height("50%")
+                .ReadOnly(false)
+                .ShowColonAfterLabel(true)
+                .ShowValidationSummary(true)
+                //.Disabled(new JS("disableForm"))
+                .Items(item =>
+                {
+
+                item.AddSimpleFor(m => m.DatosEmpresaId).Visible(false);
+                item.AddSimple().Name("LogoImg").ColSpan(3).Template(@<text>
+                    <div class="text-center">
+            <img id="dropzoneimage" src="@Model.LogoURL" width="300" height="300" />                        
+        </div>
+        <div class="text-center">
+            @(Html.DevExtreme().FileUploader().Name("imglogo").ID("myLogo").Accept("image/*").UploadMethod(UploadHttpMethod.POST).AllowedFileExtensions(new[] { ".jpg", ".jpeg", ".png" }).UploadButtonText("Subir").UploadMode(FileUploadMode.UseForm).LabelText("Seleccione una imagen")
+                                    .OnUploaded("onUploaded").OnUploadError("uploadError").OnValueChanged("onValueChanged").UploadUrl(Url.Action("UploadLogo", "Empresa")))
+        </div>
+
+
+                   </text>);
+               
+                item.AddSimpleFor(m => m.NombreEmpresa).ColSpan(3).Editor(e => e.TextBox().StylingMode(EditorStylingMode.Outlined));
+                item.AddSimpleFor(m => m.Direccion).ColSpan(3).Editor(e => e.TextBox().StylingMode(EditorStylingMode.Outlined));
+                item.AddSimpleFor(m => m.Ruc).ColSpan(1).Editor(e => e.TextBox().StylingMode(EditorStylingMode.Outlined));
+                item.AddSimpleFor(m => m.Email).ColSpan(1).Editor(e => e.TextBox().Mode(TextBoxMode.Email).StylingMode(EditorStylingMode.Outlined));
+                item.AddSimpleFor(m => m.Telefono).ColSpan(1).Editor(e => e.TextBox().StylingMode(EditorStylingMode.Outlined));
+                item.AddGroup().ColSpan(3).ColCount(2).Items(i =>
+                {
+                i.AddButton().Name("Guardar").ColSpan(1).ButtonOptions(o => o.Icon("save").Text("Guardar").Type(ButtonType.Success).UseSubmitBehavior(true).Width("100%"));
+                i.AddButton().Name("Cancelar").ColSpan(1).ButtonOptions(o => o.Icon("").Text("Cancelar").Type(ButtonType.Success).Width("100%").OnClick(
+                       @<text>
+                           function(e)
+                           {
+                               window.location.reload();
+                           }
+                       </text>
+                           ));
+                    });
+                }).OnInitialized("onFormInitialized")//.OnContentReady("onFormReady")
+        )
+}
+
+<script>
+    var vform, isFirstLoad = true;
+
+    function onFormInitialized(e) {
+        vform = e.component;
+    }
+
+    function onUploaded(e) {
+
+    }
+
+    function uploadError(e) {
+
+    }
+
+    function onValueChanged(e) {
+        const file = e.value[0];
+        const fileReader = new FileReader();
+        fileReader.onload = function () {
+            //  toggleDropZoneActive($("#dropzone-external")[0], false);
+            $("#dropzoneimage")[0].src = fileReader.result;
+        }
+        fileReader.readAsDataURL(file);
+        //$("#dropzone-text")[0].style.display = "none";
+        /*getProgressBarInstance().option({
+            visible: false,
+            value: 0
+        });*/
+    }
+</script>
