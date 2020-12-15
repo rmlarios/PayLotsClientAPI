@@ -38,19 +38,22 @@ namespace DevExtremeAspNetCoreResponsiveApp.Areas.Identity.Pages.Account
             public string Email { get; set; }
         }
 
-        public async Task<IActionResult> OnPostAsync(string email)
+        public async Task<IActionResult> OnPost([FromForm]string Email)
         {
             if (ModelState.IsValid)
             {
-                var result = await _genericProxy.PostAsync<string>("Account/ForgotPassword", Input.Email);
+                var result = await _genericProxy.PostAsync<InputModel>("Account/ForgotPassword", Input);
                 if (result.Succeeded)
                 {
-                    return RedirectToPage("./ForgotPasswordConfirmation");
+                    //return RedirectToPage("./ForgotPasswordConfirmation");                    
+                    _toasNotification.AddSuccessToastMessage(result.Message);
+                    return new JsonResult(Input);
                 }
                 else
                 {
                     _toasNotification.AddErrorToastMessage(result.Message);
-                    return RedirectToPage("./ForgotPasswordConfirmation");
+                    return BadRequest();
+                    //return RedirectToPage("./ForgotPasswordConfirmation");
                 }
                 //var user = await _userHelper.GetUserByEmailAsync(Input.Email);
                 //if (user == null || !(await _userHelper.IsEmailConfirmedAsync(user)))

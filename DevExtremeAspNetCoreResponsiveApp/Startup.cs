@@ -112,9 +112,11 @@ namespace DevExtremeAspNetCoreResponsiveApp
                    opt.AccessDeniedPath = $"/Identity/Account/Login";
                    opt.Cookie.Name = "identcookie";
                    opt.Cookie.SameSite = SameSiteMode.None;
+
                }
            );
 
+            services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
 
             /*  services.ConfigureApplicationCookie(opts =>
              {

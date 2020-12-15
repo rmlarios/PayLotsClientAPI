@@ -10,6 +10,7 @@
 <script src="~/AdminLTE/lib/jquery/dist/jquery.js"></script>
 <script src="~/js/vendor.js" asp-append-version="true"></script>
 
+
 @*<link rel="stylesheet" href="~/Identity/css/site.css" />*@
 @{
     // Layout = "/Pages/Shared/_Layout.cshtml";
@@ -160,6 +161,11 @@
 @(Html.DevExtreme().Popup().ID("popforgot").Width("600px").Height("400px").ContentTemplate( @<text>
             <div id="forgotdiv">
             </div></text>)
+
+    )
+@(Html.DevExtreme().Popup().ID("popconfirmcode").Width("600px").Height("700px").ContentTemplate( @<text>
+         <div id="confirmdiv"></div>
+            </text>)
 
     )
 
