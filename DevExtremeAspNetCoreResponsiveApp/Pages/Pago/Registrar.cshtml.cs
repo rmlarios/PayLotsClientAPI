@@ -10,6 +10,8 @@ using DevExtremeAspNetCoreResponsiveApp.Reports;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using NToastNotify;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace DevExtremeAspNetCoreResponsiveApp.Pages.Pago
 {
@@ -18,16 +20,19 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.Pago
         
         private IGenericProxy _genericProxy;
         private readonly IToastNotification _toastNotification;
+        private readonly IHostingEnvironment _env;
+
         [BindProperty]
         public ViewAsignacionesSaldo Asignaciones { get; set; }
         [BindProperty]
         public ViewPagosAsignaciones pago { get; set; }
 
         public RptTicketPago ticketPago { get; set; } = new RptTicketPago();
-        public RegistrarModel(IGenericProxy genericProxy, IToastNotification toastNotification)
+        public RegistrarModel(IGenericProxy genericProxy, IToastNotification toastNotification,IHostingEnvironment env)
         {
             _genericProxy = genericProxy;
             _toastNotification = toastNotification;
+            _env = env;
         }
 
         public async Task OnGet(string p="0")
@@ -128,6 +133,8 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.Pago
 
 
                 var source = await _genericProxy.GetAsync<TicketPago>("Pago/GetTicket/" + TempData["IdImprimir"].ToString());
+                var path = Path.Combine(_env.ContentRootPath, "Reports");
+                ticketPago.LoadLayout(path + "\\RptTicketPago.repx");
                 ticketPago.DataSource = source.Datas;
                 ticketPago.DataMember = ticketPago.DataMember;
 

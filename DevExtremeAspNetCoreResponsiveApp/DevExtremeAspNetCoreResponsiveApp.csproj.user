@@ -31,6 +31,9 @@
     <Compile Update="Reports\RptEstadoCuenta.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Update="Reports\RptPagosFechas.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="Reports\RptPlandePago.cs">
       <SubType>Component</SubType>
     </Compile>

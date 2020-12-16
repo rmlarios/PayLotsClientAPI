@@ -26,6 +26,9 @@ namespace DevExtremeAspNetCoreResponsiveApp.DTOs
         public decimal Mora { get; set; }
         public decimal TotalPago { get; set; }
         public decimal Saldo { get; set; }
+        public string Empresa { get; set; } = "";
+        public string DireccionEmpresa { get; set; } = "";
+        public string TelefonoEmpresa { get; set; } = "";
 
     }
 }

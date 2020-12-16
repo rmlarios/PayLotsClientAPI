@@ -48,6 +48,12 @@
     <Compile Include="Reports\RptEstadoCuenta.Designer.cs">
       <DependentUpon>RptEstadoCuenta.repx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\RptPagosFechas.cs">
+      <DependentUpon>RptPagosFechas.repx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\RptPagosFechas.Designer.cs">
+      <DependentUpon>RptPagosFechas.repx</DependentUpon>
+    </Compile>
     <Compile Include="Reports\RptPlandePago.cs">
       <DependentUpon>RptPlandePago.repx</DependentUpon>
     </Compile>
@@ -106,6 +112,9 @@
   <ItemGroup>
     <Folder Include="Pages\Proforma\" />
     <Folder Include="wwwroot\TempImg\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reports\RptPagosFechas.repx" />
   </ItemGroup>
   <ProjectExtensions>
     <VisualStudio><UserProperties appsettings_1json__JsonSchema="" TemplateFeatures="NETCORE CS RESPONSIVE" /></VisualStudio>

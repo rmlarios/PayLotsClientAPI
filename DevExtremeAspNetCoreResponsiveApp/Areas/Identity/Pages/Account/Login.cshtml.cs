@@ -61,6 +61,8 @@ namespace DevExtremeAspNetCoreResponsiveApp.Areas.Identity.Pages.Account
 
             [Required]
             [DataType(DataType.Password)]
+            [StringLength(12, ErrorMessage = "La contraseña debe tener al menos {2} caracteres.", MinimumLength = 8)]
+            [RegularExpression(@"^((?=.*[a-z])(?=.*[A-Z])(?=.*\d))(?=.*[^\da-zA-Z]).+$", ErrorMessage = "Contraseña no válida")]
             public string Password { get; set; }
 
             [Display(Name = "Remember me?")]
@@ -101,7 +103,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Areas.Identity.Pages.Account
             new Claim(ClaimTypes.NameIdentifier,result.Data.UserName),
             new Claim(ClaimTypes.Email,result.Data.Email),
             new Claim("access_token",result.Data.JWToken),
-            //new Claim("rol",result.Data.Roles[0])
+            new Claim("rol",result.Data.Roles[0])
         };
 
                 var user = await _userHelper.GetUserByNameAsync(model.Email);

@@ -1455,4 +1455,5 @@ D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\Razor\Pages\Usuarios\ChangePassword.cshtml.g.cs
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\Razor\Pages\Shared\ForgotPasswordView.cshtml.g.cs
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\ResetPassword.cshtml.g.cs
-D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\scopedcss\bundle\DevExtremeAspNetCoreResponsiveApp.styles.css
+D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
+D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\Razor\Pages\Reportes\PagosFechas.cshtml.g.cs

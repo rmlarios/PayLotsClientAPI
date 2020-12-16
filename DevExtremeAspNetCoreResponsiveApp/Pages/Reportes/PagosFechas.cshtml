@@ -1,0 +1,77 @@
+﻿@page
+@model DevExtremeAspNetCoreResponsiveApp.Pages.Reportes.PagosFechasModel
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@{
+    ViewData["Title"] = "Pagos por Fechas";
+}
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        @(Html.DevExtreme().PieChart().ID("mychart")
+        .DataSource(d=>d.Mvc().Controller("Pagos").LoadAction("GetGrafico").OnBeforeSend("chart_beforeSend")
+        .LoadParams(new { Fecha = new JS("getFecha") }))        
+        .Animation(true)        
+        .Export(c=>c.Enabled(true))
+        .Palette(VizPalette.Material)
+        .Legend(l=>l.HoverMode(PieChartLegendHoverMode.AllArgumentPoints).Title("Proyectos"))
+        .Theme(VizTheme.MaterialTealLight)
+        .Tooltip(t=>t.Enabled(true).Shared(true))
+        .Series(s=>s.Add().ArgumentField("NombreProyecto").ValueField("Pagado").Label(l=>l.Visible(true).Position(PieChartLabelPosition.Inside).Format(Format.Decimal)))
+        )
+
+    </div>
+    <div class="col-md-4"></div>
+</div>
+
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 font-weight-bold">
+    @(Html.DevExtreme().Calendar().ID("mycalendar")
+        .ShowTodayButton(true)
+        .Max(DateTime.Today)
+        .FirstDayOfWeek(FirstDayOfWeek.Monday)        
+        .Width("100%").Height(400)
+        .OnValueChanged("ondateChanged")
+        .Value(DateTime.Today.Date)
+        .OnInitialized("calendarInit")        
+        )</div>
+    <div class="col-md-3"></div>
+</div>
+
+<script>
+    var cdate,calendar;
+
+    function calendarInit(e) {
+        calendar = e.component;
+        //calendar = $("#calendar-container").dxCalendar("instance");
+        cdate = calendar.option("value");
+    }
+
+    function getFecha() {
+        var cal = $("#mycalendar").dxCalendar().dxCalendar("instance")
+        if (cal.option("value") != null)
+            return cdate;
+        else
+            return new Date().toLocaleDateString();        
+    }
+
+
+
+    function ondateChanged(data) {
+        alert(data.value);
+        var chart = $("#mychart").dxChart().dxChart("instance");
+        var ds = chart.option('dataSource');
+        chart.option('dataSource', ds);  
+    }
+
+      function chart_beforeSend(operation, ajax) {
+        @* var data = ajaxSettings.data || {},
+            args = Object.keys(data).map(function (key) {
+                return key + "=" + data[key];
+            }).join(" "); *@
+
+             ajax.headers = {
+            RequestVerificationToken: "@Xsrf.GetAndStoreTokens(Model.HttpContext).RequestToken"
+        };
+    }
+</script>

@@ -102,7 +102,7 @@
                     .ID("GridListado")
                     .DataSource(d=>d.Mvc().Controller("Pagos").Key("IdPago")
                     //.LoadMethod("Plan")
-                    .LoadAction("GetbyId")
+                    .LoadAction("GetbyId").DeleteAction("DeletebyId")
                     .LoadParams(new { id = new JS("getIdAsignacion") })
                     )
                     .ColumnResizingMode(ColumnResizingMode.NextColumn)
@@ -127,7 +127,7 @@
                         b.Add().Name(GridColumnButtonName.Delete);
                         b.Add().Icon("fa fa-print").Hint("Imprimir").OnClick("printTicket");
                     });
-                    c.AddFor(m => m.IdPago).Visible(false);
+                    c.AddFor(m => m.IdPago).Visible(false).SortOrder(SortOrder.Desc);
                     c.AddFor(m => m.IdAsignacion).Visible(false);
                     c.AddFor(m=>m.MesPagado);
                     c.AddFor(m=>m.NumeroRecibo);
@@ -152,7 +152,7 @@
                         .UseIcons(true)
                         .AllowAdding(true)
                         .AllowUpdating(true)
-                        //.AllowDeleting(true)
+                        .AllowDeleting(true)
                         .UseIcons(true)
                         .Texts(t => t.AddRow("Nuevo").EditRow("Editar").DeleteRow("Eliminar").ConfirmDeleteMessage("¿Está seguro que desea Eliminar este Registro?")
                         .SaveRowChanges("Guardar").CancelRowChanges("Cancelar"))

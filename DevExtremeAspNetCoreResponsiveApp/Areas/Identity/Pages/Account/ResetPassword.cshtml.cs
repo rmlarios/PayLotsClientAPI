@@ -26,14 +26,24 @@ namespace DevExtremeAspNetCoreResponsiveApp.Areas.Identity.Pages.Account
             [Required]
             [EmailAddress]
             [Display(Name ="Se envió un código de confirmación a: ")]
-            public string emailreset { get; set; }
+            public string Email { get; set; }
             [Required]
+            [Display(Name ="Ingrese el Código recibido")]
             public string Token { get; set; }
             [Required]
-            [MinLength(6)]
+            [MinLength(8)]
+            [StringLength(12, ErrorMessage = "La contraseña debe tener al menos {2} caracteres.", MinimumLength = 8)]
+            [RegularExpression(@"^((?=.*[a-z])(?=.*[A-Z])(?=.*\d))(?=.*[^\da-zA-Z]).+$", ErrorMessage = "Contraseña no válida")]
+            [Display(Name = "Ingrese la nueva contraseña")]
+            [DataType(DataType.Password)]
             public string Password { get; set; }
             [Required]
+            [MinLength(8)]
+            [StringLength(12, ErrorMessage = "La contraseña debe tener al menos {2} caracteres.", MinimumLength = 8)]
+            [RegularExpression(@"^((?=.*[a-z])(?=.*[A-Z])(?=.*\d))(?=.*[^\da-zA-Z]).+$", ErrorMessage = "Contraseña no válida")]
             [Compare("Password")]
+            [Display(Name = "Ingrese la confirmación de la contraseña")]
+            [DataType(DataType.Password)]
             public string ConfirmPassword { get; set; }
         }
 
@@ -41,12 +51,12 @@ namespace DevExtremeAspNetCoreResponsiveApp.Areas.Identity.Pages.Account
         {
             Input = new ResetPasswordRequest();
             if (email != null)
-                Input.emailreset = email;
+                Input.Email = email;
         }
 
-        public async Task<IActionResult> OnPost([FromForm] string emailreset)
+        public async Task<IActionResult> OnPost([FromForm] string Email)
         {
-            Input.emailreset = emailreset;
+            Input.Email = Email;
             var result = await _genericProxy.PostAsync<ResetPasswordRequest>("Account/ResetPassword", Input);
             if (result.Succeeded)
             {
