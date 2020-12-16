@@ -247,13 +247,13 @@
                             <li><a href=@Url.Page("/Reportes/PagosFecha")><i class="fa fa-calendar-check-o"></i> Pagos por Fecha</a></li>
                         </ul>
                     </li>
-                    @if (User.Claims.FirstOrDefault(c => c.Type.Equals("rol")).Value == "Administrador")
+                    @*@if (User.Claims.FirstOrDefault(c => c.Type.Equals("rol")).Value == "Administrador")
                     {
                     <li class="header">Administración</li>
                     <li><a href=@Url.Page("/Usuarios/UserManagement")><i class="fa fa-users"></i> <span>Usuarios</span></a></li>
                     <li><a href=@Url.Page("/Empresa/RegistrarDatosEmpresa")><i class="fa fa-building"></i> <span>Datos Empresa</span></a></li>
                     <li><a href=@Url.Page("/ReportDesigner")><i class="fa fa-newspaper-o"></i> <span>Editor de Reportes</span></a></li>                    
-                    }
+                    }*@
                 </ul>
             </section>
             <!-- /.sidebar -->
