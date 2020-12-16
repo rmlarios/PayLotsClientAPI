@@ -58,10 +58,9 @@
 
 
     function ondateChanged(data) {
-        alert(data.value);
-        var chart = $("#mychart").dxChart().dxChart("instance");
-        var ds = chart.option('dataSource');
-        chart.option('dataSource', ds);  
+        //alert(data.value);
+        cdate = new Date(data.value).toLocaleDateString();
+        alert(cdate);        
     }
 
       function chart_beforeSend(operation, ajax) {
