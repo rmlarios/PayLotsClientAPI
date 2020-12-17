@@ -1,0 +1,168 @@
+﻿@page
+@model DevExtremeAspNetCoreResponsiveApp.Pages.Proforma.RegistrarModel
+@{
+    ViewData["Title"] = "Proformas";
+}
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        @using (Html.BeginForm(method: FormMethod.Post))
+        {
+            <input type="hidden" asp-for="proforma.IdProforma" name="IdProforma">
+            @(Html.DevExtreme().Form<Proformas>()
+            .ID("form")
+            .FormData(Model.proforma)
+            .LabelLocation(FormLabelLocation.Left)
+            .MinColWidth(300)
+            .ColCount(4)
+            .Height("50%")
+            .ReadOnly(false)
+            .ShowColonAfterLabel(true)
+            .ShowValidationSummary(true)
+            //.Disabled(new JS("disableForm"))
+            .Items(item =>{
+               item.AddGroup().ColSpan(4).ColCount(6).Items(i => {
+                   i.AddButton().Name("Guardar").ColSpan(1).ButtonOptions(o=>o.Icon("save").Text("Guardar").Type(ButtonType.Success).UseSubmitBehavior(true).Width("100%"));
+
+                   i.AddButton().Name("Nuevo").ColSpan(1).ButtonOptions(o=>o.Icon("fa fa-file-o").Text("Nuevo").Type(ButtonType.Success).Width("100%").OnClick(
+                       @<text>
+                           function(e)
+                           {
+                               window.location.href="/Proforma/Registrar/?p=" + 0 ;
+                           }
+                       </text>
+                   ));
+                   i.AddButton().Name("Cancelar").ColSpan(1).ButtonOptions(o=>o.Icon("").Text("Cancelar").Type(ButtonType.Success).Width("100%").OnClick(
+                       @<text>
+                           function(e)
+                           {
+                               window.location.reload();
+                           }
+                       </text>
+                   ));
+                    i.AddButton().Name("Imprimir").ColSpan(1).ButtonOptions(o=>o.Icon("print").Text("Imprimir").Type(ButtonType.Success).Width("100%").OnClick("print"                      
+                   ));
+                   i.AddButton().Name("Listado").ColSpan(1).ButtonOptions(o => o.Icon("fa fa-list").Type(ButtonType.Success).Width("50px").OnClick("showList"));
+               });
+                /*item.AddButton().Name("Guardar").ButtonOptions(o => o.Icon("save").Text("Guardar").Type(ButtonType.Success).UseSubmitBehavior(true));*/
+                //item.AddSimpleFor(m => m.IdProforma).Visible(false);
+                item.AddGroup().ColSpan(4).ColCount(4).Caption("Datos del Cliente").Items(item =>
+                {
+                    //item.AddSimpleFor(m => m.IdProforma).Visible(false);
+                    item.AddSimpleFor(m => m.Nombre).ColSpan(4).Editor(e => e.TextBox().StylingMode(EditorStylingMode.Outlined));
+                    item.AddSimpleFor(m => m.Domicilio).ColSpan(4).Editor(e => e.TextBox().StylingMode(EditorStylingMode.Outlined));
+                    item.AddSimpleFor(m => m.Telefono).ColSpan(2).Editor(e => e.TextBox().StylingMode(EditorStylingMode.Outlined));
+                    item.AddSimpleFor(m => m.Email).ColSpan(2).Editor(e => e.TextBox().StylingMode(EditorStylingMode.Outlined));
+                });
+
+                item.AddGroup().ColSpan(4).ColCount(4).Caption("Datos del Lote").Items(item =>
+                {
+                    item.AddSimpleFor(m => m.Proyecto).ColSpan(2).Label(l => l.Text("Proyecto")).Editor(e => e.SelectBox().DataSource(d => d.Mvc().Controller("Ubicaciones").LoadAction("GetAll").Key("Proyecto"))
+                .SearchExpr("Proyecto").SearchMode(DropDownSearchMode.Contains).DisplayExpr("Proyecto").ValueExpr("Proyecto").SearchEnabled(true).SearchMode(DropDownSearchMode.Contains).StylingMode(EditorStylingMode.Outlined)
+                );
+                    item.AddSimpleFor(m => m.Lote).ColSpan(1).Editor(e => e.TextBox().StylingMode(EditorStylingMode.Outlined));
+                    item.AddSimpleFor(m => m.Area).Label(c=>c.Text("Area(Vrs²)")).ColSpan(1).Editor(e => e.NumberBox().Min(1).StylingMode(EditorStylingMode.Outlined));
+                    item.AddSimpleFor(m => m.PrecioVara).Label(c => c.Text("Precio por Vr²")).ColSpan(2).Editor(e => e.NumberBox().Min(1).StylingMode(EditorStylingMode.Outlined));
+                    item.AddSimpleFor(m => m.Total).ColSpan(1).Editor(e => e.NumberBox().ReadOnly(true).StylingMode(EditorStylingMode.Outlined));
+                    item.AddSimpleFor(m => m.Prima).ColSpan(1).Editor(e => e.NumberBox().StylingMode(EditorStylingMode.Outlined));
+                    item.AddSimpleFor(m => m.Financiar).ColSpan(1).Editor(e => e.NumberBox().ReadOnly(true).StylingMode(EditorStylingMode.Outlined));
+                    item.AddSimpleFor(m => m.Plazo).ColSpan(1).Editor(e => e.NumberBox().StylingMode(EditorStylingMode.Outlined));
+                    item.AddSimpleFor(m => m.Interes).ColSpan(1).Editor(e => e.NumberBox().Min(1).StylingMode(EditorStylingMode.Outlined));
+                    item.AddSimpleFor(m => m.Cuota).ColSpan(1).Editor(e => e.NumberBox().ReadOnly(true).StylingMode(EditorStylingMode.Outlined));
+                    item.AddSimpleFor(m => m.InteresAcumulado).ColSpan(1).Editor(e => e.NumberBox().ReadOnly(true).StylingMode(EditorStylingMode.Outlined));
+                    item.AddSimpleFor(m => m.TotalApagar).ColSpan(1).Editor(e => e.NumberBox().ReadOnly(true).StylingMode(EditorStylingMode.Outlined));
+                });
+
+            }).OnInitialized("onFormInitialized").OnContentReady("onFormReady")
+        )
+        }
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+@(Html.DevExtreme().Popup
+            ()
+            .ID("PopProformas")
+            .Height(600)
+            .Position(PositionAlignment.Center)
+            .Width(950)
+            .Title("Proformas registradas")
+            .ShowCloseButton(true)
+            .ContentTemplate(@<text>
+                @(Html.DevExtreme().DataGrid<Proformas>().ID("gridProformas").Height(500)
+                                            .DataSource(d=>d.Mvc().Controller("Proformas").Key("IdProforma")
+                                            .LoadAction("GetAll")
+                                            )
+                                            .Columns(c =>                                            {
+                                                c.AddFor(m => m.Nombre);
+                                                c.AddFor(m => m.Proyecto);
+                                                c.AddFor(m => m.Lote);
+                                                c.AddFor(m => m.Area);
+                                                c.AddFor(m => m.PrecioVara);
+                                                c.AddFor(m => m.Total);
+                                            })
+                                            .NoDataText("No hay Datos que mostrar")
+                                            .Editing(c=>c.AllowUpdating(true).UseIcons(true))
+                                            .OnEditingStart("startEdit")
+                                            .ShowBorders(false)
+                    .ElementAttr(new { @class = "dx-card wide-card" })
+                    .Paging(pag => pag.PageSize(4))
+                    .Pager(p => p.ShowPageSizeSelector(false).ShowNavigationButtons(true).ShowInfo(true).InfoText("Página {0} de {1} ({2} Registros)"))
+                    .RowAlternationEnabled(true)
+                    .HoverStateEnabled(true)
+                    .Selection(s => s.Mode(SelectionMode.Single).AllowSelectAll(false))
+                    .SearchPanel(s => s.Visible(true).HighlightSearchText(true).Width(400))
+                    .WordWrapEnabled(true)
+                    .ColumnAutoWidth(true)
+                )
+            </text>)
+            .Visible(false).CloseOnOutsideClick(true).Position(PositionAlignment.Center)
+
+)
+
+
+<script>
+    var vform, isFirstLoad = true;
+    function onFormInitialized(e) {
+        vform = e.component;
+    }
+
+    function onFormReady(e) {
+        if (isFirstLoad) {
+            var estado = vform.option("formData").IdProforma;
+            if (estado == 0)                 
+                vform.getEditor("Imprimir").option("disabled", true);
+            else
+                vform.getEditor("Imprimir").option("disabled", false);
+
+
+            var queryParams = new URLSearchParams(window.location.search);
+            //IdProforma = vform.getEditor("IdProforma").option("value");
+            IdProforma = vform.option("formData").IdProforma;
+            queryParams.set("p", IdProforma);
+            // Replace current querystring with the new one.
+            history.replaceState(null, null, "?" + queryParams.toString());
+            //alert(queryParams);
+        }
+    }
+
+
+    function showList() {
+        var popup = $("#PopProformas").dxPopup("instance");
+        popup.show();
+    }
+
+    function startEdit(e) {
+        e.cancel = true;
+        var idproforma = e.data.IdProforma;
+        window.location.href = "/Proforma/Registrar/?p=" + idproforma;
+    }
+
+    function print(e) {
+        idproforma = vform.option("formData").IdProforma;        
+        window.open('/ReportViewer/?r=pro&p=' + idproforma, '_newtab');        
+    }
+
+
+</script>

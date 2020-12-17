@@ -60,6 +60,12 @@
     <Compile Include="Reports\RptPlandePago.Designer.cs">
       <DependentUpon>RptPlandePago.repx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\RptProforma.cs">
+      <DependentUpon>RptProforma.repx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\RptProforma.Designer.cs">
+      <DependentUpon>RptProforma.repx</DependentUpon>
+    </Compile>
     <Compile Include="Reports\RptTicketPago.cs">
       <DependentUpon>RptTicketPago.repx</DependentUpon>
     </Compile>
@@ -110,11 +116,13 @@
     <ProjectReference Include="..\Data\Data.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Pages\Proforma\" />
     <Folder Include="wwwroot\TempImg\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reports\RptPagosFechas.repx" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reports\RptProforma.repx" />
   </ItemGroup>
   <ProjectExtensions>
     <VisualStudio><UserProperties appsettings_1json__JsonSchema="" TemplateFeatures="NETCORE CS RESPONSIVE" /></VisualStudio>

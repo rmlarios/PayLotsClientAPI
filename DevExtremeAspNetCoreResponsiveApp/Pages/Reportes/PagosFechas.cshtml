@@ -10,6 +10,7 @@
         @(Html.DevExtreme().PieChart().ID("mychart")
         .DataSource(d=>d.Mvc().Controller("Pagos").LoadAction("GetGrafico").OnBeforeSend("chart_beforeSend")
         .LoadParams(new { Fecha = new JS("getFecha") }))        
+
         .Animation(true)        
         .Export(c=>c.Enabled(true))
         .Palette(VizPalette.Material)
@@ -39,7 +40,12 @@
 </div>
 
 <script>
-    var cdate,calendar;
+    var cdate, calendar, IsfirstLoad = true;    
+
+    function onBeforeSend(s, e) {
+        e.data.customParam1 = $("#dateBox").dxDateBox("instance").option("value");
+    }
+
 
     function calendarInit(e) {
         calendar = e.component;
@@ -48,8 +54,9 @@
     }
 
     function getFecha() {
-        var cal = $("#mycalendar").dxCalendar().dxCalendar("instance")
-        if (cal.option("value") != null)
+    //    var cal = $("#mycalendar").dxCalendar().dxCalendar("instance")
+      //  if (cal.option("value") != null)
+        if(cdate!=null)
             return cdate;
         else
             return new Date().toLocaleDateString();        
@@ -58,9 +65,14 @@
 
 
     function ondateChanged(data) {
-        //alert(data.value);
+        //alert(data.value);       
         cdate = new Date(data.value).toLocaleDateString();
-        alert(cdate);        
+        alert(cdate);
+        //$("#mychart").dxChart().dxChart("instance").getDataSource().reload()  
+        var ds = $("#mychart").dxChart().dxChart("getDataSource")
+        ds.reload();
+        
+        
     }
 
       function chart_beforeSend(operation, ajax) {
