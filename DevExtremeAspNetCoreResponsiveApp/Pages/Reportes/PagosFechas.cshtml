@@ -8,10 +8,11 @@
     <div class="col-md-4"></div>
     <div class="col-md-4">
         @(Html.DevExtreme().PieChart().ID("mychart")
-        .DataSource(d=>d.Mvc().Controller("Pagos").LoadAction("GetGrafico").OnBeforeSend("chart_beforeSend")
-        .LoadParams(new { Fecha = new JS("getFecha") }))        
+        .DataSource(d=>d.Mvc().Controller("Pagos").LoadAction("GetGrafico").OnBeforeSend("onBeforeSend")
+        //.LoadParams(new { Fecha = new JS("getFecha") })
+        )
 
-        .Animation(true)        
+        .Animation(true)
         .Export(c=>c.Enabled(true))
         .Palette(VizPalette.Material)
         .Legend(l=>l.HoverMode(PieChartLegendHoverMode.AllArgumentPoints).Title("Proyectos"))
@@ -27,25 +28,39 @@
 <div class="row">
     <div class="col-md-3"></div>
     <div class="col-md-6 font-weight-bold">
-    @(Html.DevExtreme().Calendar().ID("mycalendar")
+        @(Html.DevExtreme().Calendar().ID("mycalendar")
         .ShowTodayButton(true)
         .Max(DateTime.Today)
-        .FirstDayOfWeek(FirstDayOfWeek.Monday)        
+        .FirstDayOfWeek(FirstDayOfWeek.Monday)
         .Width("100%").Height(400)
         .OnValueChanged("ondateChanged")
         .Value(DateTime.Today.Date)
-        .OnInitialized("calendarInit")        
-        )</div>
+        .OnInitialized("calendarInit")
+        )
+    </div>
     <div class="col-md-3"></div>
 </div>
 
+@(Html.DevExtreme().Button()
+    .Text("Refresh Grid")
+    .OnClick("reloadData")
+)
+
+
+
 <script>
-    var cdate, calendar, IsfirstLoad = true;    
+    var cdate, calendar, IsfirstLoad = true;
 
     function onBeforeSend(s, e) {
-        e.data.customParam1 = $("#dateBox").dxDateBox("instance").option("value");
+        if(cdate!=null)
+            e.data.Fecha = cdate;//$("#dateBox").dxDateBox("instance").option("value");
+        else
+            e.data.Fecha = new Date().toLocaleDateString();
     }
 
+    function reloadData() {
+        $("#mychart").dxChart().dxChart("getDataSource").reload();
+    }
 
     function calendarInit(e) {
         calendar = e.component;
@@ -59,20 +74,27 @@
         if(cdate!=null)
             return cdate;
         else
-            return new Date().toLocaleDateString();        
+            return new Date().toLocaleDateString();
     }
 
 
 
     function ondateChanged(data) {
-        //alert(data.value);       
+        //alert(data.value);
         cdate = new Date(data.value).toLocaleDateString();
         alert(cdate);
-        //$("#mychart").dxChart().dxChart("instance").getDataSource().reload()  
-        var ds = $("#mychart").dxChart().dxChart("getDataSource")
-        ds.reload();
-        
-        
+        //$("#mychart").dxChart().dxChart("instance").getDataSource().reload()
+        //var ds = $("#mychart").dxChart().dxChart("getDataSource")
+       //var ds = $("#mychart").dxChart().dxChart("getDataSource");
+        //ds.load();
+        //var chart = $("#mychart").dxChart().dxChart({ dataSource: ds });
+        //var ds = chart.option('dataSource');
+//        chart.option('dataSource', ds);
+        //var chart = $("#mychart").data("dxChart");
+        //chart.render();
+
+
+
     }
 
       function chart_beforeSend(operation, ajax) {

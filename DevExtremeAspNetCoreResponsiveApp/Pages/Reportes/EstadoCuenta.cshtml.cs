@@ -21,6 +21,9 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.Reportes
         private readonly IGenericProxy _genericProxy;
         private readonly IToastNotification _toastNotification;
         private readonly IHostingEnvironment _env;
+
+        [BindProperty]
+        public int idselected { get; set; }
         public EstadoCuentaModel(IGenericProxy genericProxy, IToastNotification toastNotification, IHostingEnvironment env)
         {
             _genericProxy = genericProxy;
@@ -33,6 +36,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.Reportes
             if (id != null)
             {
                 //rptEstadoCuenta = new RptEstadoCuenta();
+                idselected = Convert.ToInt32(id);
                 var source = await _genericProxy.GetAsync<EstadoCuenta>("Asignacion/GetEstadoCuenta/" + id);               
                 var path = Path.Combine(_env.ContentRootPath, "Reports");                
                 rptEstadoCuenta.LoadLayout(path+"\\RptEstadoCuenta.repx");

@@ -13,5 +13,10 @@ namespace Data.Model
         public string Ubicacion { get; set; }
         public int? Cuotas { get; set; }
         public int? CuotasRequeridas { get; set; }
+
+        public int? CuotasVencidas
+        {
+            get { return (CuotasRequeridas - Cuotas); }
+        }
     }
 }

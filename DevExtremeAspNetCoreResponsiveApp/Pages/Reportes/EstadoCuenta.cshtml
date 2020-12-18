@@ -14,10 +14,12 @@
 <div class="row justify-content-center">
     <div class="col-md-4">
         @(Html.DevExtreme().Lookup().Placeholder("Seleccione la Asignacion").SearchEnabled(true).SearchMode(DropDownSearchMode.Contains).SearchExpr("DatoCompleto").StylingMode(EditorStylingMode.Outlined).DisplayExpr("DatoCompleto").ValueExpr("IdAsignacion").DataSource(
-        c=>c.Mvc().Controller("Asignaciones").LoadAction("GetAll").Key("IdAsignacion")).DataSourceOptions(o => o.Filter("['Estado', '=', 'Vigente']")).OnSelectionChanged(
-        @<text>
-        function(e){        
-        window.location.href = "/Reportes/EstadoCuenta/?id=" + e.selectedItem.IdAsignacion;
+        c=>c.Mvc().Controller("Asignaciones").LoadAction("GetAll").Key("IdAsignacion")).Value(Model.idselected).DataSourceOptions(o => o.Filter("['Estado', '=', 'Vigente']"))
+        //.OnSelectionChanged()
+        .OnValueChanged(
+         @<text>
+        function(e){
+        window.location.href = "/Reportes/EstadoCuenta/?id=" + e.value;
         }
         </text>
         )

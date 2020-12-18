@@ -37,6 +37,9 @@
     <Compile Update="Reports\RptPlandePago.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Update="Reports\RptProforma.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="Reports\RptTicketPago.cs">
       <SubType>Component</SubType>
     </Compile>

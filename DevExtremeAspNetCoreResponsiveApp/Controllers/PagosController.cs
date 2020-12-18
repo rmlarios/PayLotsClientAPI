@@ -73,6 +73,16 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controllers
 
             return new JsonResult(DataSourceLoader.Load(new List<ViewGraficoPagos>(), loadOptions));
         }
+
+        [HttpGet("GetMorosos")]
+        public async Task<IActionResult> GetMorosos(DataSourceLoadOptions loadOptions)
+        {
+            var result = await _genericProxy.GetAsync<ViewReporteMorosos>("Pago/GetMorosos");
+            if (result.Succeeded)
+                return new JsonResult(DataSourceLoader.Load(result.Datas, loadOptions));
+
+            return new JsonResult(DataSourceLoader.Load(new List<ViewReporteMorosos>(), loadOptions));
+        }
     }
 
 

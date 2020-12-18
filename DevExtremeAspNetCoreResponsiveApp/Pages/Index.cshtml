@@ -1,6 +1,319 @@
-@page
+﻿@page   
+@model DevExtremeAspNetCoreResponsiveApp.Pages.IndexModel
 @using DevExtremeAspNetCoreResponsiveApp.Model
 
-<h2 class="content-block">Home</h2>
 
 
+<head>
+    @*<link href="~/css/Dashboard/material-dashboard.css" rel="stylesheet" />
+        <link href="~/css/Dashboard/w3.css" rel="stylesheet" />*@
+
+
+    <style type="text/css">
+        .card-stats {
+            -webkit-transition: all .3s ease-in-out;
+            transition: all .3s ease-in-out;
+        }
+
+            .card-stats:hover {
+                box-shadow: 0px 2px 30px rgba(0, 0, 0, 0.3);
+                -ms-transform: scale(1.3); /* IE 9 */
+                -webkit-transform: scale(1.3); /* Safari 3-8 */
+                transform: scale(1.3);
+                z-index: 3000000;
+            }
+
+        .w3-animate-opacity {
+            animation: opac 2s;
+        }
+
+        .panel-heading {
+            font-weight: bold;
+        }
+
+        .panel .card-header-warning .card-icon,
+        .panel .card-header-warning .card-text,
+        .panel .card-header-warning:not(.card-header-icon):not(.card-header-text),
+        .panel.bg-warning,
+        .panel.card-rotate.bg-warning .front,
+        .panel.card-rotate.bg-warning .back {
+            background: linear-gradient(60deg, #ffa726, #fb8c00);
+        }
+
+        .panel .card-header-warning .card-icon,
+        .panel .card-header-warning:not(.card-header-icon):not(.card-header-text),
+        .panel .card-header-warning .card-text {
+            box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(255, 152, 0, 0.4);
+        }
+
+        .panel .card-header-success .card-icon,
+        .panel .card-header-success .card-text,
+        .panel .card-header-success:not(.card-header-icon):not(.card-header-text),
+        .panel.bg-success,
+        .panel.card-rotate.bg-success .front,
+        .panel.card-rotate.bg-success .back {
+            background: linear-gradient(60deg, #66bb6a, #43a047);
+        }
+
+        .panel .card-header-success .card-icon,
+        .panel .card-header-success:not(.card-header-icon):not(.card-header-text),
+        .panel .card-header-success .card-text {
+            box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(76, 175, 80, 0.4);
+        }
+
+
+        .panel .card-header-danger .card-icon,
+        .panel .card-header-danger .card-text,
+        .panel .card-header-danger:not(.card-header-icon):not(.card-header-text),
+        .panel.bg-danger,
+        .panel.card-rotate.bg-danger .front,
+        .panel.card-rotate.bg-danger .back {
+            background: linear-gradient(60deg, #ef5350, #e53935);
+        }
+
+        .panel .card-header-danger .card-icon,
+        .panel .card-header-danger:not(.card-header-icon):not(.card-header-text),
+        .panel .card-header-danger .card-text {
+            box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(244, 67, 54, 0.4);
+        }
+
+
+        .panel .card-header-info .card-icon,
+        .panel .card-header-info .card-text,
+        .panel .card-header-info:not(.card-header-icon):not(.card-header-text),
+        .panel.bg-info,
+        .panel.card-rotate.bg-info .front,
+        .panel.card-rotate.bg-info .back {
+            background: linear-gradient(60deg, #26c6da, #00acc1);
+        }
+
+        .panel .card-header-info .card-icon,
+        .panel .card-header-info:not(.card-header-icon):not(.card-header-text),
+        .panel .card-header-info .card-text {
+            box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 188, 212, 0.4);
+        }
+
+        .panel .card-category-social .material-icons {
+            position: relative;
+            top: 5px;
+        }
+
+        .panel [class*="card-header-"] .card-icon,
+        .panel [class*="card-header-"] .card-text {
+            border-radius: 3px;
+            background-color: #999999;
+            padding: 15px;
+            margin-top: -20px;
+            margin-right: 15px;
+            float: left;
+            color: white;
+        }
+
+        .panel [class*="card-header-"] .card-text {
+            float: none;
+            display: inline-block;
+            margin-right: 0;
+        }
+
+        .panel [class*="card-header-"] .author a,
+        .panel [class*="card-header-"] .stats,
+        .panel [class*="card-header-"] .card-category,
+        .panel [class*="card-header-"] .card-description,
+        .panel[class*="bg-"] .author a,
+        .panel[class*="bg-"] .stats,
+        .panel[class*="bg-"] .card-category,
+        .panel[class*="bg-"] .card-description {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .card-stats .panel-heading .card-category {
+            color: #999999;
+            font-size: large;
+        }
+
+        .card-stats .card-header.card-header-icon .card-title, .card-stats .card-header.card-header-text .card-title, .card-stats .card-header.card-header-icon .card-category, .card-stats .card-header.card-header-text .card-category {
+            margin: 0;
+        }
+
+        .card .card-header.card-header-icon .card-title, .card .card-header.card-header-text .card-title {
+            margin-top: 15px;
+            color: #3C4858;
+        }
+
+        .card .card-header .card-title {
+            margin-bottom: 3px;
+        }
+
+        .card-stats .panel-heading.card-header-icon, .card-stats .panel-heading.panel-heading-text {
+            text-align: right;
+        }
+    </style>
+    <style type="text/css">
+        .label, .badge {
+            display: inline-block;
+            padding: 2px 4px;
+            font-size: 11.844px;
+            font-weight: bold;
+            line-height: 14px;
+            color: #ffffff;
+            vertical-align: baseline;
+            white-space: nowrap;
+            text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+            background-color: #999999;
+        }
+
+        .label {
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+        }
+
+        .badge {
+            padding-left: 9px;
+            padding-right: 9px;
+            -webkit-border-radius: 9px;
+            -moz-border-radius: 9px;
+            border-radius: 9px;
+        }
+
+        .Pago {
+            background-color: #468847;
+        }
+
+            .Pago:before {
+                content: "\0024";
+            }
+
+        .Asignación {
+            background-color: #299be4;
+        }
+
+            .Asignación:before {
+                font-family: FontAwesome;
+                content: "\f217";
+            }
+
+        .Anular {
+            background-color: #b94a48;
+        }
+
+            .Anular:before {
+                font-family: FontAwesome;
+                content: "\f014";
+            }
+
+        .dxgvADDC {
+            overflow: hidden;
+            white-space: inherit;
+        }
+
+        .dxbs-gridview > .card > .dxgvHSDC:first-child, .dxbs-gridview > .card > .dxgvHSDC + .dxgvCSD, .dxbs-gridview > .card > .dxgvCSD:first-child, .dxbs-gridview > .card > .dxgvCSD + .dxgvFSDC {
+            /* border-top: 0; */
+            margin-top: 0px;
+        }
+
+        .dxbs-gridview .dxbs-fixed > thead > tr > th, .dxbs-gridview .dxbs-fixed > tbody > tr > td, .dxbs-gridview .dxbs-fixed > tfoot > tr > td {
+            overflow: hidden;
+            white-space: normal;
+        }
+
+        .dxbs-gridview > .card {
+            display: block;
+            margin-top: 0px;
+        }
+
+        .panel {
+            border-radius: 6px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <!--CARD FLOTANTES-->
+        <div class="row">
+            <div class="col-md-3">
+                <div class="panel card-stats">
+                    <div class="panel-heading card-header-warning card-header-icon">
+                        <div class="card-icon">
+                            <i class="fa fa-map-marker fa-2x"></i>
+                        </div>
+                        <p class="card-category">Proyectos</p>
+                        <h3 class="card-title" id="Proyectos">
+                            @Model.dashboard.proyectos
+                        </h3>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="stats">
+                            <i class="fa fa-location-arrow"></i>
+                            <a href="Ubicacion/Listado">Mas Información...</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="panel card-stats">
+                    <div class="panel-heading card-header-success card-header-icon">
+                        <div class="card-icon">
+                            <i class=" fa fa-map fa-2x"></i>
+                        </div>
+                        <p class="card-category">Lotes</p>
+                        <h3 class="card-title" id="Lotes">
+                            #
+
+                        </h3>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="stats">
+                            <i class="fa fa-location-arrow"></i>
+                            <a href="Lotes/Lotes.aspx">Mas Información...</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="panel card-stats">
+                    <div class="panel-heading card-header-danger card-header-icon">
+                        <div class="card-icon">
+                            <i class="fa fa-2x fa-users"></i>
+                        </div>
+                        <p class="card-category">Clientes</p>
+                        <h3 class="card-title" id="Clientes">
+                            #
+
+                        </h3>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="stats">
+                            <i class="fa fa-location-arrow"></i>
+                            <a href="Beneficiarios/Beneficiarios.aspx">Mas Información...</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="panel card-stats">
+                    <div class="panel-heading card-header-info card-header-icon">
+                        <div class="card-icon">
+                            <i class="fa fa-2x fa-money"></i>
+                            @*<i><img src="Content/Imagenes/pagos.png" height="50" width="56" /></i>*@
+                        </div>
+                        <p class="card-category">Ingresos del día</p>
+
+                        <h3 class="card-title" id="Pagos">#</h3>
+
+
+                    </div>
+                    <div class="panel-footer" style="margin-top:0;">
+                        <div class="stats">
+                            <i class="fa fa-location-arrow"></i>
+                            <a href="Reportes/PagosFechas.aspx">Mas Información...</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--FIN CARD FLOTANTES-->
+    </div>
+</body>
