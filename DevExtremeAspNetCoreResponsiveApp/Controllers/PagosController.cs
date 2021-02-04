@@ -11,6 +11,8 @@ using DevExtremeAspNetCoreResponsiveApp.Reports;
 using Microsoft.AspNetCore.Mvc;
 using NToastNotify;
 using Microsoft.AspNetCore.Hosting;
+using System.Linq;
+using System;
 
 namespace DevExtremeAspNetCoreResponsiveApp.Controllers
 {
@@ -18,7 +20,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controllers
     {
         private readonly IHostingEnvironment _env;
         //private readonly IGenericProxy _proxy;
-        public PagosController(IGenericProxy genericProxy, IToastNotification toastNotification,IHostingEnvironment env) : base(genericProxy, toastNotification, "Pago/", "GetListado?vigentes=" + true, "GetByAsignacion/")
+        public PagosController(IGenericProxy genericProxy, IToastNotification toastNotification, IHostingEnvironment env) : base(genericProxy, toastNotification, "Pago/", "GetListado?vigentes=" + true, "GetByAsignacion/")
         {
             //_proxy = genericProxy;
             _env = env;
@@ -61,14 +63,14 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controllers
             ticketPago.DataSource = source.Datas;
             ticketPago.DataMember = ticketPago.DataMember;
 
-            return View("PartialTicket",ticketPago);
+            return View("PartialTicket", ticketPago);
         }
 
         [HttpGet("GetGrafico")]
-        public async Task<IActionResult> GetGrafico(DataSourceLoadOptions loadOptions,string Fecha)
+        public async Task<IActionResult> GetGrafico(DataSourceLoadOptions loadOptions, string Fecha="")
         {
             var result = await _genericProxy.GetAsync<ViewGraficoPagos>("Pago/GetGrafico?fechapago=" + Fecha);
-            if(result.Succeeded==true)
+            if (result.Succeeded == true)
                 return new JsonResult(DataSourceLoader.Load(result.Datas, loadOptions));
 
             return new JsonResult(DataSourceLoader.Load(new List<ViewGraficoPagos>(), loadOptions));
@@ -83,8 +85,35 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controllers
 
             return new JsonResult(DataSourceLoader.Load(new List<ViewReporteMorosos>(), loadOptions));
         }
+
+        [HttpGet("GetUltimosPagos")]
+        public async Task<IActionResult> GetUtltimosPagos(DataSourceLoadOptions loadOptions)
+        {
+            var result = await _genericProxy.GetAsync<ViewPagosAsignaciones>("Pago/GetListado?vigentes=" + false);
+            if (result.Succeeded == true)
+            {
+                var data = result.Datas.Where(x => x.FechaRecibo != null);
+                var res = (
+                        from a in data
+                        select new
+                        {
+                            Fecha = a.FechaRecibo.Value!=null? a.FechaRecibo.Value.Date:a.FechaRecibo.Value,
+                            Pagado = a.MontoPago + a.Interés + a.Mora,
+                        }).GroupBy(x => x.Fecha) // 1
+                        .Select(grp => new //2
+                        {
+                            Fecha = grp.Key,
+                            name = grp.First().Fecha, // same ID => same name anyway
+                            Pagado = grp.Sum(b => b.Pagado) //3
+                        }).OrderByDescending(o=>o.Fecha).Take(7)
+                .Where(w=>w.Fecha!=null); //4
+                return new JsonResult(DataSourceLoader.Load(res, loadOptions));
+            }
+
+            return new JsonResult(DataSourceLoader.Load(new List<ViewGraficoPagos>(), loadOptions));
+        }
     }
 
 
 
-    }
+}

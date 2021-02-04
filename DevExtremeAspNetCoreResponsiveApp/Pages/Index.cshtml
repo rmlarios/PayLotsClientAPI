@@ -1,4 +1,5 @@
-﻿@page   
+﻿@page
+
 @model DevExtremeAspNetCoreResponsiveApp.Pages.IndexModel
 @using DevExtremeAspNetCoreResponsiveApp.Model
 
@@ -260,8 +261,7 @@
                         </div>
                         <p class="card-category">Lotes</p>
                         <h3 class="card-title" id="Lotes">
-                            #
-
+                            @Model.dashboard.lotes
                         </h3>
                     </div>
                     <div class="panel-footer">
@@ -280,8 +280,7 @@
                         </div>
                         <p class="card-category">Clientes</p>
                         <h3 class="card-title" id="Clientes">
-                            #
-
+                            @Model.dashboard.clientes
                         </h3>
                     </div>
                     <div class="panel-footer">
@@ -301,7 +300,10 @@
                         </div>
                         <p class="card-category">Ingresos del día</p>
 
-                        <h3 class="card-title" id="Pagos">#</h3>
+                        <h3 class="card-title" id="Pagos">
+                            C$ @Model.dashboard.montocordobas /
+                            U$ @Model.dashboard.montodolares
+                        </h3>
 
 
                     </div>
@@ -315,5 +317,100 @@
             </div>
         </div>
         <!--FIN CARD FLOTANTES-->
+        <!--GRAFICOS-->
+        <!--CARD GRAFICOS-->
+        <div class="row" style="margin-top:-25px;">
+            <div class="col-md-8">
+                <div class="panel text-center">
+                    <div class="panel-heading">
+                        <h4 class="card-category">Pagos Diarios</h4>
+                        <hr style="border: 0; border-bottom: 1px solid rgba(0,0,0,.1);" />
+                    </div>
+                    <div class="panel-heading card-header-white">
+                        <div class="ct-chart" id="dailySalesChart">
+                            @(Html.DevExtreme().Chart().DataSource(d=>d.Mvc().Controller("Pagos").LoadAction("GetUtltimosPagos"))
+                                .Series(s=>s.Add().ArgumentField("Fecha").ValueField("Pagado").Name("Ingresos Diarios"))
+                                .Legend(l =>
+                                {
+                                    l.Position(RelativePosition.Outside);
+                                    l.ItemTextPosition(Position.Top);
+                                    l.HorizontalAlignment(HorizontalAlignment.Center);
+                                    l.HoverMode(ChartLegendHoverMode.IncludePoints);
+                                }
+                                )
+                                .Theme(VizTheme.MaterialBlueLight)
+                                .Tooltip(t=>t.Enabled(true).Format(Format.Currency))
+                                .ArgumentAxis(a=>a.Grid(g=>g.Visible(true)).ArgumentType(ChartDataType.DateTime).Label(l=>l.Format(Format.ShortDate).DisplayMode(ChartLabelDisplayMode.Stagger)))
+                                .Animation(a=>a.Enabled(true).Easing(VizAnimationEasing.EaseOutCubic))
+
+    )
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel text-center">
+                    <div class="panel-heading">
+                        <h4 class="card-category">Recaudado por Proyecto</h4>
+                        <p class="card-category">
+                            <span class="text-success"><i class="fa fa-clock-o"></i>Actualizado al:</span>@DateTime.Now.ToLongDateString()
+                        </p>
+                    </div>
+                    <div class="card-header card-header-white">
+                        <div class="ct-chart">
+                            @(Html.DevExtreme().PieChart().Theme(VizTheme.GenericDarkMoon).Palette(VizPalette.DarkMoon)
+                                .DataSource(d=>d.Mvc().Controller("Pagos").LoadAction("GetGrafico"))
+                                .Series(s=>s.Add().ArgumentField("NombreProyecto").ValueField("Pagado").Label(l=>l.Position(PieChartLabelPosition.Inside).Format(Format.Currency)))
+                                .Legend(l=>l.HoverMode(PieChartLegendHoverMode.AllArgumentPoints).HorizontalAlignment(HorizontalAlignment.Center).Orientation(Orientation.Horizontal))
+
+    )
+                        </div>
+                    </div>
+
+
+                </div><!---->
+            </div>
+        </div>
+        <!--FIN GRAFICOS-->
+        <!--SEGUIMIENTOS-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel text-center">
+                    <div class="panel-heading card-header-success" style="background-color:#299be4;">
+                        <h4 class="card-title ">Seguimientos</h4>
+                        <p class="card-category"> Acciones realizadas en el sistema.</p>
+                    </div>
+                    <div class="panel-body card-body">
+                        <div class="table-responsive">
+                            @(Html.DevExtreme().DataGrid<Seguimientos>().ID("GridListado").DataSource(d => d.RemoteController().LoadUrl(Url.Page("Index", "Seguimientos"))
+                                )
+                                .Columns(c =>
+                                {
+                                    c.AddFor(m => m.Tipo).Width("15%").CellTemplate(
+                                        @<text>
+                <div>
+                  <span class="label label-important <%- value %>"><%- value %></span>
+                </div>
+            </text>
+                                        );
+                                    c.AddFor(m => m.Far).Width("25%").Caption("Fecha").DataType(GridColumnDataType.Date).Format("dd/MM/yyyy hh:mm:ss a"); ;
+                                    c.AddFor(m => m.Uar).Width("15%").Caption("Usuario");
+                                    c.AddFor(m => m.Observaciones).Width("45%");
+                                })
+                                 .Paging(pag => pag.PageSize(5))
+                    .Pager(p => p.ShowPageSizeSelector(false).ShowNavigationButtons(true).ShowInfo(true).InfoText("Página {0} de {1} ({2} Registros)"))
+                    .RowAlternationEnabled(true)
+                    
+    )
+                        </div>
+                    </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--FIN SEGUMIENTOS-->
     </div>
 </body>

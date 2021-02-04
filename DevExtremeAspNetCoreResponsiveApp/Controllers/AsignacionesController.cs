@@ -34,16 +34,18 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controllers
             if (result.Succeeded)
             {
                 _toastNotification.AddSuccessToastMessage(result.Message);
+                return Ok(values.IdAsignacion);
                 //TempData["Msg"] = "Uploaded successfully";        
                 //return new OkObjectResult(result.Message);
             }
             else
             {
                 _toastNotification.AddErrorToastMessage(result.Message);
+                return BadRequest(error: result.Message);
                 //TempData["Msg"] = "Uploaded error"; 
                 //return BadRequest(result.Message);
             }
-            return Redirect(url);
+            //return Redirect(url);
             //return LocalRedirect("~/Asignacion/Listado");
             //return View();
         }
@@ -59,7 +61,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controllers
             if (result.Succeeded)
             {
                   _toastNotification.AddSuccessToastMessage(result.Message);
-                return Ok();
+                return Ok(IdAsignacion);
                 //return new OkObjectResult(result.Message);
             }
             else
