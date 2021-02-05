@@ -1,0 +1,49 @@
+﻿@page
+@model DevExtremeAspNetCoreResponsiveApp.Pages.Reportes.PagosporFechasModel
+@using DevExpress.AspNetCore
+@using DevExtremeAspNetCoreResponsiveApp.PredefinedReports
+@{
+    ViewData["Title"] = "Pagos por Fechas";
+}
+
+
+
+<link rel="stylesheet" href="~/css/viewer.part.bundle.css" />
+<div class="row">
+    <div class="col-md-3">Seleccione el rango de Fechas</div>
+    <div class="col-md-3">Desde:
+        @(Html.DevExtreme().DateBox().ID("dateDesde").StylingMode(EditorStylingMode.Outlined).Width("80%").DisplayFormat("dd/MM/yyyy")
+    )
+    </div>
+    <div class="col-md-3">
+        Hasta:
+        @(Html.DevExtreme().DateBox().ID("dateHasta").StylingMode(EditorStylingMode.Outlined).Width("80%").DisplayFormat("dd/MM/yyyy")
+    )
+    </div>
+    <div class="col-md-3">
+        @(Html.DevExtreme().Button().ID("btnVer").Icon("search").StylingMode(ButtonStylingMode.Outlined).Type(ButtonType.Success).Text("Generar Reporte").OnClick("verReporte")
+        )
+    </div>
+
+</div>
+@Html.DevExpress().WebDocumentViewer("DocumentViewer").Height("1000px").Bind(Model.rptFechas)
+
+<script>
+    function verReporte() {
+        var desdet = $("#dateDesde").dxDateBox("instance").option("value");
+        var hastat = $("#dateHasta").dxDateBox("instance").option("value");
+        if (desdet == null && hastat == null) {
+            alert('Debe seleccionar la fecha o rango de fechas para el Reporte');
+            return;
+        }        
+        desde = new Date(desdet).toLocaleDateString();
+        hasta = new Date(hastat).toLocaleDateString();
+        if (desdet != null && hastat != null)
+            window.location.href = "/Reportes/PagosporFechas/?d=" + desde + "&h=" + hasta;
+        else if (desdet != null && hastat == null)
+            window.location.href = "/Reportes/PagosporFechas/?d=" + desde;
+        else if (desdet == null && hastat != null)
+            window.location.href = "/Reportes/PagosporFechas/?d=" + hasta;
+
+    }
+</script>

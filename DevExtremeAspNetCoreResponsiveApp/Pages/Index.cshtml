@@ -340,7 +340,7 @@
                                 )
                                 .Theme(VizTheme.MaterialBlueLight)
                                 .Tooltip(t=>t.Enabled(true).Format(Format.Currency))
-                                .ArgumentAxis(a=>a.Grid(g=>g.Visible(true)).ArgumentType(ChartDataType.DateTime).Label(l=>l.Format(Format.ShortDate).DisplayMode(ChartLabelDisplayMode.Stagger)))
+                                .ArgumentAxis(a=>a.Grid(g=>g.Visible(true)).ArgumentType(ChartDataType.DateTime).Label(l=>l.Format("dd/MM/yyyy").DisplayMode(ChartLabelDisplayMode.Stagger)))
                                 .Animation(a=>a.Enabled(true).Easing(VizAnimationEasing.EaseOutCubic))
 
     )
@@ -394,14 +394,16 @@
                 </div>
             </text>
                                         );
-                                    c.AddFor(m => m.Far).Width("25%").Caption("Fecha").DataType(GridColumnDataType.Date).Format("dd/MM/yyyy hh:mm:ss a"); ;
+                                    c.AddFor(m => m.Far).Width("25%").Caption("Fecha").DataType(GridColumnDataType.Date).SortOrder(SortOrder.Desc).SortIndex(0).DataType(GridColumnDataType.Date).Format("dd/MM/yyyy hh:mm:ss a")
+                                
+                                ;
                                     c.AddFor(m => m.Uar).Width("15%").Caption("Usuario");
                                     c.AddFor(m => m.Observaciones).Width("45%");
                                 })
                                  .Paging(pag => pag.PageSize(5))
                     .Pager(p => p.ShowPageSizeSelector(false).ShowNavigationButtons(true).ShowInfo(true).InfoText("Página {0} de {1} ({2} Registros)"))
                     .RowAlternationEnabled(true)
-                    
+                    .HeaderFilter(h=>h.Visible(true))
     )
                         </div>
                     </div>
