@@ -231,7 +231,7 @@ namespace DevExtremeAspNetCoreResponsiveApp
             var reportingLogger = loggerFactory.CreateLogger("DXReporting");
             DevExpress.XtraReports.Web.ClientControls.LoggerService.Initialize((exception, message) =>
             {
-                var logMessage = $"[{DateTime.Now}]: Exception occurred. Message: '{message}'. Exception Details:\r\n{exception}";
+                var logMessage = $"[{DateTime.Now}]: Exception occurred. Message: '{message}'. Exception Details:\r\n{exception}";                
                 reportingLogger.LogError(logMessage);
             });
 
@@ -255,14 +255,14 @@ namespace DevExtremeAspNetCoreResponsiveApp
             app.UseNToastNotify();
 
 
-            // app.UseMvc(routes =>
-            //{
-            //    routes.MapRoute(
-            //        name: "default",
-            //        template: "{controller=Home}/{action=Index}/{id?}")
-            //        ;
-            //});
-            app.UseMvc();
+            app.UseMvc(routes =>
+           {
+               routes.MapRoute(
+                   name: "default",
+                   template: "{controller=Home}/{action=Index}/{id?}")
+                   ;
+           });
+            //app.UseMvc();
             //app.UseEndpoints(c => c.MapControllers());
         }
 

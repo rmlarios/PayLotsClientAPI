@@ -6,7 +6,11 @@
 }
 <script type="text/javascript">
     function beforeRender(s, e) {
-        s.GetPreviewModel().reportPreview.zoom(1);
+       // s.GetPreviewModel().reportPreview.zoom(1);
+    }
+
+    function error(s,e) {
+        alert(e);
     }
 </script>
 
@@ -19,7 +23,7 @@
         .OnValueChanged(
          @<text>
         function(e){
-        window.location.href = "/Reportes/EstadoCuenta/?id=" + e.value;
+        window.location.href = "/Reportes/EstadoCuenta?id=" + e.value;
         }
         </text>
         )
@@ -30,7 +34,7 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        @(Html.DevExpress().WebDocumentViewer("Viewer").Height("800px").Bind(Model.rptEstadoCuenta).ClientSideEvents(c=>c.BeforeRender("beforeRender"))
+        @(Html.DevExpress().WebDocumentViewer("Viewer").Height("800px").Bind(Model.rptEstadoCuenta).ClientSideEvents(c=>c.BeforeRender("beforeRender").OnServerError("error"))
     )
     </div>
 </div>
