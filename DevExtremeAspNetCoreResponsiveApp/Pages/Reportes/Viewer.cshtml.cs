@@ -1,29 +1,31 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Data.Model;
-using DevExpress.DataAccess.Json;
 using DevExpress.XtraReports.UI;
 using DevExtremeAspNetCoreResponsiveApp.DTOs;
 using DevExtremeAspNetCoreResponsiveApp.Proxies;
 using DevExtremeAspNetCoreResponsiveApp.Reports;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Hosting;
-using System.IO;
-using System.Drawing;
+using NToastNotify;
 
-namespace DevExtremeAspNetCoreResponsiveApp.Pages
+namespace DevExtremeAspNetCoreResponsiveApp.Pages.Reportes
 {
-    public class ReportViewerModel : PageModel
+    public class ViewerModel : PageModel
     {
         private readonly IGenericProxy _genericproxy;
         private readonly IHostingEnvironment _env;
-        public ReportViewerModel(IGenericProxy genericProxy,IHostingEnvironment env)
+        private readonly IToastNotification _toasNotification;
+        public ViewerModel(IGenericProxy genericProxy, IHostingEnvironment env,IToastNotification toastNotification)
         {
             _genericproxy = genericProxy;
             _env = env;
+            _toasNotification = toastNotification;
         }
 
         [BindProperty]
@@ -32,14 +34,16 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages
         public XtraReport Report { get; set; }
 
 
-        public async Task OnGet(string r,int? p)
+        public async Task OnGet(string r, int? p)
         {
             var path = Path.Combine(_env.ContentRootPath, "Reports");
+            _toasNotification.AddSuccessToastMessage(path);
+            _toasNotification.AddSuccessToastMessage(r + " : " + p);
             switch (r)
             {
                 case "pp"://Plan de Pago
                     Report = new RptPlandePago();
-                    var source = await _genericproxy.GetAsync<Asignacion_PlandePago>("Pago/GetPlanPago/"+p);
+                    var source = await _genericproxy.GetAsync<Asignacion_PlandePago>("Pago/GetPlanPago/" + p);
                     //var path = Path.Combine(_env.ContentRootPath, "Reports");
                     Report.LoadLayout(path + "\\RptPlandePago.repx");
                     CargarDatosEmpresa(Report);
@@ -52,7 +56,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages
                     //var path2 = Path.Combine(_env.ContentRootPath, "Reports");
                     Report.LoadLayout(path + "\\RptPagosFechas.repx");
                     CargarDatosEmpresa(Report);
-                    Report.DataSource = source2.Datas.Where(m=>m.FechaRecibo>=Convert.ToDateTime("01/08/2020"));
+                    Report.DataSource = source2.Datas.Where(m => m.FechaRecibo >= Convert.ToDateTime("01/08/2020"));
                     Report.DataMember = Report.DataMember;
                     break;
                 case "pro"://Proforma
@@ -79,7 +83,5 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages
                 ((XRPictureBox)Reporte.FindControl("picLogo", true)).Image = Image.FromStream(new MemoryStream(result.Datas[0].Logo));
             /**********************************/
         }
-
-
     }
 }

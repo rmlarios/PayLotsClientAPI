@@ -1,0 +1,9 @@
+﻿@page "/{r}/{p}"
+@using DevExpress.AspNetCore
+@using DevExtremeAspNetCoreResponsiveApp.PredefinedReports
+@model DevExtremeAspNetCoreResponsiveApp.Pages.Reportes.ViewerModel
+
+<link rel="stylesheet" href="~/css/viewer.part.bundle.css" />
+
+@Html.DevExpress().WebDocumentViewer("DocViewer").Height("1000px").Bind(Model.Report)
+

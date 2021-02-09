@@ -27,7 +27,6 @@ D:\GIT\PayLotsClientAPI\Data\bin\Debug\netcoreapp3.1\Data.runtimeconfig.json
 D:\GIT\PayLotsClientAPI\Data\bin\Debug\netcoreapp3.1\Data.runtimeconfig.dev.json
 D:\GIT\PayLotsClientAPI\Data\bin\Debug\netcoreapp3.1\Data.dll
 D:\GIT\PayLotsClientAPI\Data\bin\Debug\netcoreapp3.1\Data.pdb
-D:\GIT\PayLotsClientAPI\Data\obj\Debug\netcoreapp3.1\Data.csprojAssemblyReference.cache
 D:\GIT\PayLotsClientAPI\Data\obj\Debug\netcoreapp3.1\Data.AssemblyInfoInputs.cache
 D:\GIT\PayLotsClientAPI\Data\obj\Debug\netcoreapp3.1\Data.AssemblyInfo.cs
 D:\GIT\PayLotsClientAPI\Data\obj\Debug\netcoreapp3.1\Data.csproj.CoreCompileInputs.cache

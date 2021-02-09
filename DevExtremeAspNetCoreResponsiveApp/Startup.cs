@@ -184,6 +184,7 @@ namespace DevExtremeAspNetCoreResponsiveApp
                 //options.AllowAreas = true;                    
                 options.Conventions.AuthorizeFolder("/");
                 options.Conventions.AllowAnonymousToPage("/Identity/Account/Login");
+               // options.Conventions.AddPageRoute("/Reportes/Viewer", "Viewer/{r}/{p?}");
 
             }
                 )
@@ -197,7 +198,12 @@ namespace DevExtremeAspNetCoreResponsiveApp
                 CloseDuration = true,
                 Type = Enums.NotificationTypesToastr.Success
 
-            });
+            })
+              .AddRazorPagesOptions(options =>
+              {
+                  options.Conventions.AddPageRoute("/Reportes/Viewer", "Viewer/{r}/{p?}");
+              }
+                );
             //Requiere que el usuario este autenticado para poder acceder a cualquier pagina
             services.AddAuthorization(options =>
             {
@@ -255,15 +261,21 @@ namespace DevExtremeAspNetCoreResponsiveApp
             app.UseNToastNotify();
 
 
-            app.UseMvc(routes =>
+           /* app.UseMvc(routes =>
            {
-               routes.MapRoute(
+             routes.MapRoute(
                    name: "default",
                    template: "{controller=Home}/{action=Index}/{id?}")
                    ;
-           });
-            //app.UseMvc();
-            //app.UseEndpoints(c => c.MapControllers());
+           });*/
+            app.UseMvc();
+
+            app.UseEndpoints(c => c.MapControllers());
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapRazorPages();
+            });
         }
 
 
