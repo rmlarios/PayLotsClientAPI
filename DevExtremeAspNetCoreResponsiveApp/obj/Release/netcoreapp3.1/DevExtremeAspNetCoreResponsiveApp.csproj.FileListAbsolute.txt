@@ -994,3 +994,4 @@ D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\bin\Release\netcoreapp
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\bin\Release\netcoreapp3.1\NLog.Extensions.Logging.dll
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\bin\Release\netcoreapp3.1\NLog.Web.AspNetCore.dll
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Release\netcoreapp3.1\Razor\Pages\Pago\Pagos.cshtml.g.cs
+D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Release\netcoreapp3.1\Razor\Pages\Empresa\Respaldos.cshtml.g.cs
