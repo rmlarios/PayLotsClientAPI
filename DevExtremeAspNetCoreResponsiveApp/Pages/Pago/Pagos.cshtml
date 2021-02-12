@@ -1,0 +1,132 @@
+﻿@page
+
+@{
+    ViewData["Title"] = "Pagos Registrados";
+}
+
+@(Html.DevExtreme().DataGrid<ViewPagosAsignaciones>
+                    ()
+                    .ID("GridListado")
+                    .DataSource(d=>d.Mvc().Controller("Pagos").Key("IdPago")
+                    .LoadAction("GetTodos")
+                    )
+                    .ShowBorders(true)
+                    .ElementAttr(new { @class = "dx-card wide-card" })
+                    .Export(e => e.Enabled(true).AllowExportSelectedData(true)).OnExporting("exporting")
+                    .Paging(pag => pag.PageSize(20))
+                    .Pager(p => p.ShowPageSizeSelector(false).ShowNavigationButtons(true).ShowInfo(true).InfoText("Página {0} de {1} ({2} Registros)"))
+                    .RowAlternationEnabled(true)
+                    .HoverStateEnabled(true)
+
+                    .Selection(s => s.Mode(SelectionMode.Single).AllowSelectAll(false))
+                    .SearchPanel(s => s.Visible(true).HighlightSearchText(true).Width(400))
+                    .FilterRow(f => f.ApplyFilter(GridApplyFilterMode.Auto).Visible(true).ShowAllText("Todo"))
+                    .FilterSyncEnabled(true)
+                    .WordWrapEnabled(true)
+                    .ColumnAutoWidth(true)
+
+                    /*Columnas del grid*/
+                    .Columns(columns =>
+                    {
+
+                        columns.AddFor(m => m.IdAsignacion)
+                        .Caption("Asignacion").Lookup(c => c.DataSource(d => d.Mvc().Controller("Asignaciones").LoadAction("GetAll")).DisplayExpr(new JS("groupDisplay")).ValueExpr("IdAsignacion"));
+                        columns.AddFor(m => m.IdPago).Visible(false).SortOrder(SortOrder.Desc).SortIndex(0);
+                        columns.AddFor(m => m.FechaRecibo).Format("dd/MM/yyyy");
+                        columns.AddFor(m => m.NumeroRecibo);
+                        columns.AddFor(m => m.MesPagado);
+                        columns.AddFor(m => m.MontoPago);
+                        columns.AddFor(m => m.Mora);
+                        columns.AddFor(m => m.Interés);
+                        columns.Add().Caption("Total").Name("Total").CalculateCellValue(
+
+                            @<text>
+                        function(rowData) {
+                            return rowData.MontoPago + rowData.Interés + rowData.Mora;
+                        }
+                        </text>
+
+
+                            );
+
+                        columns.Add().Type(GridCommandColumnType.Buttons).Fixed(true).FixedPosition(HorizontalEdge.Left).Buttons(buttons => {
+                            buttons.Add().Name(GridColumnButtonName.Edit);
+                        });
+                    })
+
+                    .Summary(c=>c.GroupItems(g=> {
+                        g.AddFor(m => m.MontoPago).ShowInColumn("MontoPago").Column("MontoPago").SummaryType(SummaryType.Sum).DisplayFormat("$ #,##0.##");
+                        g.AddFor(m => m.Saldo).Column("Saldo").SummaryType(SummaryType.Max).ValueFormat("currency");
+                    }).TotalItems(t => {
+                        t.AddFor(m => m.MontoPago).ShowInColumn("MontoPago").ValueFormat("currency").SummaryType(SummaryType.Sum);
+                        t.Add().Column("Total").ShowInColumn("Total").ValueFormat("currency").SummaryType(SummaryType.Sum);
+
+                        }
+                    ))
+                    .HeaderFilter(h => h.AllowSearch(true).Visible(true))
+                    /*Configuracion para la edicion*/
+                    .Editing(e => e.Mode(GridEditMode.Popup)
+                        .UseIcons(true)
+                        .AllowAdding(true)
+                        .AllowUpdating(true)
+                        //.AllowDeleting(true)
+                        .UseIcons(true)
+                        .Texts(t => t.AddRow("Nuevo").EditRow("Editar").DeleteRow("Eliminar").ConfirmDeleteMessage("¿Está seguro que desea Eliminar este Registro?")
+                        .SaveRowChanges("Guardar").CancelRowChanges("Cancelar"))
+                        /*Configuracion del Popup*/
+                        .Popup(p => p.Width(700).Title("Formulario de Edición").ShowTitle(true).Position(PositionAlignment.Center).Height(350).CloseOnOutsideClick(false).ShowCloseButton(false))
+                          /*Configuracion del EditForm*/
+                          /*.Form(f => f.ColCount(1).ShowRequiredMark(true).LabelLocation(FormLabelLocation.Left)
+                              .Items(items =>
+                              {
+                                  items.AddSimple().IsRequired(true).DataField("IdBloque").ColSpan(1);
+                                  items.AddSimple().IsRequired(false).DataField("NumeroLote").ColSpan(1);
+                                  items.AddSimple().IsRequired(false).DataField("Area").ColSpan(1);
+
+                              }))*/
+                          )
+                       .ErrorRowEnabled(true)
+                       .OnEditingStart(@<text>
+                           function(e)
+                           {
+                               e.cancel = true;
+                               var idasignacion = e.data.IdAsignacion;
+                               var idpago = e.data.IdPago;
+                               window.location.href="/Pago/Registrar/?p=" + idasignacion+"."+idpago ;
+                           }
+                       </text>)
+                       .OnInitNewRow(@<text>
+                           function(e)
+                           {
+                               e.cancel = true;
+                               var id = e.data.IdAsignacion;
+                               window.location.href="/Pago/Registrar/";
+                           }
+                       </text>
+                       )
+)
+
+<script>
+
+    function groupDisplay(rowData) {
+        return 'Lote: ' + rowData.NombreLote + ' Nombre: ' + rowData.NombreCompleto;
+    }
+
+    function exporting(e) {
+        var workbook = new ExcelJS.Workbook();
+        var worksheet = workbook.addWorksheet('Hoja1');
+
+        DevExpress.excelExporter.exportDataGrid({
+            component: e.component,
+            worksheet: worksheet,
+            autoFilterEnabled: true
+        }).then(function () {
+            // https://github.com/exceljs/exceljs#writing-xlsx
+            workbook.xlsx.writeBuffer().then(function (buffer) {
+                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'Beneficiarios.xlsx');
+            });
+        });
+        e.cancel = true;
+    }
+
+</script>

@@ -1,6 +1,8 @@
 @page
+@{
+    ViewData["Title"] = "Rangos de Mora";
+}
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
-
 
 @(Html.DevExtreme().DataGrid<Mora>
                     ()
@@ -31,7 +33,7 @@
                         columns.AddFor(m => m.IdMora).Visible(false);
                         columns.AddFor(m => m.Minimo);
                         columns.AddFor(m => m.Maximo);
-                        columns.AddFor(m => m.Porcentaje);                     
+                        columns.AddFor(m => m.Porcentaje);
                     }).HeaderFilter(h => h.AllowSearch(true).Visible(true))
                     /*Configuracion para la edicion*/
                     .Editing(e => e.Mode(GridEditMode.Popup)
@@ -51,14 +53,14 @@
                                 items.AddSimple().IsRequired(true).DataField("Minimo").ColSpan(1);
                                 items.AddSimple().IsRequired(false).DataField("Maximo").ColSpan(1);
                                 items.AddSimple().IsRequired(false).DataField("Porcentaje").ColSpan(1);
-                                
+
                             }))
                           )
                        .ErrorRowEnabled(true)
 )
 
 <script>
-   
+
     function exporting(e) {
         var workbook = new ExcelJS.Workbook();
         var worksheet = workbook.addWorksheet('Hoja1');

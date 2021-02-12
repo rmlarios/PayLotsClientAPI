@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "gMVMbFyCaJObJtEaOT7MhDc3Y9k0FbgFV534raS7CyJtc7kH2ytAbt1uX03XKCJhInATL3s6IVKhLsHpAXlzlQ==",
+  "dgSpecHash": "IcPgu8GPupyiVP2kGcarKSOFMeYXF+yvv7RqZCDl6zfL5QGEY8wLeZ8kISvB1QG7AGsoROW9J0iGPEdUPiy3WQ==",
   "success": true,
   "projectFilePath": "D:\\GIT\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp.csproj",
   "expectedPackageFiles": [
@@ -143,6 +143,9 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
     "C:\\Users\\Miguel.Larios.MEM\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Users\\Miguel.Larios.MEM\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
+    "C:\\Users\\Miguel.Larios.MEM\\.nuget\\packages\\nlog\\4.7.6\\nlog.4.7.6.nupkg.sha512",
+    "C:\\Users\\Miguel.Larios.MEM\\.nuget\\packages\\nlog.extensions.logging\\1.7.0\\nlog.extensions.logging.1.7.0.nupkg.sha512",
+    "C:\\Users\\Miguel.Larios.MEM\\.nuget\\packages\\nlog.web.aspnetcore\\4.10.0\\nlog.web.aspnetcore.4.10.0.nupkg.sha512",
     "C:\\Users\\Miguel.Larios.MEM\\.nuget\\packages\\ntoastnotify\\7.0.0\\ntoastnotify.7.0.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\nuget.frameworks\\4.7.0\\nuget.frameworks.4.7.0.nupkg.sha512",
     "C:\\Users\\Miguel.Larios.MEM\\.nuget\\packages\\portable.bouncycastle\\1.8.5\\portable.bouncycastle.1.8.5.nupkg.sha512",

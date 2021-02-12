@@ -1,13 +1,17 @@
 ﻿@page
+@{
+    ViewData["Title"] = "Consolidado de Pagos";
+}
+
 @(Html.DevExtreme().PivotGrid<ViewPagosAsignaciones>()
     .ID("pivot").Height(800)
     .DataSource(c=>c.Store(m=>m.Mvc().Controller("Pagos").LoadAction("GetAll"))
                     .Fields(c=>
                     {
                         c.AddFor(m => m.DatoCompleto).Area(PivotGridArea.Row).Width(200);
-                        c.AddFor(m => m.MesPagadoFecha).Format("MMMM/yyyy").Area(PivotGridArea.Column);                        
+                        c.AddFor(m => m.MesPagadoFecha).Format("MMMM/yyyy").Area(PivotGridArea.Column);
                         c.AddFor(m => m.TotalRecibo).Area(PivotGridArea.Data).SummaryType(SummaryType.Sum).RunningTotal(PivotGridRunningTotalMode.Row);
-                        c.AddFor(m => m.NombreProyecto).Area(PivotGridArea.Filter);                        
+                        c.AddFor(m => m.NombreProyecto).Area(PivotGridArea.Filter);
 
                     })
                     .Paginate(true).RetrieveFields(false).Filter("[['MesPagado', '<>', null]]")

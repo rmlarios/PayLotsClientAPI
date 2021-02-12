@@ -941,9 +941,6 @@ D:\GIT\DevExtremeAspNetCoreResponsiveApp\DevExtremeAspNetCoreResponsiveApp\obj\D
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\DevExtremeAspNetCoreResponsiveApp.csprojAssemblyReference.cache
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\DevExtremeAspNetCoreResponsiveApp.AssemblyInfoInputs.cache
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\DevExtremeAspNetCoreResponsiveApp.AssemblyInfo.cs
-D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\DevExtremeAspNetCoreResponsiveApp.csproj.CoreCompileInputs.cache
-D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\DevExtremeAspNetCoreResponsiveApp.MvcApplicationPartsAssemblyInfo.cs
-D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\DevExtremeAspNetCoreResponsiveApp.MvcApplicationPartsAssemblyInfo.cache
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\DevExtremeAspNetCoreResponsiveApp.RazorAssemblyInfo.cache
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\DevExtremeAspNetCoreResponsiveApp.RazorAssemblyInfo.cs
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\DevExtremeAspNetCoreResponsiveApp.TagHelpers.input.cache
@@ -1461,3 +1458,12 @@ D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\staticwebassets\DevExtremeAspNetCoreResponsiveApp.StaticWebAssets.Manifest.cache
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\staticwebassets\DevExtremeAspNetCoreResponsiveApp.StaticWebAssets.xml
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\DevExtremeAspNetCoreResponsiveApp.genruntimeconfig.cache
+D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\bin\Debug\netcoreapp3.1\Pages\Reportes\EstadoCuenta.cshtml
+D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\bin\Debug\netcoreapp3.1\nlog.config
+D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\bin\Debug\netcoreapp3.1\NLog.dll
+D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\bin\Debug\netcoreapp3.1\NLog.Web.AspNetCore.dll
+D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\DevExtremeAspNetCoreResponsiveApp.csproj.CoreCompileInputs.cache
+D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\DevExtremeAspNetCoreResponsiveApp.MvcApplicationPartsAssemblyInfo.cs
+D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\DevExtremeAspNetCoreResponsiveApp.MvcApplicationPartsAssemblyInfo.cache
+D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\Razor\Pages\Pago\Pagos.cshtml.g.cs

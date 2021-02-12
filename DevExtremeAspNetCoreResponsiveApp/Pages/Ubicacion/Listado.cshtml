@@ -102,7 +102,7 @@
             .ID("PopBloques")
             .Height(650)
             .Position(PositionAlignment.Center)            
-            .Width(600)          
+            .Width(750)          
             .ShowCloseButton(true)
             .ContentTemplate(@<text>                              
                 @(Html.DevExtreme().DataGrid<ViewConsolidadoBloques>().ID("gridBloques")
@@ -122,10 +122,10 @@
                                             /*Configuracion del EditForm*/
                                                         .Form(f => f.ColCount(2).ShowRequiredMark(true).LabelLocation(FormLabelLocation.Left)
                                                         .Items(items =>
-                                                        {                                                            
+                                                        {
                                                             items.AddSimpleFor(m=> m.Bloque).IsRequired(true).ColSpan(2);
                                                             items.AddSimpleFor(m=>m.Observaciones).ColSpan(2);
-                                                            
+
                                                         })))
                                             .DataSource(d=> d.Mvc()
                                             .Controller("Bloques")
@@ -135,25 +135,26 @@
                                             .DeleteAction("DeletebyId")
                                             .UpdateAction("PutUpdate")
                                             .Key("IdBloque"))
-                                                                  
+
                                             .Columns(c =>
                                             {
-                                                        c.AddFor(m=>m.IdBloque).Visible(false);
-                                                        c.AddFor(m=>m.IdUbicacion).Visible(false);
-                                                        c.AddFor(m=>m.Bloque);
-                                                        c.AddFor(m=>m.Asignados);
-                                                        c.AddFor(m=>m.Disponibles);
-                                                        c.Add().Caption("Lotes").CalculateCellValue("calcTotal");
-                                                        c.AddFor(m=>m.Observaciones).Visible(false);
-                                                    })
-                                            
+                                                c.AddFor(m=>m.IdBloque).Visible(false);
+                                                c.AddFor(m=>m.IdUbicacion).Visible(false);
+                                                c.AddFor(m=>m.Bloque);
+                                                c.AddFor(m => m.Observaciones);
+                                                c.AddFor(m=>m.Asignados);
+                                                c.AddFor(m=>m.Disponibles);
+                                                c.Add().Caption("Lotes").CalculateCellValue("calcTotal");
+                                                c.AddFor(m=>m.Observaciones).Visible(false);
+                                            })
+
                                             .NoDataText("No hay Datos que mostrar")
                                             .Paging(pag => pag.PageSize(6))
                                             .Pager(p => p.ShowPageSizeSelector(false).ShowNavigationButtons(true).ShowInfo(true).InfoText("Página {0} de {1} ({2} Registros)"))
                                             .OnRowInserting("onRowInsertingDetail")
                                             .OnRowInserted("onrowInsertedDetail")
-                                                                                                                         
-                                           
+
+
                 )
             </text>)
             .Visible(false).CloseOnOutsideClick(false).Position(PositionAlignment.Center)

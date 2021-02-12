@@ -30,19 +30,28 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.Reportes
             _toastNotification = toastNotification;
             _env = env;
         }
-        public RptEstadoCuenta rptEstadoCuenta { get; set; } = new RptEstadoCuenta();
+        //public RptEstadoCuenta rptEstadoCuenta { get; set; } = new RptEstadoCuenta();
+        public Estado_Cuenta rptEstadoCuenta { get; set; } = new Estado_Cuenta();
         public async Task OnGet(int? id)
         {
-            if (id != null)
+          
+            try
             {
-                //rptEstadoCuenta = new RptEstadoCuenta();
-                idselected = Convert.ToInt32(id);
-                var source = await _genericProxy.GetAsync<EstadoCuenta>("Asignacion/GetEstadoCuenta/" + id);               
-                var path = Path.Combine(_env.ContentRootPath, "Reports");                
-                rptEstadoCuenta.LoadLayout(path+"\\RptEstadoCuenta.repx");
-                CargarDatosEmpresa(rptEstadoCuenta);
-                rptEstadoCuenta.DataSource = source.Datas;
-                rptEstadoCuenta.DataMember = rptEstadoCuenta.DataMember;
+                if (id != null)
+                {
+                    //rptEstadoCuenta = new RptEstadoCuenta();
+                    idselected = Convert.ToInt32(id);
+                    var source = await _genericProxy.GetAsync<EstadoCuenta>("Asignacion/GetEstadoCuenta/" + id);
+                    var path = Path.Combine(_env.ContentRootPath, "Reports");
+                    rptEstadoCuenta.LoadLayout(path + "\\Estado_Cuenta.repx");
+                    CargarDatosEmpresa(rptEstadoCuenta);
+                    rptEstadoCuenta.DataSource = source.Datas;
+                    rptEstadoCuenta.DataMember = rptEstadoCuenta.DataMember;
+                }
+            }
+            catch(Exception Ex)
+            {
+
             }
         }
 

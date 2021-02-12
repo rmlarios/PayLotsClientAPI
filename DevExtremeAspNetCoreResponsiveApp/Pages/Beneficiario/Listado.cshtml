@@ -1,7 +1,9 @@
 @page
 @model DevExtremeAspNetCoreResponsiveApp.Pages.Beneficiario.ListadoModel
+@{
+    ViewData["Title"] = "Propietarios Registrados";
+}
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
-
 @(Html.DevExtreme().DataGrid<Beneficiarios>
                     ()
                     .ID("GridListado")

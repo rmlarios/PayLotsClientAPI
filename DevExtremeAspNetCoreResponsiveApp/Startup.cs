@@ -33,6 +33,8 @@ using Microsoft.Extensions.Logging;
 using DevExpress.XtraReports.Web.Extensions;
 using DevExtremeAspNetCoreResponsiveApp.Services;
 using DevExpress.XtraReports.Web.WebDocumentViewer;
+using DevExtremeAspNetCoreResponsiveApp.Middlewares;
+using DevExtremeAspNetCoreResponsiveApp.Logging;
 
 namespace DevExtremeAspNetCoreResponsiveApp
 {
@@ -160,6 +162,7 @@ namespace DevExtremeAspNetCoreResponsiveApp
             services.AddTransient<ProxyHttpClient>();
             services.AddTransient<IAuthProxy, AuthProxy>();
             services.AddTransient<IGenericProxy, GenericProxy>();
+            services.AddSingleton<ILog, LogNLog>();
 
 
             services.AddControllers()
@@ -201,7 +204,7 @@ namespace DevExtremeAspNetCoreResponsiveApp
             })
               .AddRazorPagesOptions(options =>
               {
-                  options.Conventions.AddPageRoute("/Reportes/Viewer", "Viewer/{r}/{p?}");
+                  //options.Conventions.AddPageRoute("/Reportes/Viewer", "Viewer/{r}/{p?}");
               }
                 );
             //Requiere que el usuario este autenticado para poder acceder a cualquier pagina
@@ -232,7 +235,7 @@ namespace DevExtremeAspNetCoreResponsiveApp
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, ILog logger)
         {
             var reportingLogger = loggerFactory.CreateLogger("DXReporting");
             DevExpress.XtraReports.Web.ClientControls.LoggerService.Initialize((exception, message) =>
@@ -243,15 +246,20 @@ namespace DevExtremeAspNetCoreResponsiveApp
 
             app.UseDevExpressControls();
             System.Net.ServicePointManager.SecurityProtocol |= System.Net.SecurityProtocolType.Tls12;
+
+            app.ConfigureExceptionHandler(logger);
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();
-                app.UseDeveloperExceptionPage();
+                //app.UseDeveloperExceptionPage();
+                
+                
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            app.UseStatusCodePages();
             app.UseRouting();
             app.UseCors("MyPolicy");
             app.UseStaticFiles();
@@ -259,15 +267,15 @@ namespace DevExtremeAspNetCoreResponsiveApp
 
             app.UseCookiePolicy();
             app.UseNToastNotify();
+           // app.UseMiddleware<ErrorHandlingMiddleware>();
 
-
-           /* app.UseMvc(routes =>
-           {
-             routes.MapRoute(
-                   name: "default",
-                   template: "{controller=Home}/{action=Index}/{id?}")
-                   ;
-           });*/
+            /* app.UseMvc(routes =>
+            {
+              routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}")
+                    ;
+            });*/
             app.UseMvc();
 
             app.UseEndpoints(c => c.MapControllers());

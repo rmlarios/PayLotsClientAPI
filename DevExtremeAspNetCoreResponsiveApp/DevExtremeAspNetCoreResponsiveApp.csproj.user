@@ -28,6 +28,9 @@
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Update="Reports\Estado_Cuenta.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="Reports\RptEstadoCuenta.cs">
       <SubType>Component</SubType>
     </Compile>

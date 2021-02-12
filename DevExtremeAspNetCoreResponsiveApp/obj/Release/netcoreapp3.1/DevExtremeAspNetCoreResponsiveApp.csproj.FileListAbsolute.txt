@@ -988,3 +988,9 @@ D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Release\netcoreapp
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Release\netcoreapp3.1\DevExtremeAspNetCoreResponsiveApp.pdb
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Release\netcoreapp3.1\DevExtremeAspNetCoreResponsiveApp.genruntimeconfig.cache
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Release\netcoreapp3.1\Razor\Pages\Reportes\Viewer.cshtml.g.cs
+D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\bin\Release\netcoreapp3.1\Pages\Reportes\EstadoCuenta.cshtml
+D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\bin\Release\netcoreapp3.1\nlog.config
+D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\bin\Release\netcoreapp3.1\NLog.dll
+D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\bin\Release\netcoreapp3.1\NLog.Extensions.Logging.dll
+D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\bin\Release\netcoreapp3.1\NLog.Web.AspNetCore.dll
+D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Release\netcoreapp3.1\Razor\Pages\Pago\Pagos.cshtml.g.cs

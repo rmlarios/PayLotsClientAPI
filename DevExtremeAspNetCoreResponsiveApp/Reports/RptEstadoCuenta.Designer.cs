@@ -15,24 +15,11 @@ namespace DevExtremeAspNetCoreResponsiveApp.Reports {
             DevExpress.XtraReports.ReportInitializer reportInitializer = new DevExpress.XtraReports.ReportInitializer(this, "DevExtremeAspNetCoreResponsiveApp.Reports.RptEstadoCuenta.repx");
 
             // Controls
-            this.Detail = reportInitializer.GetControl<DevExpress.XtraReports.UI.DetailBand>("Detail");
             this.TopMargin = reportInitializer.GetControl<DevExpress.XtraReports.UI.TopMarginBand>("TopMargin");
-            this.BottomMargin = reportInitializer.GetControl<DevExpress.XtraReports.UI.BottomMarginBand>("BottomMargin");
             this.GroupHeader1 = reportInitializer.GetControl<DevExpress.XtraReports.UI.GroupHeaderBand>("GroupHeader1");
+            this.Detail = reportInitializer.GetControl<DevExpress.XtraReports.UI.DetailBand>("Detail");
             this.GroupFooter1 = reportInitializer.GetControl<DevExpress.XtraReports.UI.GroupFooterBand>("GroupFooter1");
-            this.xrTable1 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTable>("xrTable1");
-            this.xrTableRow1 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableRow>("xrTableRow1");
-            this.xrTableCell1 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableCell>("xrTableCell1");
-            this.xrTableCell2 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableCell>("xrTableCell2");
-            this.xrTableCell3 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableCell>("xrTableCell3");
-            this.xrTableCell5 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableCell>("xrTableCell5");
-            this.xrTableCell6 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableCell>("xrTableCell6");
-            this.xrTableCell7 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableCell>("xrTableCell7");
-            this.xrTableCell8 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableCell>("xrTableCell8");
-            this.xrTableCell9 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableCell>("xrTableCell9");
-            this.xrTableCell27 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableCell>("xrTableCell27");
-            this.xrTableCell34 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableCell>("xrTableCell34");
-            this.xrTableCell28 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableCell>("xrTableCell28");
+            this.BottomMargin = reportInitializer.GetControl<DevExpress.XtraReports.UI.BottomMarginBand>("BottomMargin");
             this.picLogo = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRPictureBox>("picLogo");
             this.lblTelefono = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRLabel>("lblTelefono");
             this.lblDireccion = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRLabel>("lblDireccion");
@@ -67,31 +54,29 @@ namespace DevExtremeAspNetCoreResponsiveApp.Reports {
             this.xrTableCell26 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableCell>("xrTableCell26");
             this.xrTableCell29 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableCell>("xrTableCell29");
             this.xrTableCell30 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableCell>("xrTableCell30");
+            this.xrTable1 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTable>("xrTable1");
+            this.xrTableRow1 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableRow>("xrTableRow1");
+            this.xrTableCell1 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableCell>("xrTableCell1");
+            this.xrTableCell2 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableCell>("xrTableCell2");
+            this.xrTableCell3 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableCell>("xrTableCell3");
+            this.xrTableCell5 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableCell>("xrTableCell5");
+            this.xrTableCell6 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableCell>("xrTableCell6");
+            this.xrTableCell7 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableCell>("xrTableCell7");
+            this.xrTableCell8 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableCell>("xrTableCell8");
+            this.xrTableCell9 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableCell>("xrTableCell9");
+            this.xrTableCell27 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableCell>("xrTableCell27");
+            this.xrTableCell34 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableCell>("xrTableCell34");
+            this.xrTableCell28 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableCell>("xrTableCell28");
             this.xrTable5 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTable>("xrTable5");
             this.xrTableRow5 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableRow>("xrTableRow5");
             this.xrTableCell32 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableCell>("xrTableCell32");
             this.xrTableCell33 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableCell>("xrTableCell33");
-
-            
         }
-        private DevExpress.XtraReports.UI.DetailBand Detail;
         private DevExpress.XtraReports.UI.TopMarginBand TopMargin;
-        private DevExpress.XtraReports.UI.BottomMarginBand BottomMargin;
         private DevExpress.XtraReports.UI.GroupHeaderBand GroupHeader1;
+        private DevExpress.XtraReports.UI.DetailBand Detail;
         private DevExpress.XtraReports.UI.GroupFooterBand GroupFooter1;
-        private DevExpress.XtraReports.UI.XRTable xrTable1;
-        private DevExpress.XtraReports.UI.XRTableRow xrTableRow1;
-        private DevExpress.XtraReports.UI.XRTableCell xrTableCell1;
-        private DevExpress.XtraReports.UI.XRTableCell xrTableCell2;
-        private DevExpress.XtraReports.UI.XRTableCell xrTableCell3;
-        private DevExpress.XtraReports.UI.XRTableCell xrTableCell5;
-        private DevExpress.XtraReports.UI.XRTableCell xrTableCell6;
-        private DevExpress.XtraReports.UI.XRTableCell xrTableCell7;
-        private DevExpress.XtraReports.UI.XRTableCell xrTableCell8;
-        private DevExpress.XtraReports.UI.XRTableCell xrTableCell9;
-        private DevExpress.XtraReports.UI.XRTableCell xrTableCell27;
-        private DevExpress.XtraReports.UI.XRTableCell xrTableCell34;
-        private DevExpress.XtraReports.UI.XRTableCell xrTableCell28;
+        private DevExpress.XtraReports.UI.BottomMarginBand BottomMargin;
         private DevExpress.XtraReports.UI.XRPictureBox picLogo;
         private DevExpress.XtraReports.UI.XRLabel lblTelefono;
         private DevExpress.XtraReports.UI.XRLabel lblDireccion;
@@ -126,10 +111,22 @@ namespace DevExtremeAspNetCoreResponsiveApp.Reports {
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell26;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell29;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell30;
+        private DevExpress.XtraReports.UI.XRTable xrTable1;
+        private DevExpress.XtraReports.UI.XRTableRow xrTableRow1;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCell1;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCell2;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCell3;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCell5;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCell6;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCell7;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCell8;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCell9;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCell27;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCell34;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCell28;
         private DevExpress.XtraReports.UI.XRTable xrTable5;
         private DevExpress.XtraReports.UI.XRTableRow xrTableRow5;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell32;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell33;
-      
     }
 }

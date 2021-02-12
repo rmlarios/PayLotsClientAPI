@@ -196,6 +196,10 @@
               "target": "Package",
               "version": "[2.1.113, )"
             },
+            "NLog.Web.AspNetCore": {
+              "target": "Package",
+              "version": "[4.10.0, )"
+            },
             "NToastNotify": {
               "target": "Package",
               "version": "[7.0.0, )"

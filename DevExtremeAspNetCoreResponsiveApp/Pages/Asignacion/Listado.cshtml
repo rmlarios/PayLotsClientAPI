@@ -2,6 +2,7 @@
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
 @{ 
     TempData["ReportName"] = "PlandePago";
+    ViewData["Title"] = "Asignaciones Registradas";
 }
 
 <div class="row text-center" style="padding-bottom: 10px;">
@@ -234,7 +235,8 @@
     function printPlan(e) {
         IdAsignacionS = e.row.key;
         //alert(IdAsignacionS);
-        window.open('/Viewer/pp/'+IdAsignacionS, '_newtab');
+        //window.open('/Viewer/pp/'+IdAsignacionS, '_newtab');
+        window.open('/Reportes/Viewer?r=pp&p=' + IdAsignacionS, '_newtab');
         //window.location.href = "/ReportViewer/?p=";
     }
 

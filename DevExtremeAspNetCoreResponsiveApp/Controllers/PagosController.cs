@@ -112,6 +112,17 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controllers
 
             return new JsonResult(DataSourceLoader.Load(new List<ViewGraficoPagos>(), loadOptions));
         }
+    
+    [HttpGet("GetTodos")]
+    public async Task<IActionResult> GetTodos(DataSourceLoadOptions loadOptions)
+        {
+            var result = await _genericProxy.GetAsync<ViewPagosAsignaciones>("Pago/GetListado?vigentes=" + false);
+            if(result.Succeeded)
+            {
+                return new JsonResult(DataSourceLoader.Load(result.Datas, loadOptions));
+            }
+            return new JsonResult(DataSourceLoader.Load(new List<ViewPagosAsignaciones>(), loadOptions));
+        }
     }
 
 

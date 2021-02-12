@@ -126,7 +126,7 @@
                         b.Add().Name(GridColumnButtonName.Edit);
                         b.Add().Name(GridColumnButtonName.Delete);
                         b.Add().Icon("fa fa-print").Hint("Imprimir").OnClick("printTicket");
-                    });
+                    }).Name("Commands");
                     c.AddFor(m => m.IdPago).Visible(false).SortOrder(SortOrder.Desc);
                     c.AddFor(m => m.IdAsignacion).Visible(false);
                     c.AddFor(m=>m.MesPagado);
@@ -177,6 +177,7 @@
                            }
                         </text>)
                        .OnInitNewRow("newPago")
+                       .OnInitialized("hideCommand")
 
 )
 @(Html.DevExtreme().Popup().ID("popRecibo").MaxWidth("600px").MaxHeight("800px").CloseOnOutsideClick(false).Title("Imprimir Recibo")
@@ -207,6 +208,18 @@
         vform = e.component;
     }
 
+    function hideCommand(e) {
+        var existrole = "@User.Claims.FirstOrDefault(c => c.Type.Equals("rol"))";
+        //alert(existrole);
+        if (existrole!="") {
+            var role = "@User.Claims.FirstOrDefault(c => c.Type.Equals("rol"))";
+            if(role.toString().includes("Administrador"))
+                $("#GridListado").dxDataGrid("columnOption", "Commands", "visible", true);
+            else
+                $("#GridListado").dxDataGrid("columnOption", "Commands", "visible", false);
+        }
+    }
+
     function onFormReady(e) {
         if (isFirstLoad) {
             var moneda = vform.getEditor("Moneda").option("value");
@@ -234,7 +247,7 @@
         PagoPrint= e.row.key;
         var popup = $("#popRecibo2").dxPopup("instance");
         popup.show();
-        $("#result_Voucher_Item_popup").html('');        
+        $("#result_Voucher_Item_popup").html('');
         $("#result_Voucher_Item_popup").load("@Url.Action("GetTicket", "Pagos")?idpago=" + PagoPrint);
     }
 

@@ -37,8 +37,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.Reportes
         public async Task OnGet(string r, int? p)
         {
             var path = Path.Combine(_env.ContentRootPath, "Reports");
-            _toasNotification.AddSuccessToastMessage(path);
-            _toasNotification.AddSuccessToastMessage(r + " : " + p);
+           
             switch (r)
             {
                 case "pp"://Plan de Pago

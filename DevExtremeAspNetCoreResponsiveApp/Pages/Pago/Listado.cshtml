@@ -1,4 +1,7 @@
 ﻿@page
+@{
+    ViewData["Title"] = "Pagos Registrados por Asignación";
+}
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
 @(Html.DevExtreme().DataGrid<ViewPagosAsignaciones>
                     ()
@@ -53,7 +56,7 @@
                             buttons.Add().Name(GridColumnButtonName.Edit);
                         });
                     })
-                    
+
                     .Summary(c=>c.GroupItems(g=> {
                         g.AddFor(m => m.MontoPago).ShowInColumn("MontoPago").Column("MontoPago").SummaryType(SummaryType.Sum).DisplayFormat("$ #,##0.##");
                         g.AddFor(m => m.Saldo).Column("Saldo").SummaryType(SummaryType.Max).ValueFormat("currency");
