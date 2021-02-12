@@ -1467,3 +1467,4 @@ D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\DevExtremeAspNetCoreResponsiveApp.MvcApplicationPartsAssemblyInfo.cs
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\DevExtremeAspNetCoreResponsiveApp.MvcApplicationPartsAssemblyInfo.cache
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\Razor\Pages\Pago\Pagos.cshtml.g.cs
+D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\Razor\Pages\Empresa\Respaldos.cshtml.g.cs

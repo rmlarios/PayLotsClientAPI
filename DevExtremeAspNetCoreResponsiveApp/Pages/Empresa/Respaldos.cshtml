@@ -1,0 +1,13 @@
+﻿@page
+@model DevExtremeAspNetCoreResponsiveApp.Pages.Empresa.RespaldosModel
+@{
+}
+
+<form id="respaldos" method="post">
+    @(Html.DevExtreme().Button().ID("BtnGenerar").UseSubmitBehavior(true).Text("Respaldar").Type(ButtonType.Success).StylingMode(ButtonStylingMode.Outlined)
+)
+
+    @(Html.DevExtreme().DataGrid().DataSource(Model.Listado)
+        
+    )
+</form>
