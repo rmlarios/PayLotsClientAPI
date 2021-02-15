@@ -164,8 +164,18 @@
                         <img src="~/AdminLTE/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                     </div>
                     <div class="pull-left info">
-                        <p>@User.Identity.Name</p>
-                        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <p>@User.Identity.Name</p>
+                            @if (User.Claims.FirstOrDefault(c => c.Type.Equals("rol")) != null)
+                            {
+                    <a href="#"><i class="fa fa-circle text-success"></i>@User.Claims.FirstOrDefault(c => c.Type.Equals("rol")).Value</a>
+                    }
+                                }
+                    else
+                    {
+                        <p>No está conectado.</p>
+                    }
                     </div>
                 </div>
                 <!-- search form -->
@@ -233,6 +243,7 @@
                             <li><a href=@Url.Page("/Pago/Listado")><i class="fa fa-list-ol"></i> Pagos por Asignación</a></li>
                             <li><a href=@Url.Page("/Pago/Pagos")><i class="fa fa-table"></i> Pagos Recibidos</a></li>
                             <li><a href=@Url.Page("/Pago/Registrar")><i class="fa fa-floppy-o"></i> Registrar</a></li>
+                            <li><a href=@Url.Page("/Pago/AbonosPrima")><i class="fa ion-cash"></i>Abonos Prima</a></li>
                         </ul>
                     </li>
                     <li class="treeview">

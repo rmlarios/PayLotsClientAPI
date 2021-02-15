@@ -95,6 +95,7 @@
                                 DevExpress.ui.notify(e.row.data.NombreProyecto, "success", 600);
                            }
                        </text>)
+                       .OnInitialized("isAdministrador")
 )
 
 @(Html.DevExtreme().Popup
@@ -153,6 +154,7 @@
                                             .Pager(p => p.ShowPageSizeSelector(false).ShowNavigationButtons(true).ShowInfo(true).InfoText("Página {0} de {1} ({2} Registros)"))
                                             .OnRowInserting("onRowInsertingDetail")
                                             .OnRowInserted("onrowInsertedDetail")
+                                            .OnInitialized("isAdministradorBloques")
 
 
                 )
@@ -166,8 +168,8 @@
 
 <script>
     var IdUbicacion
-    function openDetail(e) {        
-        IdUbicacion = e.row.key;       
+    function openDetail(e) {
+        IdUbicacion = e.row.key;
         var popup = $("#PopBloques").dxPopup("instance");
         popup.option('title',e.row.data.NombreProyecto);
         popup.show();
@@ -186,7 +188,7 @@
 
     function onRowInsertingDetail(e)
     {
-        e.data.IdUbicacion = IdUbicacion;        
+        e.data.IdUbicacion = IdUbicacion;
     }
 
     function onrowInsertedDetail(e)
@@ -222,5 +224,34 @@
         };
     }
 
-    
+      function isAdministrador() {
+
+            isAdmon = verifyRol();
+
+        $("#GridListado").dxDataGrid("instance").option("editing.allowAdding", isAdmon);
+        $("#GridListado").dxDataGrid("instance").option("editing.allowUpdating", isAdmon);
+          $("#GridListado").dxDataGrid("instance").option("editing.allowDeleting", isAdmon);
+       
+
+    }
+
+    function isAdministradorBloques() {
+        isAdmon = verifyRol();
+
+        
+        $("#gridBloques").dxDataGrid("instance").option("editing.allowAdding", isAdmon);
+        $("#gridBloques").dxDataGrid("instance").option("editing.allowUpdating", isAdmon);
+        $("#gridBloques").dxDataGrid("instance").option("editing.allowDeleting", isAdmon);
+    }
+
+    function verifyRol() {
+         var existrole = "@User.Claims.FirstOrDefault(c => c.Type.Equals("rol"))";
+        var isAdmon = false;
+        if (existrole != "") {
+            var role = "@User.Claims.FirstOrDefault(c => c.Type.Equals("rol"))";
+            if (role.toString().includes("Administrador")) { isAdmon = true; }
+            else { isAdmon = false; }
+        }
+        return isAdmon;
+    }
 </script>

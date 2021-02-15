@@ -1,0 +1,198 @@
+﻿@page
+
+@{
+    ViewData["Title"] = "Registro de Abonos a Primas";
+}
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@(Html.DevExtreme().DataGrid<ViewAbonosPrima>
+                    ()
+                    .ID("GridListado")
+                    .DataSource(d=>d.Mvc().Controller("AbonosPrima").Key("IdAbonoPrima")
+                    .LoadAction("GetAll")
+                    .InsertAction("PostCreate")
+                    .UpdateAction("PutUpdate")
+                    .DeleteAction("DeletebyId")
+                    .OnBeforeSend("grid_dataSource_beforeSend")
+                    )
+                    .ShowBorders(false)
+                    .ElementAttr(new { @class = "dx-card wide-card" })
+                    .Export(e => e.Enabled(true).AllowExportSelectedData(true)).OnExporting("exporting")
+                    .Paging(pag => pag.PageSize(10))
+                    .Pager(p => p.ShowPageSizeSelector(false).ShowNavigationButtons(true).ShowInfo(true).InfoText("Página {0} de {1} ({2} Registros)"))
+                    .RowAlternationEnabled(true)
+                    .HoverStateEnabled(true)
+                    .Selection(s => s.Mode(SelectionMode.Single).AllowSelectAll(false))
+                    .SearchPanel(s => s.Visible(true).HighlightSearchText(true).Width(400))
+                    .FilterRow(f => f.ApplyFilter(GridApplyFilterMode.Auto).Visible(true).ShowAllText("Todo"))
+                    .FilterSyncEnabled(true)
+                    .WordWrapEnabled(true)
+                    .ColumnAutoWidth(true)
+                    /*Columnas del grid*/
+                    .Columns(columns =>
+                    {
+                        columns.Add().Type(GridCommandColumnType.Buttons).Buttons(b =>
+                        {
+                            b.Add().Name(GridColumnButtonName.Edit);
+                            b.Add().Name(GridColumnButtonName.Delete);                           
+                        }).Name("Commands");
+                        columns.AddFor(m => m.IdAbonoPrima).Visible(false);
+                        //columns.AddFor(m => m.Prima);
+                        columns.AddFor(m => m.Fecha);
+                        columns.AddFor(m => m.Monto).Caption("MontoAbono");
+                        columns.AddFor(m => m.IdAsignacion).Caption("Asignación").Lookup(look => look
+                                                                        .DataSource(d => d.Mvc().Controller("Asignaciones")
+                                                                                    .LoadAction("GetAll").Key("IdAsignacion"))
+                                                                        //.DisplayExpr("DatoCompleto")
+                                                                        .ValueExpr("IdAsignacion").DisplayExpr(new JS("groupDisplay")).DataSourceOptions(o => o.Filter("['Estado', '=', 'Vigente']"))
+                                                                        ).GroupIndex(0)
+                                                                        .GroupCellTemplate(new JS("groupTemplate"))
+                                                                        .AllowSearch(true).EditorOptions(new
+                                                                        {
+                                                                            searchExpr = new string[] { "NombreCompleto", "NombreLote" }
+                                                                        })
+
+
+
+                      ;
+                    })
+                    .Grouping(g=>g.AutoExpandAll(false))
+                    .Summary(s => s.GroupItems(items =>
+                    {
+                        items.AddFor(m => m.Monto).SummaryType(SummaryType.Sum).ValueFormat(Format.Currency).ValueFormat("currency");
+                        items.AddFor(m => m.Prima).SummaryType(SummaryType.Avg).ValueFormat(Format.Currency);
+                    }))
+                    .HeaderFilter(h => h.AllowSearch(true).Visible(true))
+                    /*Configuracion para la edicion*/
+                    .Editing(e => e.Mode(GridEditMode.Popup)
+                        .UseIcons(true)
+                        .AllowAdding(true)
+                        .AllowUpdating(true)
+                        .AllowDeleting(true)
+                        .UseIcons(true)
+                        .Texts(t => t.AddRow("Nuevo").EditRow("Editar").DeleteRow("Eliminar").ConfirmDeleteMessage("¿Está seguro que desea Eliminar este Registro?")
+                        .SaveRowChanges("Guardar").CancelRowChanges("Cancelar"))
+                        /*Configuracion del Popup*/
+                        .Popup(p => p.Width(700).Title("Formulario de Edición").ShowTitle(true).Position(PositionAlignment.Center).Height(350).CloseOnOutsideClick(false).ShowCloseButton(false))
+                        /*Configuracion del EditForm*/
+                        .Form(f => f.ColCount(1).ShowRequiredMark(true).LabelLocation(FormLabelLocation.Left)
+                            .Items(items =>
+                            {
+                                items.AddSimple().IsRequired(true).DataField("IdAsignacion").ColSpan(1);
+                                items.AddSimple().IsRequired(false).DataField("Fecha").ColSpan(1);
+                                items.AddSimple().IsRequired(false).DataField("Monto").ColSpan(1);
+
+
+                            }))
+                          )
+                       .ErrorRowEnabled(true)
+                       .OnInitNewRow("onInitNewRow")
+                       .OnInitialized("hideCommand")
+)
+
+
+<script>
+    var IdAsignacionNew;
+
+    function lookupExpr(item) {
+      //alert(item);
+      return item.NombreProyecto + " " + item.Bloque;
+    }
+
+    function exporting(e) {
+        var workbook = new ExcelJS.Workbook();
+        var worksheet = workbook.addWorksheet('Hoja1');
+
+        DevExpress.excelExporter.exportDataGrid({
+            component: e.component,
+            worksheet: worksheet,
+            autoFilterEnabled: true
+        }).then(function () {
+            // https://github.com/exceljs/exceljs#writing-xlsx
+            workbook.xlsx.writeBuffer().then(function (buffer) {
+                saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'Beneficiarios.xlsx');
+            });
+        });
+        e.cancel = true;
+    }
+
+     function grid_dataSource_beforeSend(operation, ajax) {
+        @* var data = ajaxSettings.data || {},
+            args = Object.keys(data).map(function (key) {
+                return key + "=" + data[key];
+            }).join(" "); *@
+
+             ajax.headers = {
+            RequestVerificationToken: "@Xsrf.GetAndStoreTokens(Model.HttpContext).RequestToken"
+        };
+    }
+
+    function groupTemplate(cellElement, cellInfo) {
+        var prima = cellInfo.summaryItems[1].value;
+        var saldo = prima - cellInfo.summaryItems[0].value;
+        var groupKey = cellInfo.displayValue + ' Prima: ' + prima +' Abonado Prima: ' + cellInfo.summaryItems[0].value + ' Saldo: ' + saldo;
+
+        $('<span>')
+            .text(groupKey)
+            .appendTo(cellElement);
+        if (isAdministrador()) {
+            $("<div>")
+                .css({ 'float': 'left' })
+                .dxButton({
+                    text: "",
+                    icon: "fa fa-plus",
+                    stylingMode: "contained",
+                    hint: "Registrar pago",
+                    type: "success",
+                    onClick: function (e) {
+                        var idpago = cellInfo.data.key;
+                        IdAsignacionNew = idpago;
+                        //window.location.href = "/Pago/Registrar/?p=" + idpago;
+                        $('#GridListado').dxDataGrid('instance').addRow();
+                    }
+                }).appendTo(cellElement);
+        }
+    }
+
+    function groupDisplay(rowData) {
+        return 'Lote: ' + rowData.NombreLote + ' Nombre: ' + rowData.NombreCompleto;// + ' Prima: ' + rowData.Prima;
+    }
+
+    function onInitNewRow(e) {
+        if(IdAsignacionNew!=null)
+            e.data.IdAsignacion = IdAsignacionNew;
+        IdAsignacionNew = null;
+    }
+
+     function hideCommand(e) {
+         var existrole = isAdministrador();
+        //alert(existrole);
+      
+            if (existrole) {
+                $("#GridListado").dxDataGrid("columnOption", "Commands", "visible", true);
+                $("#GridListado").dxDataGrid("instance").option("editing.allowAdding",true)
+                $("#GridListado").dxDataGrid("instance").option("editing.allowUpdating",true)
+                $("#GridListado").dxDataGrid("instance").option("editing.allowDeleting",true)
+
+            }
+            else {
+                $("#GridListado").dxDataGrid("columnOption", "Commands", "visible", false);
+                $("#GridListado").dxDataGrid("instance").option("editing.allowAdding", false);
+                $("#GridListado").dxDataGrid("instance").option("editing.allowUpdating", false);
+                $("#GridListado").dxDataGrid("instance").option("editing.allowDeleting", false);
+            }
+        
+    }
+
+
+    function isAdministrador() {
+        var existrole = "@User.Claims.FirstOrDefault(c => c.Type.Equals("rol"))";
+        //alert(existrole);
+        if (existrole != "") {
+            var role = "@User.Claims.FirstOrDefault(c => c.Type.Equals("rol"))";
+            if (role.toString().includes("Administrador")) { return true; }
+            else { return false;}
+        }
+    }
+</script>
+
+

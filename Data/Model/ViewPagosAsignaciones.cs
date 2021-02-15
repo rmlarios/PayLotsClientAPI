@@ -58,5 +58,6 @@ namespace Data.Model
         [Required(ErrorMessage = "Debe ingresar el monto efectivo pagado.")]
         [Range(1, 1000, ErrorMessage = "Debe ingresar un monto mayor a 0")]
         public decimal? MontoEfectivo { get; set; } = 0;
+        public bool? PrimaCancelada { get; set; }
     }
 }

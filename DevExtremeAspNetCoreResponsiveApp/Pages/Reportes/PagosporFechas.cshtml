@@ -10,14 +10,21 @@
 
 <link rel="stylesheet" href="~/css/viewer.part.bundle.css" />
 <div class="row">
-    <div class="col-md-3">Seleccione el rango de Fechas</div>
+    
+    <div class="col-md-3">
+        Proyecto:
+        @(Html.DevExtreme().Lookup().ID("lkpProyecto").Placeholder("Seleccione el Proyecto").ShowClearButton(true).SearchEnabled(true).Value(Model.idselected).SearchMode(DropDownSearchMode.Contains).SearchExpr("Proyecto").StylingMode(EditorStylingMode.Outlined).DisplayExpr("Proyecto").ValueExpr("IdUbicacion").DataSource(
+        c=>c.Mvc().Controller("Ubicaciones").LoadAction("GetAll").Key("IdUbicacion")))
+    </div>
     <div class="col-md-3">Desde:
-        @(Html.DevExtreme().DateBox().ID("dateDesde").StylingMode(EditorStylingMode.Outlined).Width("80%").DisplayFormat("dd/MM/yyyy")
+        @(Html.DevExtreme().DateBox().ID("dateDesde").ShowClearButton(true).StylingMode(EditorStylingMode.Outlined).Width("80%").DisplayFormat("dd/MM/yyyy").Value(Model.desde)
+    .CalendarOptions(c=>c.ShowTodayButton(true))
     )
     </div>
     <div class="col-md-3">
         Hasta:
-        @(Html.DevExtreme().DateBox().ID("dateHasta").StylingMode(EditorStylingMode.Outlined).Width("80%").DisplayFormat("dd/MM/yyyy")
+        @(Html.DevExtreme().DateBox().ID("dateHasta").StylingMode(EditorStylingMode.Outlined).ShowClearButton(true).Width("80%").Value(Model.hasta).DisplayFormat("dd/MM/yyyy")
+        .CalendarOptions(c=>c.ShowTodayButton(true))
     )
     </div>
     <div class="col-md-3">
@@ -32,6 +39,8 @@
     function verReporte() {
         var desdet = $("#dateDesde").dxDateBox("instance").option("value");
         var hastat = $("#dateHasta").dxDateBox("instance").option("value");
+        var proyectot = $("#lkpProyecto").dxLookup("instance").option("value");
+        alert(proyectot);
         if (desdet == null && hastat == null) {
             alert('Debe seleccionar la fecha o rango de fechas para el Reporte');
             return;
@@ -39,11 +48,11 @@
         desde = new Date(desdet).toLocaleDateString();
         hasta = new Date(hastat).toLocaleDateString();
         if (desdet != null && hastat != null)
-            window.location.href = "/Reportes/PagosporFechas/?d=" + desde + "&h=" + hasta;
+            window.location.href = "/Reportes/PagosporFechas/?d=" + desde + "&h=" + hasta + "&p="+ proyectot;
         else if (desdet != null && hastat == null)
-            window.location.href = "/Reportes/PagosporFechas/?d=" + desde;
+            window.location.href = "/Reportes/PagosporFechas/?d=" + desde + "&p=" + proyectot ;
         else if (desdet == null && hastat != null)
-            window.location.href = "/Reportes/PagosporFechas/?d=" + hasta;
+            window.location.href = "/Reportes/PagosporFechas/?d=" + hasta + "&p=" + proyectot;
 
     }
 </script>

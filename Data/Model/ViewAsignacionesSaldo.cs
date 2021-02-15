@@ -15,6 +15,7 @@ namespace Data.Model
         public decimal? CuotaMinima { get; set; }
         public string Estado { get; set; }
         public bool? Donado { get; set; }
+        public bool? PrimaCancelada { get; set; }
         public decimal Abonado { get; set; }
         public decimal? Saldo { get; set; }
         public int IdBeneficiario { get; set; }

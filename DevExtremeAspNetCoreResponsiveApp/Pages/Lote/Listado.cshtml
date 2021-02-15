@@ -70,6 +70,7 @@
                             }))
                           )
                        .ErrorRowEnabled(true)
+                       .OnInitialized("isAdministrador")
 )
 
 <script>
@@ -105,5 +106,24 @@
             RequestVerificationToken: "@Xsrf.GetAndStoreTokens(Model.HttpContext).RequestToken"
         };
     }
+
+    function isAdministrador() {
+        var existrole = "@User.Claims.FirstOrDefault(c => c.Type.Equals("rol"))";
+        //alert(existrole);
+        var isAdmon = false;
+        if (existrole != "") {
+            var role = "@User.Claims.FirstOrDefault(c => c.Type.Equals("rol"))";
+            if (role.toString().includes("Administrador")) { isAdmon = true; }
+            else { isAdmon = false; }
+        }
+        else
+            isAdmon = false;
+
+        $("#GridListado").dxDataGrid("instance").option("editing.allowAdding", isAdmon);
+        $("#GridListado").dxDataGrid("instance").option("editing.allowUpdating", isAdmon);
+        $("#GridListado").dxDataGrid("instance").option("editing.allowDeleting", isAdmon);
+
+    }
+
 
 </script>

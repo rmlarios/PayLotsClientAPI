@@ -28,7 +28,7 @@
                     /*Columnas del grid*/
                     .Columns(columns =>
                     {
-
+                        columns.AddFor(m => m.NombreProyecto);
                         columns.AddFor(m => m.IdAsignacion)
                         .Caption("Asignacion").Lookup(c => c.DataSource(d => d.Mvc().Controller("Asignaciones").LoadAction("GetAll")).DisplayExpr(new JS("groupDisplay")).ValueExpr("IdAsignacion"));
                         columns.AddFor(m => m.IdPago).Visible(false).SortOrder(SortOrder.Desc).SortIndex(0);

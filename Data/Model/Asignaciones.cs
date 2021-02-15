@@ -31,6 +31,8 @@ namespace Data.Model
     public decimal? Prima { get; set; } = 0;
     public string Estado { get; set; }
     public bool? Donado { get; set; } = false;
+
+        public bool? PrimaCancelada { get; set; } = false;
     public bool? AplicaInteres { get; set; } = false;
     [CustomCuotaValidator]
     public decimal? TasaInteres { get; set; } = 0;

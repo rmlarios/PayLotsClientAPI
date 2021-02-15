@@ -53,7 +53,7 @@
                 .SearchExpr("NombreLote").SearchMode(DropDownSearchMode.Contains).DisplayExpr(new JS("lookupExpr")).ValueExpr("IdLote").PageLoadingText("Cargando").NextButtonText("Más").PageLoadMode(ListPageLoadMode.NextButton).SearchEnabled(true).SearchMode(DropDownSearchMode.Contains).StylingMode(EditorStylingMode.Outlined)
                 );
 
-               // item.AddSimpleFor(m => m.IdBeneficiario).ColSpan(2).Label(l => l.Text("Seleccione el beneficiario")).IsRequired(true).Editor(e => e.Lookup().DataSource(d => d.Mvc().Controller("Beneficiarios").LoadAction("GetAll").Key("IdBeneficiario")).DisplayExpr("NombreCompleto").ValueExpr("IdBeneficiario").SearchEnabled(true).SearchMode(DropDownSearchMode.Contains).StylingMode(EditorStylingMode.Outlined)
+                // item.AddSimpleFor(m => m.IdBeneficiario).ColSpan(2).Label(l => l.Text("Seleccione el beneficiario")).IsRequired(true).Editor(e => e.Lookup().DataSource(d => d.Mvc().Controller("Beneficiarios").LoadAction("GetAll").Key("IdBeneficiario")).DisplayExpr("NombreCompleto").ValueExpr("IdBeneficiario").SearchEnabled(true).SearchMode(DropDownSearchMode.Contains).StylingMode(EditorStylingMode.Outlined)
                 //);
 
                 item.AddSimpleFor(m => m.IdBeneficiario).ColSpan(2).Label(l => l.Text("Seleccione el beneficiario")).Editor(e => e.SelectBox().DataSource(d => d.Mvc().Controller("Beneficiarios").LoadAction("GetAll").Key("IdBeneficiario")).DisplayExpr("NombreCompleto").ValueExpr("IdBeneficiario").SearchEnabled(true).SearchMode(DropDownSearchMode.Contains).StylingMode(EditorStylingMode.Outlined).OpenOnFieldClick(true).Buttons(b => b.Add().Name("Agregar").Widget(w => w.Button().Icon("fa fa-plus").Text("").Hint("Agregar").OnClick("onNewBeneficiarioClick"))));
@@ -65,6 +65,7 @@
                 item.AddSimpleFor(m => m.CuotaMinima).Name("CuotaMinima").ColSpan(1).Label(l => l.Text("Cuota Mínima")).Editor(e=>e.NumberBox().ShowSpinButtons(true).Mode(NumberBoxMode.Number).Format("$ #,##0.##").StylingMode(EditorStylingMode.Outlined));
 
                 item.AddSimpleFor(m => m.Prima).ColSpan(1).Editor(e=>e.NumberBox().ShowSpinButtons(true).Mode(NumberBoxMode.Number).Format("$ #,##0.##").StylingMode(EditorStylingMode.Outlined).Min(0));
+                item.AddSimpleFor(m => m.PrimaCancelada).ColSpan(1).Label(l => l.Text("Prima Cancelada")).Editor(e => e.TextBox().StylingMode(EditorStylingMode.Outlined).ReadOnly(true));
                 item.AddSimpleFor(m => m.Donado).ColSpan(1);
                 item.AddSimpleFor(m => m.AplicaMora).ColSpan(1).Label(l => l.Text("Aplicar Mora"));
                 item.AddSimpleFor(m => m.AplicaInteres).ColSpan(1).Label(l => l.Text("Aplicar interés")).Editor(e=>e.CheckBox().OnValueChanged("chkInteresChanged"));
@@ -185,7 +186,8 @@
         vform = e.component;
     }
 
-    function onFormReady(e) {
+
+     function onFormReady(e) {
         if (isFirstLoad) {
             var aplicainteres = vform.getEditor("AplicaInteres").option("value") == null ? false : vform.getEditor("AplicaInteres").option("value");
             vform.getEditor("CuotaMinima").option("disabled", aplicainteres);
@@ -201,7 +203,7 @@
                 vform.option("readOnly", false);
                 vform.getEditor("Guardar").option("disabled", false);
             }
-
+            hideCommand();
             var queryParams = new URLSearchParams(window.location.search);
             IdAsignacion = vform.option("formData").IdAsignacion;
             queryParams.set("p", IdAsignacion.toString());
@@ -254,7 +256,7 @@
         var validationResult = dxFormInstance.validate();
         var values = dxFormInstance.option("formData");
         //var datas = JSON.stringify(values);
-        //alert(datas);        
+        //alert(datas);
         if (validationResult.isValid) {
             $.ajax({
                 type: "POST",
@@ -268,11 +270,11 @@
                     var popup = $("#PopBeneficiario").dxPopup("instance");
                     popup.hide();
                     vform.getEditor("IdBeneficiario").option("value", data);
-                    dxFormInstance.resetValues();                    
+                    dxFormInstance.resetValues();
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     //alert('Request Status: ' + xhr.status + '; Status Text: ' + textStatus + '; Error: ' + errorThrown);
-                }                
+                }
             });
         }
         else {
@@ -297,5 +299,16 @@
         e.cancel = true;
     }
 
-
+    function hideCommand(e) {
+        var existrole = "@User.Claims.FirstOrDefault(c => c.Type.Equals("rol"))";
+        if (existrole != "") {
+            var role = "@User.Claims.FirstOrDefault(c => c.Type.Equals("rol"))";
+            if (role.toString().includes("Administrador")) {
+                vform.getEditor("Guardar").option("disabled", false);
+            }
+            else {
+                vform.getEditor("Guardar").option("disabled", true);
+            }
+        }
+    }
 </script>

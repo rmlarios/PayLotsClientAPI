@@ -24,7 +24,12 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.Reportes
             _genericProxy = genericProxy;
             _env = env;
         }
-        public async Task OnGet(string d="",string h="")
+
+        [BindProperty]
+        public int idselected { get; set; }
+        public DateTime desde { get; set; } = DateTime.Now;
+        public DateTime? hasta { get; set; } = DateTime.Now;
+        public async Task OnGet(string d="",string h="",string p="")
         {
             if(d==""&& h == "")
             {
@@ -35,10 +40,27 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.Reportes
             var path = Path.Combine(_env.ContentRootPath, "Reports");
             rptFechas.LoadLayout(path + "\\RptPagosFechas.repx");
             CargarDatosEmpresa(rptFechas);
-            if(d!=""&&h!="")
-                rptFechas.DataSource = data.Where(m => m.FechaRecibo >= Convert.ToDateTime(d) && m.FechaRecibo<=Convert.ToDateTime(h));
-            else if(d!=""&&h=="")
-                rptFechas.DataSource = data.Where(m => m.FechaRecibo.Value.Date == Convert.ToDateTime(d).Date);
+            if (d != "" && h != "")
+            {
+                data = data.Where(m => m.FechaRecibo >= Convert.ToDateTime(d) && m.FechaRecibo <= Convert.ToDateTime(h));
+                desde = Convert.ToDateTime(d);
+                hasta = Convert.ToDateTime(h);
+                //rptFechas.DataSource = data.Where(m => m.FechaRecibo >= Convert.ToDateTime(d) && m.FechaRecibo<=Convert.ToDateTime(h));
+            }
+            else if (d != "" && h == "")
+            {
+                data = data.Where(m => m.FechaRecibo.Value.Date == Convert.ToDateTime(d).Date);
+                desde = Convert.ToDateTime(d);
+                hasta = null;
+            }
+            //rptFechas.DataSource = data.Where(m => m.FechaRecibo.Value.Date == Convert.ToDateTime(d).Date);
+            if (p != "0")
+            {
+                data = data.Where(m => m.IdUbicacion.ToString() == p);
+                idselected = Convert.ToInt32(p);
+            }
+               
+            rptFechas.DataSource = data;
             rptFechas.DataMember = rptFechas.DataMember;
         }
 

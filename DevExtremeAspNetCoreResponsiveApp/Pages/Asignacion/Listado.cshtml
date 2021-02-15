@@ -66,8 +66,8 @@
                         columns.Add().Type(GridCommandColumnType.Buttons).Fixed(true).FixedPosition(HorizontalEdge.Left).Buttons(buttons => {
                         buttons.Add().Name(GridColumnButtonName.Edit);
                         buttons.Add().Name("Anular").Hint("Anular").Icon("clear").Visible(new JS("isAnularVisible")).OnClick("openAnular");
-                        buttons.Add().Name("PlanPago").Hint("Ver Plan de Pago").Icon("fa fa-calendar").OnClick("printPlan");
-                            buttons.Add().Name("Activar").Hint("Activar").Icon("check").Visible(new JS("isActivarVisible")).OnClick("activar");
+                        buttons.Add().Name("PlanPago").Hint("Ver Plan de Pago").Icon("fa fa-calendar").Visible(new JS("isPlanVisible")).OnClick("printPlan");
+                        buttons.Add().Name("Activar").Hint("Activar").Icon("check").Visible(new JS("isActivarVisible")).OnClick("activar");
                     });
        })
                     .HeaderFilter(h => h.AllowSearch(true).Visible(true))
@@ -260,11 +260,15 @@
     }
 
     function isAnularVisible(e) {
-        return !e.row.isEditing && e.row.data.Estado=="Vigente";
+        return !e.row.isEditing && e.row.data.Estado=="Vigente" && hideCommand();
     }
 
     function isActivarVisible(e) {
-        return !e.row.isEditing && e.row.data.Estado == "Anulada";
+        return !e.row.isEditing && e.row.data.Estado == "Anulada" && hideCommand();
+    }
+
+    function isPlanVisible(e) {
+        return !e.row.isEditing && e.row.data.Estado == "Vigente";
     }
 
     function exporting(e) {
@@ -295,4 +299,16 @@
         };
     }
 
+    function hideCommand(e) {
+        var existrole = "@User.Claims.FirstOrDefault(c => c.Type.Equals("rol"))";
+        if (existrole != "") {
+            var role = "@User.Claims.FirstOrDefault(c => c.Type.Equals("rol"))";
+            if (role.toString().includes("Administrador")) {
+                return true;
+            }
+            else {
+               return false
+            }
+        }
+    }
 </script>

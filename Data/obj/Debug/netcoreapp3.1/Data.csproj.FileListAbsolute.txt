@@ -33,3 +33,4 @@ D:\GIT\PayLotsClientAPI\Data\obj\Debug\netcoreapp3.1\Data.csproj.CoreCompileInpu
 D:\GIT\PayLotsClientAPI\Data\obj\Debug\netcoreapp3.1\Data.dll
 D:\GIT\PayLotsClientAPI\Data\obj\Debug\netcoreapp3.1\Data.pdb
 D:\GIT\PayLotsClientAPI\Data\obj\Debug\netcoreapp3.1\Data.genruntimeconfig.cache
+D:\GIT\PayLotsClientAPI\Data\obj\Debug\netcoreapp3.1\Data.csprojAssemblyReference.cache
