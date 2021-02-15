@@ -994,5 +994,5 @@ D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\bin\Release\netcoreapp
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\bin\Release\netcoreapp3.1\NLog.Web.AspNetCore.dll
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Release\netcoreapp3.1\Razor\Pages\Pago\Pagos.cshtml.g.cs
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Release\netcoreapp3.1\Razor\Pages\Empresa\Respaldos.cshtml.g.cs
-D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Release\netcoreapp3.1\scopedcss\bundle\DevExtremeAspNetCoreResponsiveApp.styles.css
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Release\netcoreapp3.1\Razor\Pages\Pago\AbonosPrima.cshtml.g.cs
+D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\bin\Release\netcoreapp3.1\Properties\launchSettings.json
