@@ -183,7 +183,7 @@
 )
 @(Html.DevExtreme().Popup().ID("popRecibo").MaxWidth("600px").MaxHeight("800px").CloseOnOutsideClick(false).Title("Imprimir Recibo")
         .Width("600px").Height("800px").Position(PositionAlignment.Center).ContentTemplate(@<text>
-@(Html.DevExpress().WebDocumentViewer("Viewer").Height("800px").Bind(Model.ticketPago).AutoBind(true))
+@(Html.DevExpress().WebDocumentViewer("Viewer2").Height("800px").Bind(Model.ticketPago).AutoBind(true))
 </text>))
 @(Html.DevExtreme().Popup().ID("popRecibo2").MaxWidth("600px").MaxHeight("800px").CloseOnOutsideClick(false).Title("Imprimir Recibo")
         .Width("600px").Height("800px").Position(PositionAlignment.Center).ContentTemplate(
