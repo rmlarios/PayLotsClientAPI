@@ -65,7 +65,7 @@
                 item.AddSimpleFor(m => m.CuotaMinima).Name("CuotaMinima").ColSpan(1).Label(l => l.Text("Cuota Mínima")).Editor(e=>e.NumberBox().ShowSpinButtons(true).Mode(NumberBoxMode.Number).Format("$ #,##0.##").StylingMode(EditorStylingMode.Outlined));
 
                 item.AddSimpleFor(m => m.Prima).ColSpan(1).Editor(e=>e.NumberBox().ShowSpinButtons(true).Mode(NumberBoxMode.Number).Format("$ #,##0.##").StylingMode(EditorStylingMode.Outlined).Min(0));
-                item.AddSimpleFor(m => m.PrimaCancelada).ColSpan(1).Label(l => l.Text("Prima Cancelada")).Editor(e => e.TextBox().StylingMode(EditorStylingMode.Outlined).ReadOnly(true));
+                item.AddSimpleFor(m => m.PrimaCancelada).ColSpan(1).Label(l => l.Text("Prima Cancelada")).Editor(e => e.CheckBox().ReadOnly(true));
                 item.AddSimpleFor(m => m.Donado).ColSpan(1);
                 item.AddSimpleFor(m => m.AplicaMora).ColSpan(1).Label(l => l.Text("Aplicar Mora"));
                 item.AddSimpleFor(m => m.AplicaInteres).ColSpan(1).Label(l => l.Text("Aplicar interés")).Editor(e=>e.CheckBox().OnValueChanged("chkInteresChanged"));

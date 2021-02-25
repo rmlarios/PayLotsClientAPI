@@ -83,7 +83,7 @@
                     item.AddSimpleFor(m=>m.Interés).Editor(e => e.NumberBox().ShowSpinButtons(true).ReadOnly(true).StylingMode(EditorStylingMode.Outlined));
                     item.AddSimple().Name("TotalPagar").Label(l=>l.Text("Total a Pagar")).Editor(e => e.NumberBox().ShowSpinButtons(true).ReadOnly(true).StylingMode(EditorStylingMode.Outlined));
                     item.AddSimpleFor(m => m.NumeroRecibo).Editor(e => e.TextBox().ReadOnly(true).StylingMode(EditorStylingMode.Outlined));
-                    item.AddSimpleFor(m => m.FechaRecibo).Editor(e => e.DateBox().StylingMode(EditorStylingMode.Outlined));
+                    item.AddSimpleFor(m => m.FechaRecibo).Editor(e => e.DateBox().DisplayFormat("dd/MM/yyyy").StylingMode(EditorStylingMode.Outlined));
                     item.AddSimpleFor(m => m.MontoEfectivo).Editor(e => e.NumberBox().ShowSpinButtons(true).StylingMode(EditorStylingMode.Outlined));
                     item.AddSimpleFor(m => m.Moneda).Editor(e => e.SelectBox().Items(new string[] {"Dólares","Córdobas"}).OnSelectionChanged("onMonedaChanged").StylingMode(EditorStylingMode.Outlined));
                     item.AddSimpleFor(m => m.TasaCambio).Editor(e => e.NumberBox().ShowSpinButtons(true).StylingMode(EditorStylingMode.Outlined).Min(0));
@@ -232,10 +232,10 @@
             //var estado = vform.option("formData").Estado;
             if (moneda == "Dólares") {
                 vform.getEditor("TasaCambio").option("disabled", true);
+                vform.getEditor("TasaCambio").option("value", 0);
             }
             else {
-                vform.getEditor("TasaCambio").option("disabled", false);
-                vform.getEditor("TasaCambio").option("value", 0);
+                vform.getEditor("TasaCambio").option("disabled", false);                
             }
             //hideCommand();
             var queryParams = new URLSearchParams(window.location.search);
