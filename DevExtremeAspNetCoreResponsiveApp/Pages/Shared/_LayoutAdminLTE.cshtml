@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using DevExtremeAspNetCoreResponsiveApp.Helpers
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -23,6 +24,18 @@
             .dx-icon-xlsxfile::before {
                 content: "\f060";
             }
+
+        .activemenu {
+            color:white!important;
+            font-weight:bolder;
+            text-decoration:underline;
+            font-size:larger!important;
+        }
+
+        .menu-open > 
+        .treeview-menu{
+            display:block
+        }
     </style>
 
     <script src="~/js/devextreme/jszip.js"></script>
@@ -59,7 +72,7 @@
         <link rel="stylesheet" href="~/css/site.css" />*@
 
     <script src="~/js/site.js" asp-append-version="true"></script>
-    
+
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -169,13 +182,13 @@
                             <p>@User.Identity.Name</p>
                             @if (User.Claims.FirstOrDefault(c => c.Type.Equals("rol")) != null)
                             {
-                    <a href="#"><i class="fa fa-circle text-success"></i>@User.Claims.FirstOrDefault(c => c.Type.Equals("rol")).Value</a>
-                    }
-                                }
-                    else
-                    {
-                        <p>No está conectado.</p>
-                    }
+                                <a href="#"><i class="fa fa-circle text-success"></i>@User.Claims.FirstOrDefault(c => c.Type.Equals("rol")).Value</a>
+                            }
+                        }
+                        else
+                        {
+                            <p>No está conectado.</p>
+                        }
                     </div>
                 </div>
                 <!-- search form -->
@@ -184,11 +197,11 @@
                 <ul class="sidebar-menu" data-widget="tree">
                     <li class="header">Menú de Opciones</li>
                     <li>
-                        <a href=@Url.Page("/Index")>
+                        <a  href=@Url.Page("/Index")>
                             <i class="fa fa-home"></i> <span>Inicio</span>
                         </a>
                     </li>
-                    <li class="treeview">
+                    <li class="treeview @Url.MakeAreaMenuOpenClass("Catálogos")">
                         <a href="#">
                             <i class="fa fa-th-list"></i>
                             <span>Catálogos</span>
@@ -197,19 +210,19 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href=@Url.Page("/Ubicacion/Listado")><i class="fa fa-map"></i> Asentamientos</a></li>
-                            <li><a href=@Url.Page("/Lote/Listado")><i class="fa fa-map-pin"></i> Lotes</a></li>
+                            <li><a is-active-page href=@Url.Page("/Ubicacion/Listado")><i class="fa fa-map"></i> Asentamientos</a></li>
+                            <li><a is-active-page  href=@Url.Page("/Lote/Listado")><i class="fa fa-map-pin"></i> Lotes</a></li>
                             <li>
-                                <a href=@Url.Page("/Beneficiario/Listado")>
+                                <a is-active-page  href=@Url.Page("/Beneficiario/Listado")>
                                     <i class="fa fa-users">
                                     </i>Beneficiarios
                                 </a>
                             </li>
-                            <li><a href=@Url.Page("/Mora/Listado")><i class="fa fa-calendar"></i> Rangos Mora</a></li>
+                            <li><a is-active-page  href=@Url.Page("/Mora/Listado")><i class="fa fa-calendar"></i> Rangos Mora</a></li>
 
                         </ul>
                     </li>
-                    <li class="treeview">
+                    <li class="treeview @Url.MakeAreaMenuOpenClass("Asignaciones")">
                         <a href="#">
                             <i class="fa fa-external-link-square"></i>
                             <span>Asignaciones</span>
@@ -218,10 +231,10 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href=@Url.Page("/Asignacion/Listado")><i class="fa fa-list-ol"></i> Listado</a></li>
-                            <li><a href=@Url.Page("/Asignacion/Registrar",new{p=0})><i class="fa fa-floppy-o"></i> Registrar</a></li>
+                            <li><a is-active-page href=@Url.Page("/Asignacion/Listado")><i class="fa fa-list-ol"></i> Listado</a></li>
+                            <li><a is-active-page href=@Url.Page("/Asignacion/Registrar")><i class="fa fa-floppy-o"></i> Registrar</a></li>
                             <li>
-                                <a href=@Url.Page("/Proforma/Registrar")>
+                                <a is-active-page href=@Url.Page("/Proforma/Registrar")>
                                     <i class="fa fa-file-text">
                                     </i>Proformas
                                 </a>
@@ -230,7 +243,7 @@
 
                         </ul>
                     </li>
-                    <li class="treeview">
+                    <li class="treeview @Url.MakeAreaMenuOpenClass("Pagos")">
                         <a href="#">
                             <i class="fa fa-dollar"></i>
                             <span>Pagos</span>
@@ -239,14 +252,14 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href=@Url.Page("/Pago/Consolidado")><i class="fa ion-grid"></i> Consolidado</a></li>
-                            <li><a href=@Url.Page("/Pago/Listado")><i class="fa fa-list-ol"></i> Pagos por Asignación</a></li>
-                            <li><a href=@Url.Page("/Pago/Pagos")><i class="fa fa-table"></i> Pagos Recibidos</a></li>
-                            <li><a href=@Url.Page("/Pago/Registrar")><i class="fa fa-floppy-o"></i> Registrar</a></li>
-                            <li><a href=@Url.Page("/Pago/AbonosPrima")><i class="fa ion-cash"></i>Abonos Prima</a></li>
+                            <li><a is-active-page href=@Url.Page("/Pago/Consolidado")><i class="fa ion-grid"></i> Consolidado</a></li>
+                            <li><a is-active-page href=@Url.Page("/Pago/Listado")><i class="fa fa-list-ol"></i> Pagos por Asignación</a></li>
+                            <li><a is-active-page href=@Url.Page("/Pago/Pagos")><i class="fa fa-table"></i> Pagos Recibidos</a></li>
+                            <li><a is-active-page href=@Url.Page("/Pago/Registrar")><i class="fa fa-floppy-o"></i> Registrar</a></li>
+                            <li><a is-active-page href=@Url.Page("/Pago/AbonosPrima")><i class="fa ion-cash"></i>Abonos Prima</a></li>
                         </ul>
                     </li>
-                    <li class="treeview">
+                    <li class="treeview @Url.MakeAreaMenuOpenClass("Reportes")">
                         <a href="#">
                             <i class="fa fa-file-text"></i>
                             <span>Reportes</span>
@@ -255,19 +268,19 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href=@Url.Page("/Reportes/EstadoCuenta")><i class="fa fa-calculator"></i> Estados de Cuenta</a></li>
-                            <li><a href=@Url.Page("/Reportes/PagosporFechas")><i class="fa fa-calendar-check-o"></i> Pagos por Fecha</a></li>
-                            <li><a href=@Url.Page("/Reportes/Morosos")><i class="fa fa-calendar-times-o"></i> Morosos</a></li>
+                            <li><a is-active-page href=@Url.Page("/Reportes/EstadoCuenta")><i class="fa fa-calculator"></i> Estados de Cuenta</a></li>
+                            <li><a is-active-page href=@Url.Page("/Reportes/PagosporFechas")><i class="fa fa-calendar-check-o"></i> Pagos por Fecha</a></li>
+                            <li><a is-active-page href=@Url.Page("/Reportes/Morosos")><i class="fa fa-calendar-times-o"></i> Morosos</a></li>
                         </ul>
                     </li>
 
                     @if (User.Claims.FirstOrDefault(c => c.Type.Equals("rol")).Value == "Administrador")
                     {
                         <li class="header">Administración</li>
-                        <li><a href=@Url.Page("/Usuarios/UserManagement")><i class="fa fa-users"></i> <span>Usuarios</span></a></li>
-                        <li><a href=@Url.Page("/Empresa/RegistrarDatosEmpresa")><i class="fa fa-building"></i> <span>Datos Empresa</span></a></li>
-                        <li><a href=@Url.Page("/ReportDesigner")><i class="fa fa-newspaper-o"></i> <span>Editor de Reportes</span></a></li>
-                        <li><a href=@Url.Page("/Empresa/Respaldos")><i class="fa fa-database"></i> <span>Respaldos</span></a></li>
+                        <li><a is-active-page href=@Url.Page("/Usuarios/UserManagement")><i class="fa fa-users"></i> <span>Usuarios</span></a></li>
+                        <li><a is-active-page href=@Url.Page("/Empresa/RegistrarDatosEmpresa")><i class="fa fa-building"></i> <span>Datos Empresa</span></a></li>
+                        <li><a is-active-page href=@Url.Page("/ReportDesigner") target="_blank"><i class="fa fa-newspaper-o"></i> <span>Editor de Reportes</span></a></li>
+                        <li><a is-active-page href=@Url.Page("/Empresa/Respaldos")><i class="fa fa-database"></i> <span>Respaldos</span></a></li>
 
                     }
                 </ul>
@@ -493,7 +506,7 @@
     <script src="~/AdminLTE/js/demo.js"></script>
 
     <!--Export to Excel-->
-    
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.4.0/polyfill.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.1.1/exceljs.min.js"></script>
@@ -505,7 +518,7 @@
             $('.sidebar-menu').tree();
         });
     </script>
-  
+
 
     @await Component.InvokeAsync("NToastNotify")
 

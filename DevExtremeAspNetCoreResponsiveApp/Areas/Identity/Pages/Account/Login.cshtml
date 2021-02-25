@@ -107,6 +107,16 @@
         background-image: -o-linear-gradient(left, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
         background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
     }
+
+    .field-icon {
+        float: right;
+        margin-left: -25px;
+        margin-top: 15px;
+        margin-right: 5px;
+        position: relative;
+        z-index: 4;
+        height: auto;
+    }
 </style>
 
 
@@ -145,8 +155,8 @@
                         <i class='fa fa-unlock-alt'></i>
                     </span>
                 </div>
-                <input type="password" class="form-control" asp-for="Input.Password" name="Password" placeholder="Contraseña" required="" />
-
+                <input type="password" class="form-control" asp-for="Input.Password" id="PasswordT" name="Password" placeholder="Contraseña" required="" />
+                <span toggle="#Password" style="height:auto" class="fa fa-fw fa-eye field-icon toggle-password"></span>
             </div>
             <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit">Iniciar Sesión</button>
 
@@ -177,6 +187,19 @@
         $("#forgotdiv").html('');
         $("#forgotdiv").load("@Url.Page("ForgotPassword")");
     }
+
+            $(document).on('click', '.toggle-password', function () {
+
+                $(this).toggleClass("fa-eye fa-eye-slash");
+                //var input = Password.GetInputElement();
+                //$("#password").prop("type", "text");
+                //var tipo = input.attributes["type"].nodeValue;                
+                var tipo = $('#PasswordT').prop('type');
+                //alert(tipo);
+                tipo === 'password' ? $('#PasswordT').attr('type', 'text') : $('#PasswordT').attr('type', 'password');;
+            });
+
+
 </script>
 
 @*<div class="row justify-content-center">

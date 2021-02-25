@@ -205,7 +205,7 @@
          var dxFormInstance = $("#formAnular").dxForm("instance");
          var validationResult = dxFormInstance.validate();
          var values = dxFormInstance.option("formData");
-         alert(values);
+         //alert(values);
          if (validationResult.isValid) {
              $.ajax({
                  type: "POST",
