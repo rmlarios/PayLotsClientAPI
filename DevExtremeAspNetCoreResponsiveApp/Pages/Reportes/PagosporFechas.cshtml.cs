@@ -35,32 +35,38 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.Reportes
             {
                 return;
             }
-            var source = await _genericProxy.GetAsync<ViewPagosAsignaciones>("Pago/GetListado?vigentes=" + false);
-            var data  = source.Datas.Where(m => m.FechaRecibo != null);
-            var path = Path.Combine(_env.ContentRootPath, "Reports");
-            rptFechas.LoadLayout(path + "\\RptPagosFechas.repx");
-            CargarDatosEmpresa(rptFechas);
+            //var source = await _genericProxy.GetAsync<ViewPagosAsignaciones>("Pago/GetListado?vigentes=" + false);
+            //var data  = source.Datas.Where(m => m.FechaRecibo != null);
+            string Urlquery = "";
             if (d != "" && h != "")
             {
-                data = data.Where(m => m.FechaRecibo >= Convert.ToDateTime(d) && m.FechaRecibo <= Convert.ToDateTime(h));
+                //data = data.Where(m => m.FechaRecibo >= Convert.ToDateTime(d) && m.FechaRecibo <= Convert.ToDateTime(h));
+                Urlquery = "Desde=" + d + "&Hasta=" + h;
                 desde = Convert.ToDateTime(d);
                 hasta = Convert.ToDateTime(h);
                 //rptFechas.DataSource = data.Where(m => m.FechaRecibo >= Convert.ToDateTime(d) && m.FechaRecibo<=Convert.ToDateTime(h));
             }
             else if (d != "" && h == "")
             {
-                data = data.Where(m => m.FechaRecibo.Value.Date == Convert.ToDateTime(d).Date);
+                //data = data.Where(m => m.FechaRecibo.Value.Date == Convert.ToDateTime(d).Date);
+                Urlquery = "Desde=" + d;
                 desde = Convert.ToDateTime(d);
                 hasta = null;
             }
             //rptFechas.DataSource = data.Where(m => m.FechaRecibo.Value.Date == Convert.ToDateTime(d).Date);
             if (p != "0")
             {
-                data = data.Where(m => m.IdUbicacion.ToString() == p);
+                //data = data.Where(m => m.IdUbicacion.ToString() == p);
+                Urlquery = Urlquery + "&IdProyecto=" + p;
                 idselected = Convert.ToInt32(p);
             }
-               
-            rptFechas.DataSource = data;
+
+            var data = await _genericProxy.GetAsync<ViewPagosAsignaciones>("Pago/GetPagosFechas?" + Urlquery);
+            var path = Path.Combine(_env.ContentRootPath, "Reports");
+            rptFechas.LoadLayout(path + "\\RptPagosFechas.repx");
+            CargarDatosEmpresa(rptFechas);
+
+            rptFechas.DataSource = data.Datas;
             rptFechas.DataMember = rptFechas.DataMember;
         }
 

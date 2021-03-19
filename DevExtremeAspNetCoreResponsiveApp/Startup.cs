@@ -91,7 +91,7 @@ namespace DevExtremeAspNetCoreResponsiveApp
                         options.Password.RequireLowercase = true;
                         options.User.RequireUniqueEmail = true;
                         options.SignIn.RequireConfirmedEmail = true;
-                        options.Lockout.MaxFailedAccessAttempts = 5;
+                        options.Lockout.MaxFailedAccessAttempts = 5;                        
 
                     })
                 .AddEntityFrameworkStores<PayLotsDBContext>()                
@@ -114,7 +114,26 @@ namespace DevExtremeAspNetCoreResponsiveApp
                    opt.AccessDeniedPath = $"/Identity/Account/Login";
                    opt.Cookie.Name = "identcookie";
                    opt.Cookie.SameSite = SameSiteMode.None;
+                   opt.Events = new CookieAuthenticationEvents()
+                   {
+                       OnRedirectToLogin = redirectContext =>
+                       {
+                           string redirecturi = redirectContext.RedirectUri;
+                           UriHelper.FromAbsolute(
+                           redirecturi,
+                           out string scheme,
+                           out HostString host,
+                           out PathString path,
+                           out QueryString query,
+                           out FragmentString fragment);
 
+                           redirecturi = UriHelper.BuildAbsolute(scheme, host, path);
+
+                           redirectContext.Response.Redirect(redirecturi);
+
+                           return Task.CompletedTask;
+                       }
+                   };
                }
            );
 

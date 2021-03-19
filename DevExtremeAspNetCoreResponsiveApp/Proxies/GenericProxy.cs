@@ -19,6 +19,8 @@ namespace DevExtremeAspNetCoreResponsiveApp.Proxies
         Task<Response<T>> GetAsync<T>(string requestUrl) where T : class;
         Task<Response<T>> PostAsync<T>(string requestUrl, T model) where T : class;
         Task<Response<T>> PutAsync<T>(string requestUrl, T model) where T : class;
+
+        Task<Response<T>> GetAsync<T,M>(string requestUrl, M request) where T : class where M : class;
     }
     public class GenericProxy : IGenericProxy
     {
@@ -114,6 +116,22 @@ namespace DevExtremeAspNetCoreResponsiveApp.Proxies
             }
         }
 
-
+        public async Task<Response<T>> GetAsync<T, M>(string requestUrl, M request)
+            where T : class
+            where M : class
+        {
+            var _httpClient = _proxyHttpClient.Get();
+            var response = _httpClient.GetAsync(requestUrl, HttpCompletionOption.ResponseHeadersRead).Result;
+            if (response.StatusCode != HttpStatusCode.BadRequest && response.StatusCode != HttpStatusCode.OK)
+            {
+                return new Response<T>(response.StatusCode.ToString(), false);
+            }
+            else
+            {
+                var data = await response.Content.ReadAsStringAsync();
+                var Json = JsonConvert.DeserializeObject<Response<T>>(data);
+                return Json;
+            }
+        }
     }
 }
