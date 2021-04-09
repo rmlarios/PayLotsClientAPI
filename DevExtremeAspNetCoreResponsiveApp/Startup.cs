@@ -114,7 +114,7 @@ namespace DevExtremeAspNetCoreResponsiveApp
                    opt.AccessDeniedPath = $"/Identity/Account/Login";
                    opt.Cookie.Name = "identcookie";
                    opt.Cookie.SameSite = SameSiteMode.None;
-                   opt.Events = new CookieAuthenticationEvents()
+                 /*  opt.Events = new CookieAuthenticationEvents()
                    {
                        OnRedirectToLogin = redirectContext =>
                        {
@@ -133,7 +133,7 @@ namespace DevExtremeAspNetCoreResponsiveApp
 
                            return Task.CompletedTask;
                        }
-                   };
+                   };*/
                }
            );
 

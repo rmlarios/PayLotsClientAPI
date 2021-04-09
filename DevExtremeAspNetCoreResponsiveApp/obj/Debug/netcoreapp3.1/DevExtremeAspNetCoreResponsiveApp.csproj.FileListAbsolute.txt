@@ -946,7 +946,6 @@ D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\bin\Debug\netcoreapp3.
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\bin\Debug\netcoreapp3.1\libman.json
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\bin\Debug\netcoreapp3.1\package-lock.json
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\bin\Debug\netcoreapp3.1\package.json
-D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\bin\Debug\netcoreapp3.1\DevExtremeAspNetCoreResponsiveApp.StaticWebAssets.xml
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\bin\Debug\netcoreapp3.1\DevExtremeAspNetCoreResponsiveApp.exe
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\bin\Debug\netcoreapp3.1\Pages\Reportes\EstadoCuenta.cshtml
@@ -1469,3 +1468,4 @@ D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\DevExtremeAspNetCoreResponsiveApp.dll
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\DevExtremeAspNetCoreResponsiveApp.pdb
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\DevExtremeAspNetCoreResponsiveApp.genruntimeconfig.cache
+D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\scopedcss\bundle\DevExtremeAspNetCoreResponsiveApp.styles.css
