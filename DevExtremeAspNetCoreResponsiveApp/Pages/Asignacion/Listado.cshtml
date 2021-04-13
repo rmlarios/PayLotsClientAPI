@@ -39,6 +39,7 @@
                     .DeleteAction("DeletebyId")
                     .OnBeforeSend("grid_dataSource_beforeSend")
                     )
+                    .RemoteOperations(r=>r.Paging(true))
                     .ShowBorders(false)
                     .ElementAttr(new { @class = "dx-card wide-card" })
                     .Export(e => e.Enabled(true).AllowExportSelectedData(true)).OnExporting("exporting")

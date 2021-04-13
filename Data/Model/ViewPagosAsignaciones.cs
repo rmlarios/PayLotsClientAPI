@@ -59,5 +59,10 @@ namespace Data.Model
         [Range(1, 100000, ErrorMessage = "Debe ingresar un monto mayor a 0")]
         public decimal? MontoEfectivo { get; set; } = 0;
         public bool? PrimaCancelada { get; set; }
+
+        public decimal? Total
+        {
+            get { return MontoPago + Interés + Mora; }
+        }
     }
 }

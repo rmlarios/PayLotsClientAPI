@@ -44,9 +44,9 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controllers
         {
             //loadOptions.RequireTotalCount = true;
             
-            var result = await _genericProxy.GetAsync<Beneficiarios>("Beneficiario/Listar");
+            var result = await _genericProxy.GetAsync<Beneficiarios>("Beneficiario/Listar?take=" + loadOptions.Take + "&skip=" + loadOptions.Skip);
             LoadResult newresult = new LoadResult();
-            newresult.totalCount = 100;
+            newresult.totalCount = result.Count;
             newresult.data = result.Datas;
             //return new JsonResult(DataSourceLoader.Load(result.Datas, loadOptions)); ;
             return new OkObjectResult(newresult);

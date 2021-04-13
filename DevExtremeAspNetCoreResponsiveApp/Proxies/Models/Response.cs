@@ -9,10 +9,11 @@ namespace DevExtremeAspNetCoreResponsiveApp.Proxies.Models
          public Response()
         {
         }
-        public Response(List<T> datas)
+        public Response(List<T> datas, int count=0)
         {
             Succeeded = true;
             Datas = datas;
+            Count = count;
         }
         public Response(T data,string message = null)
         {
@@ -30,5 +31,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Proxies.Models
         public List<string> Errors { get; set; }
         public T Data { get; set; }
         public List<T> Datas {get; set;}
+        public int Count { get; set; } = 0;
+
     }
 }

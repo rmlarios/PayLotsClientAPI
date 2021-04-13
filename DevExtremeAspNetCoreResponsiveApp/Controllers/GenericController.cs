@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Data.ResponseModel;
 using DevExtreme.AspNet.Mvc;
 using DevExtremeAspNetCoreResponsiveApp.Proxies;
 using Microsoft.AspNetCore.Mvc;
@@ -34,8 +35,16 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controllers
         [HttpGet("Listar")]
         public async Task<IActionResult> GetAll(DataSourceLoadOptions loadOptions)
         {
-            var result = await _genericProxy.GetAsync<T>(_ClassName + _GetAllUrl);
-            return new JsonResult(DataSourceLoader.Load(result.Datas, loadOptions));
+            string Query = "";
+            if (loadOptions.Take != 0 || loadOptions.Skip != 0)
+                Query = (_GetAllUrl.Contains("?") ? "&" : "?") + "take=" + loadOptions.Take + "&skip=" + loadOptions.Skip;
+            
+            var result = await _genericProxy.GetAsync<T>(_ClassName + _GetAllUrl + Query);
+            LoadResult newresult = new LoadResult();
+            newresult.totalCount = result.Count;
+            newresult.data = result.Datas;            
+            return new OkObjectResult(newresult);
+            //return new JsonResult(DataSourceLoader.Load(result.Datas, loadOptions));
         }
 
         [HttpGet]

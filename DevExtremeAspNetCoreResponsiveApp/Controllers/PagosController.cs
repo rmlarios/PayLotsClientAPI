@@ -13,6 +13,7 @@ using NToastNotify;
 using Microsoft.AspNetCore.Hosting;
 using System.Linq;
 using System;
+using DevExtreme.AspNet.Data.ResponseModel;
 
 namespace DevExtremeAspNetCoreResponsiveApp.Controllers
 {
@@ -116,10 +117,18 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controllers
     [HttpGet("GetTodos")]
     public async Task<IActionResult> GetTodos(DataSourceLoadOptions loadOptions)
         {
-            var result = await _genericProxy.GetAsync<ViewPagosAsignaciones>("Pago/GetListado?vigentes=" + false);
+            string Query = "";
+            if (loadOptions.Take != 0 || loadOptions.Skip != 0)
+                Query = "&take=" + loadOptions.Take + "&skip=" + loadOptions.Skip;
+
+            var result = await _genericProxy.GetAsync<ViewPagosAsignaciones>("Pago/GetListado?vigentes=" + false + Query);
             if(result.Succeeded)
             {
-                return new JsonResult(DataSourceLoader.Load(result.Datas, loadOptions));
+                //return new JsonResult(DataSourceLoader.Load(result.Datas, loadOptions));
+                LoadResult newresult = new LoadResult();
+                newresult.totalCount = result.Count;
+                newresult.data = result.Datas;
+                return new OkObjectResult(newresult);
             }
             return new JsonResult(DataSourceLoader.Load(new List<ViewPagosAsignaciones>(), loadOptions));
         }
