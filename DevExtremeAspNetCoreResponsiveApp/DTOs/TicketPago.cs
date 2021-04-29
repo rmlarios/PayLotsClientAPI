@@ -27,5 +27,6 @@ namespace DevExtremeAspNetCoreResponsiveApp.DTOs
         public string NombreEmpresa { get; set; }
         public string TelefonoEmpresa { get; set; }
         public string DireccionEmpresa { get; set; }
+        public string Estado { get; set; }
     }
 }

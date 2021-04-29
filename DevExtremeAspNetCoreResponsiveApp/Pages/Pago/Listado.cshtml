@@ -13,6 +13,7 @@
                     .DeleteAction("DeletebyId")
                     .OnBeforeSend("grid_dataSource_beforeSend")
                     )
+                    .RemoteOperations(r=>r.Paging(true))
                     .ShowBorders(false)
                     .ElementAttr(new { @class = "dx-card wide-card" })
                     .Export(e => e.Enabled(true).AllowExportSelectedData(true)).OnExporting("exporting")
@@ -45,6 +46,7 @@
                         columns.AddFor(m => m.IdPago).Visible(false);
                         columns.AddFor(m => m.NumeroAbono);
                         columns.AddFor(m => m.NumeroRecibo);
+                        columns.AddFor(m => m.EstadoPago);
                         columns.AddFor(m => m.MesPagado);
                         columns.AddFor(m => m.MontoPago);
                         columns.AddFor(m => m.Mora);
@@ -58,11 +60,12 @@
                     })
 
                     .Summary(c=>c.GroupItems(g=> {
-                        g.AddFor(m => m.MontoPago).ShowInColumn("MontoPago").Column("MontoPago").SummaryType(SummaryType.Sum).DisplayFormat("$ #,##0.##");
+                        g.AddFor(m => m.MontoPago).ShowInColumn("MontoPago").Column("Abonado").SummaryType(SummaryType.Max).DisplayFormat("$ #,##0.##");
                         g.AddFor(m => m.Saldo).Column("Saldo").SummaryType(SummaryType.Max).ValueFormat("currency");
-                    }).TotalItems(t=>t.AddFor(m=>m.MontoPago).ShowInColumn("MontoPago").ValueFormat("currency").SummaryType(SummaryType.Sum)))
+                    }).TotalItems(t=>t.Add().Name("TotalAbonado").ShowInColumn("MontoPago").DisplayFormat("{0}").ValueFormat(Format.Currency).SummaryType(SummaryType.Custom)).CalculateCustomSummary("calcCustomSummary"))
                     .HeaderFilter(h => h.AllowSearch(true).Visible(true))
                     /*Configuracion para la edicion*/
+                    
                     .Editing(e => e.Mode(GridEditMode.Popup)
                         .UseIcons(true)
                         .AllowAdding(true)
@@ -102,6 +105,9 @@
                            }
                        </text>
                        )
+                       .OnCellPrepared("onCellPrepared")
+                       .OnRowPrepared("onRowPrepared")
+                       
 )
 
 <script>
@@ -135,6 +141,19 @@
         return rowData.IdAsignacion;
     }
 
+    function onCellPrepared(e) {
+        if (e.rowType === "data" && e.column.command === "edit") {
+            var $links = e.cellElement.find(".dx-link");
+            if (e.row.data.EstadoPago == "Anulado")
+                $links.filter(".dx-link-edit").remove();
+        }
+    }
+
+    function onRowPrepared(e) {
+        if (e.rowType === "data" && e.data.EstadoPago === "Anulado")
+            e.rowElement.css("color", "red");
+    }
+
     function grid_dataSource_beforeSend(operation, ajax) {
         @* var data = ajaxSettings.data || {},
             args = Object.keys(data).map(function (key) {
@@ -144,6 +163,26 @@
              ajax.headers = {
             RequestVerificationToken: "@Xsrf.GetAndStoreTokens(Model.HttpContext).RequestToken"
         };
+    }
+
+    function calcCustomSummary(options) {
+        if (options.name === "TotalAbonado") {
+            if (options.summaryProcess === "start") {
+                options.totalValue = 0;
+            }
+            if (options.summaryProcess === "calculate") {
+
+                if (options.value.EstadoPago == "Vigente") {
+                    options.totalValue = options.totalValue + options.value.MontoPago;
+                }
+               /* if (options.component.isRowSelected(options.value.ID)) {
+                    options.totalValue = options.totalValue + options.value.SaleAmount;
+                }*/
+            }
+            if (options.summaryProcess === "finalize") {
+                //
+            }
+        }
     }
 
     function exporting(e) {

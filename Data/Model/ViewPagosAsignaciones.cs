@@ -64,5 +64,7 @@ namespace Data.Model
         {
             get { return MontoPago + Interés + Mora; }
         }
+
+        public string EstadoPago { get; set; }
     }
 }

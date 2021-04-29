@@ -72,6 +72,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.Pago
                         pago.Moneda = result.Data.Moneda;
                         pago.TasaCambio = result.Data.TasaCambio;
                         pago.Observaciones = result.Data.Observaciones;
+                        pago.EstadoPago = result.Data.Estado;
 
                         var DatosMes = await _genericProxy.GetAsync<Asignacion_PlandePago>("Pago/GetMesesPagar/" + idasignacion + " ?idpago=" + idpago);
                         pago.MontoPago = DatosMes.Datas.SingleOrDefault(m => m.MesPagado == pago.MesPagado).MontoMinimo;
@@ -136,6 +137,12 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.Pago
                 var path = Path.Combine(_env.ContentRootPath, "Reports");
                 ticketPago.LoadLayout(path + "\\RptTicketPago.repx");
                 ticketPago.DataSource = source.Datas;
+                if (source.Datas[0].Estado == "Anulado")
+                {
+                    ticketPago.Watermark.Text = "ANULADO";
+                    ticketPago.Watermark.ForeColor = System.Drawing.Color.Red;                    
+                    ticketPago.Watermark.TextDirection = DevExpress.XtraPrinting.Drawing.DirectionMode.BackwardDiagonal;
+                }
                 ticketPago.DataMember = ticketPago.DataMember;
 
                 //return Page();

@@ -22,6 +22,7 @@ namespace Data.Model
         public DateTime Far { get; set; }
         public string Uua { get; set; }
         public DateTime Fua { get; set; }
+        public string Estado { get; set; }
 
         public virtual Asignaciones IdAsignacionNavigation { get; set; }
     }

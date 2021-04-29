@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using NToastNotify;
+using DevExtreme.AspNet.Data.Helpers;
 
 namespace DevExtremeAspNetCoreResponsiveApp.Controllers
 {
@@ -36,13 +37,16 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controllers
         public async Task<IActionResult> GetAll(DataSourceLoadOptions loadOptions)
         {
             string Query = "";
+            loadOptions.RequireTotalCount = true;
             if (loadOptions.Take != 0 || loadOptions.Skip != 0)
                 Query = (_GetAllUrl.Contains("?") ? "&" : "?") + "take=" + loadOptions.Take + "&skip=" + loadOptions.Skip;
             
             var result = await _genericProxy.GetAsync<T>(_ClassName + _GetAllUrl + Query);
-            LoadResult newresult = new LoadResult();
+            LoadResult newresult = DataSourceLoader.Load(result.Datas, loadOptions);
+            //var parse = DataSourceLoadOptionsParser.Parse(loadOptions.Filter);
+            //LoadResult newresult = new LoadResult();
             newresult.totalCount = result.Count;
-            newresult.data = result.Datas;            
+            //newresult.data = result.Datas;                        
             return new OkObjectResult(newresult);
             //return new JsonResult(DataSourceLoader.Load(result.Datas, loadOptions));
         }

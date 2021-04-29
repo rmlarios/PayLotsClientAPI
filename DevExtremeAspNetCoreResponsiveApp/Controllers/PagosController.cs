@@ -14,22 +14,25 @@ using Microsoft.AspNetCore.Hosting;
 using System.Linq;
 using System;
 using DevExtreme.AspNet.Data.ResponseModel;
+using Microsoft.AspNetCore.Http;
 
 namespace DevExtremeAspNetCoreResponsiveApp.Controllers
 {
     public class PagosController : GenericController<ViewPagosAsignaciones>
     {
         private readonly IHostingEnvironment _env;
+        IToastNotification _toastNotification;
         //private readonly IGenericProxy _proxy;
         public PagosController(IGenericProxy genericProxy, IToastNotification toastNotification, IHostingEnvironment env) : base(genericProxy, toastNotification, "Pago/", "GetListado?vigentes=" + true, "GetByAsignacion/")
         {
             //_proxy = genericProxy;
             _env = env;
+            _toastNotification = toastNotification;
         }
 
 
         [HttpGet("GetPlan")]
-        public async Task<IActionResult> GetPlan(int idasignacion, DataSourceLoadOptions loadOptions)
+        public async Task<IActionResult> GetPlan(int idasignacion, DataSourceLoadOptions loadOptions,string opcion= "A LA FECHA")
         {
             if (idasignacion != 0)
             {
@@ -63,12 +66,17 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controllers
             ticketPago.LoadLayout(path + "\\RptTicketPago.repx");
             ticketPago.DataSource = source.Datas;
             ticketPago.DataMember = ticketPago.DataMember;
-
+            if (source.Datas[0].Estado == "Anulado")
+            {
+                ticketPago.Watermark.Text = "ANULADO";
+                ticketPago.Watermark.ForeColor = System.Drawing.Color.Red;
+                ticketPago.Watermark.TextDirection = DevExpress.XtraPrinting.Drawing.DirectionMode.BackwardDiagonal;
+            }
             return View("PartialTicket", ticketPago);
         }
 
         [HttpGet("GetGrafico")]
-        public async Task<IActionResult> GetGrafico(DataSourceLoadOptions loadOptions, string Fecha="")
+        public async Task<IActionResult> GetGrafico(DataSourceLoadOptions loadOptions, string Fecha = "")
         {
             var result = await _genericProxy.GetAsync<ViewGraficoPagos>("Pago/GetGrafico?fechapago=" + Fecha);
             if (result.Succeeded == true)
@@ -98,7 +106,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controllers
                         from a in data
                         select new
                         {
-                            Fecha = a.FechaRecibo.Value!=null? a.FechaRecibo.Value.Date:a.FechaRecibo.Value,
+                            Fecha = a.FechaRecibo.Value != null ? a.FechaRecibo.Value.Date : a.FechaRecibo.Value,
                             Pagado = a.MontoPago + a.Interés + a.Mora,
                         }).GroupBy(x => x.Fecha) // 1
                         .Select(grp => new //2
@@ -106,23 +114,23 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controllers
                             Fecha = grp.Key,
                             name = grp.First().Fecha, // same ID => same name anyway
                             Pagado = grp.Sum(b => b.Pagado) //3
-                        }).OrderByDescending(o=>o.Fecha).Take(7)
-                .Where(w=>w.Fecha!=null); //4
+                        }).OrderByDescending(o => o.Fecha).Take(7)
+                .Where(w => w.Fecha != null); //4
                 return new JsonResult(DataSourceLoader.Load(res, loadOptions));
             }
 
             return new JsonResult(DataSourceLoader.Load(new List<ViewGraficoPagos>(), loadOptions));
         }
-    
-    [HttpGet("GetTodos")]
-    public async Task<IActionResult> GetTodos(DataSourceLoadOptions loadOptions)
+
+        [HttpGet("GetTodos")]
+        public async Task<IActionResult> GetTodos(DataSourceLoadOptions loadOptions)
         {
             string Query = "";
             if (loadOptions.Take != 0 || loadOptions.Skip != 0)
                 Query = "&take=" + loadOptions.Take + "&skip=" + loadOptions.Skip;
 
             var result = await _genericProxy.GetAsync<ViewPagosAsignaciones>("Pago/GetListado?vigentes=" + false + Query);
-            if(result.Succeeded)
+            if (result.Succeeded)
             {
                 //return new JsonResult(DataSourceLoader.Load(result.Datas, loadOptions));
                 LoadResult newresult = new LoadResult();
@@ -132,6 +140,33 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controllers
             }
             return new JsonResult(DataSourceLoader.Load(new List<ViewPagosAsignaciones>(), loadOptions));
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Anular([FromForm] AnularPagoRequest values)
+        {
+            string url = Request.GetTypedHeaders().Referer.ToString();
+
+            //JsonConvert.PopulateObject(values, entity);
+            var result = await _genericProxy.PostAsync<AnularPagoRequest>("Pago/Anular", values);
+            if (result.Succeeded)
+            {
+                _toastNotification.AddSuccessToastMessage(result.Message);
+                return Ok(values.IdPago);
+                //TempData["Msg"] = "Uploaded successfully";        
+                //return new OkObjectResult(result.Message);
+            }
+            else
+            {
+                _toastNotification.AddErrorToastMessage(result.Message);
+                return BadRequest(error: result.Message);
+                //TempData["Msg"] = "Uploaded error"; 
+                //return BadRequest(result.Message);
+            }
+            //return Redirect(url);
+            //return LocalRedirect("~/Asignacion/Listado");
+            //return View();
+        }
+
     }
 
 

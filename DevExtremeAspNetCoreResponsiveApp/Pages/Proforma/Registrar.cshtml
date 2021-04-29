@@ -94,6 +94,7 @@
                                             .DataSource(d=>d.Mvc().Controller("Proformas").Key("IdProforma")
                                             .LoadAction("GetAll")
                                             )
+                                            .RemoteOperations(r=>r.Paging(true))
                                             .Columns(c =>                                            {
                                                 c.AddFor(m => m.Nombre);
                                                 c.AddFor(m => m.Proyecto);

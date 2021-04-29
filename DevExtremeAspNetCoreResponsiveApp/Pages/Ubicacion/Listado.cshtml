@@ -16,6 +16,7 @@
                     .ID("GridListado")
                     .DataSource(d=>d.Mvc().Controller("Ubicaciones").Key("IdUbicacion").LoadAction("GetAll")
                     .InsertAction("PostCreate").UpdateAction("PutUpdate").DeleteAction("DeletebyId"))                                                            
+                    .RemoteOperations(r=>r.Paging(true))
                     .ShowBorders(false)
                     .ElementAttr(new { @class = "dx-card wide-card" })
                     .ColumnHidingEnabled(true)
