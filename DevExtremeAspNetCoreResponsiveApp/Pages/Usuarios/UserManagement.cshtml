@@ -45,7 +45,7 @@
                             columns.Add().Type(GridCommandColumnType.Buttons).Width(200).Buttons(b =>
                             {
                                 b.Add().Name(GridColumnButtonName.Edit);
-                                b.Add().Name(GridColumnButtonName.Delete);
+                                b.Add().Name(GridColumnButtonName.Delete).Text("Deshabilitar");
                             });
                         }).HeaderFilter(h => h.AllowSearch(true).Visible(true))
                         /*Configuracion para la edicion*/
@@ -83,7 +83,7 @@
 }
 
 <script>
-     function grid_dataSource_beforeSend(operation, ajax) {
+    function grid_dataSource_beforeSend(operation, ajax) {
         @* var data = ajaxSettings.data || {},
             args = Object.keys(data).map(function (key) {
                 return key + "=" + data[key];

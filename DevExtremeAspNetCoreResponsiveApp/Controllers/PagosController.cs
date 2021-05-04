@@ -36,13 +36,13 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controllers
         {
             if (idasignacion != 0)
             {
-                var result = await _genericProxy.GetAsync<Asignacion_PlandePago>("Pago/GetPlanPago/" + idasignacion);
+                var result = await _genericProxy.GetAsync<EstadoCuenta>("Pago/GetPlanPago/" + idasignacion+"?opcion="+opcion);
                 return new JsonResult(DataSourceLoader.Load(result.Datas, loadOptions));
             }
             else
             {
-                List<Asignacion_PlandePago> empty = new List<Asignacion_PlandePago>();
-                var result = new Response<Asignacion_PlandePago>(empty);
+                List<EstadoCuenta> empty = new List<EstadoCuenta>();
+                var result = new Response<EstadoCuenta>(empty);
                 return new JsonResult(DataSourceLoader.Load(result.Datas, loadOptions));
             }
         }
@@ -139,6 +139,25 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controllers
                 return new OkObjectResult(newresult);
             }
             return new JsonResult(DataSourceLoader.Load(new List<ViewPagosAsignaciones>(), loadOptions));
+        }
+
+        [HttpGet("GetAnulados")]
+        public async Task<IActionResult> GetAnulados(DataSourceLoadOptions loadOptions)
+        {
+            string Query = "";
+            if (loadOptions.Take != 0 || loadOptions.Skip != 0)
+                Query = "?take=" + loadOptions.Take + "&skip=" + loadOptions.Skip;
+
+            var result = await _genericProxy.GetAsync<Seguimientos>("Pago/GetPagosAnulados" + Query);
+            if (result.Succeeded)
+            {
+                //return new JsonResult(DataSourceLoader.Load(result.Datas, loadOptions));
+                LoadResult newresult = new LoadResult();
+                newresult.totalCount = result.Count;
+                newresult.data = result.Datas;
+                return new OkObjectResult(newresult);
+            }
+            return new JsonResult(DataSourceLoader.Load(new List<Seguimientos>(), loadOptions));
         }
 
         [HttpPost]

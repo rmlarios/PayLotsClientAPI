@@ -49,7 +49,7 @@
                 item.AddSimpleFor(m => m.IdAsignacion).Visible(false);
                 item.AddSimpleFor(m=>m.Estado).Visible(false);
                 item.AddSimpleFor(m => m.IdLote).ColSpan(2).Label(l => l.Text("Seleccione el lote")).Editor(e => e.Lookup().DataSource(d => d.Mvc().Controller("Lotes").LoadAction("GetAll").Key("IdLote")).DataSourceOptions(o=>o.Filter("[['Estado', '=', 'Disponible'],'or',['IdLote','=',document.getElementsByName('IdLoteOld')[0].value]]"
-                ).PageSize(10).Paginate(true))
+                ).PageSize(10))
                 .SearchExpr("NombreLote").SearchMode(DropDownSearchMode.Contains).DisplayExpr(new JS("lookupExpr")).ValueExpr("IdLote").PageLoadingText("Cargando").NextButtonText("Más").PageLoadMode(ListPageLoadMode.NextButton).UseNativeScrolling(true).SearchEnabled(true).SearchMode(DropDownSearchMode.Contains).StylingMode(EditorStylingMode.Outlined)
                 );
 
@@ -79,7 +79,7 @@
 }
 
 
-@(Html.DevExtreme().DataGrid<Asignacion_PlandePago>
+@(Html.DevExtreme().DataGrid<EstadoCuenta>
                     ()
                     .ID("GridListado")
                     .DataSource(d=>d.Mvc().Controller("Pagos")//.Key("IdAsignacion")
@@ -106,15 +106,15 @@
                     .Columns(c =>{
                         c.AddFor(m => m.NumeroCuota);
                         c.AddFor(m=>m.MesPagado);
-                        c.AddFor(m=>m.MontoMinimo);
-                        c.AddFor(m=>m.FechaCuota).DataType(GridColumnDataType.Date).Format("dd/MM/yyyy");
-                        c.AddFor(m=>m.MontoPagado);
+                        c.AddFor(m => m.NumeroRecibo);
+                        c.AddFor(m=>m.FechaRecibo).DataType(GridColumnDataType.Date).Format("dd/MM/yyyy");
+                        c.AddFor(m=>m.MontoCuota).Caption("Principal");
                         c.AddFor(m=>m.Interes);
                         c.AddFor(m=>m.Mora);
-                        c.AddFor(m=>m.FechaPago);
+                        c.AddFor(m => m.TotalPago).Caption("En Deuda");                        
                         c.AddFor(m=>m.Saldo);
-                        c.AddFor(m=>m.Estado);
                     })
+                    .Summary(s=>s.TotalItems(t=>t.AddFor(m=>m.TotalPago).ShowInColumn("TotalPago").DisplayFormat("Total Pendiente {0}").SummaryType(SummaryType.Sum).ValueFormat(Format.Currency)))
 
                     .HeaderFilter(h => h.AllowSearch(true).Visible(true))
                     /*Configuracion para la edicion*/

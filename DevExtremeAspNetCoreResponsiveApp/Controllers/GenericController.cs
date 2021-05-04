@@ -42,6 +42,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controllers
                 Query = (_GetAllUrl.Contains("?") ? "&" : "?") + "take=" + loadOptions.Take + "&skip=" + loadOptions.Skip;
             
             var result = await _genericProxy.GetAsync<T>(_ClassName + _GetAllUrl + Query);
+            loadOptions.Take = 0; loadOptions.Skip = 0;
             LoadResult newresult = DataSourceLoader.Load(result.Datas, loadOptions);
             //var parse = DataSourceLoadOptionsParser.Parse(loadOptions.Filter);
             //LoadResult newresult = new LoadResult();
@@ -98,7 +99,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controllers
             }
         }
         [HttpDelete]
-        public async Task<IActionResult> DeletebyId([FromForm] int key)
+        public async Task<IActionResult> DeletebyId([FromForm] string key)
         {
             var result = await _genericProxy.DeleteAsync(_ClassName + key);
             if (result.Succeeded)

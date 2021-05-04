@@ -1469,3 +1469,4 @@ D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\DevExtremeAspNetCoreResponsiveApp.pdb
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\DevExtremeAspNetCoreResponsiveApp.genruntimeconfig.cache
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\scopedcss\bundle\DevExtremeAspNetCoreResponsiveApp.styles.css
+D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Debug\netcoreapp3.1\Razor\Pages\Pago\PagosAnulados.cshtml.g.cs

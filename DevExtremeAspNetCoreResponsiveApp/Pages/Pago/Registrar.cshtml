@@ -50,7 +50,7 @@
             //item.AddSimpleFor(m => m.IdAsignacion).Visible(false);
             item.AddSimpleFor(m=>m.Estado).Visible(false);
         item.AddSimpleFor(m => m.IdAsignacion).ColSpan(2).Label(l => l.Text("Lote")).Editor(e => e.Lookup().DataSource(d => d.Mvc().Controller("Asignaciones").LoadAction("GetAll").Key("IdAsignacion")).DataSourceOptions(o=>
-            o.Filter("[['Estado', '=', 'Vigente'],'and',['PrimaCancelada','=','true']]"))
+            o.Filter("[['Estado', '=', 'Vigente'],'and',['PrimaCancelada','=','true']]").Paginate(false))
 
             .SearchExpr("NombreLote").SearchMode(DropDownSearchMode.Contains).DisplayExpr(new JS("lookupExpr")).ValueExpr("IdAsignacion").PageLoadingText("Cargando").NextButtonText("Más").PageLoadMode(ListPageLoadMode.NextButton).SearchEnabled(true).SearchMode(DropDownSearchMode.Contains).StylingMode(EditorStylingMode.Outlined)
 
