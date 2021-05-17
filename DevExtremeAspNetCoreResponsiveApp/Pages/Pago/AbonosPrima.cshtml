@@ -12,7 +12,7 @@
                     .InsertAction("PostCreate")
                     .UpdateAction("PutUpdate")
                     .DeleteAction("DeletebyId")
-                    .OnBeforeSend("grid_dataSource_beforeSend")                    
+                    .OnBeforeSend("grid_dataSource_beforeSend")
                     )
                     .RemoteOperations(r=>r.Paging(true))
                     .ShowBorders(false)
@@ -34,19 +34,22 @@
                         columns.Add().Type(GridCommandColumnType.Buttons).Buttons(b =>
                         {
                             b.Add().Name(GridColumnButtonName.Edit);
-                            b.Add().Name(GridColumnButtonName.Delete);                           
+                            b.Add().Name(GridColumnButtonName.Delete);
+                            b.Add().Icon("fa fa-print").Hint("Imprimir").OnClick("printTicket");
                         }).Name("Commands");
                         columns.AddFor(m => m.IdAbonoPrima).Visible(false);
                         //columns.AddFor(m => m.Prima);
                         columns.AddFor(m => m.Fecha);
                         columns.AddFor(m => m.Monto).Caption("MontoAbono");
-                        columns.AddFor(m => m.IdAsignacion).Caption("Asignación").Lookup(look => look
+                        columns.Add().CalculateDisplayValue(new JS("displayExp")).Caption("Descripcion").GroupIndex(0).GroupCellTemplate(new JS("groupTemplate"));
+                        columns.AddFor(m => m.IdAsignacion).Caption("Asignación").Visible(false).Lookup(look => look
                                                                         .DataSource(d => d.Mvc().Controller("Asignaciones")
                                                                                     .LoadAction("GetAll").Key("IdAsignacion"))
-                                                                        //.DisplayExpr("DatoCompleto")
+                                                                        //.DisplayExpr("DatoCompleto")                                                                        
                                                                         .ValueExpr("IdAsignacion").DisplayExpr(new JS("groupDisplay")).DataSourceOptions(o => o.Filter("['Estado', '=', 'Vigente']"))
-                                                                        ).GroupIndex(0)
-                                                                        .GroupCellTemplate(new JS("groupTemplate"))
+                                                                        )
+                                                                        //.GroupIndex(0)
+                                                                        //.GroupCellTemplate(new JS("groupTemplate"))
                                                                         .AllowSearch(true).EditorOptions(new
                                                                         {
                                                                             searchExpr = new string[] { "NombreCompleto", "NombreLote" }
@@ -81,6 +84,7 @@
                                 items.AddSimple().IsRequired(true).DataField("IdAsignacion").ColSpan(1);
                                 items.AddSimple().IsRequired(false).DataField("Fecha").ColSpan(1);
                                 items.AddSimple().IsRequired(false).DataField("Monto").ColSpan(1);
+                                
 
 
                             }))
@@ -94,9 +98,22 @@
 <script>
     var IdAsignacionNew;
 
+
+    function printTicket(e) {
+        IdAbonoPrimaS = e.row.key;
+        //alert(IdAsignacionS);
+        //window.open('/Viewer/pp/'+IdAsignacionS, '_newtab');
+        window.open('/Reportes/Viewer?r=tkp&p=' + IdAbonoPrimaS, '_newtab');
+        //wind
+    }
+
     function lookupExpr(item) {
       //alert(item);
       return item.NombreProyecto + " " + item.Bloque;
+    }
+
+    function displayExp(rowData) {        
+        return rowData.NombreCompleto + " " + rowData.NombreLote + " " + rowData.IdAsignacion;
     }
 
     function exporting(e) {
@@ -128,10 +145,10 @@
     }
 
     function groupTemplate(cellElement, cellInfo) {
-        var prima = cellInfo.summaryItems[1].value;
+        var prima = cellInfo.summaryItems[1].value;        
         var saldo = prima - cellInfo.summaryItems[0].value;
         var groupKey = cellInfo.displayValue + ' Prima: ' + prima +' Abonado Prima: ' + cellInfo.summaryItems[0].value + ' Saldo: ' + saldo;
-
+        //alert(cellInfo.displayValue + ' / ' + cellInfo.summaryItems[0].value);
         $('<span>')
             .text(groupKey)
             .appendTo(cellElement);

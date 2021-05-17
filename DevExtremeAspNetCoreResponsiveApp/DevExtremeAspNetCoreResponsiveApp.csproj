@@ -81,6 +81,12 @@
     <Compile Include="Reports\RptTicketPago.Designer.cs">
       <DependentUpon>RptTicketPago.repx</DependentUpon>
     </Compile>
+    <Compile Include="Reports\RptTicketPrima.cs">
+      <DependentUpon>RptTicketPrima.repx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\RptTicketPrima.Designer.cs">
+      <DependentUpon>RptTicketPrima.repx</DependentUpon>
+    </Compile>
     <Compile Include="Reports\TestReport.cs">
       <DependentUpon>TestReport.repx</DependentUpon>
     </Compile>
@@ -136,6 +142,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reports\Estado_Cuenta.repx" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reports\RptTicketPrima.repx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Pages\Reportes\Estado_Cuenta.cs">

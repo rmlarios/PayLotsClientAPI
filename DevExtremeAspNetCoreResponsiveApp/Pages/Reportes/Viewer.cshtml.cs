@@ -66,6 +66,14 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.Reportes
                     Report.DataSource = source3.Datas;
                     Report.DataMember = Report.DataMember;
                     break;
+                case "tkp"://TicketPrima
+                    Report = new RptTicketPrima();
+                    var source4 = await _genericproxy.GetAsync<TicketPrima>("AbonosPrima/GetTicketPrima/" + p);
+                    Report.LoadLayout(path + "\\RptTicketPrima.repx");
+                    CargarDatosEmpresa(Report);
+                    Report.DataSource = source4.Datas;
+                    Report.DataMember = Report.DataMember;
+                    break;
             }
 
 
@@ -78,7 +86,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.Reportes
             Reporte.FindControl("lblNombreEmpresa", true).Text = result.Datas[0].NombreEmpresa;
             Reporte.FindControl("lblDireccion", true).Text = result.Datas[0].Direccion;
             Reporte.FindControl("lblTelefono", true).Text = result.Datas[0].Telefono;
-            if (result.Datas[0].Logo != null)
+            if (result.Datas[0].Logo != null && Reporte.FindControl("picLogo", true)!=null)
                 ((XRPictureBox)Reporte.FindControl("picLogo", true)).Image = Image.FromStream(new MemoryStream(result.Datas[0].Logo));
             /**********************************/
         }

@@ -22,7 +22,7 @@
     <ShowAllFiles>true</ShowAllFiles>
     <WebStackScaffolding_LayoutPageFile />
     <ActiveDebugProfile>DevExtremeAspNetCoreResponsiveApp</ActiveDebugProfile>
-    <NameOfLastUsedPublishProfile>FolderProfile</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\Properties\PublishProfiles\FolderProfile.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
@@ -44,6 +44,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="Reports\RptTicketPago.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Reports\RptTicketPrima.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Update="Reports\TestReport.cs">
