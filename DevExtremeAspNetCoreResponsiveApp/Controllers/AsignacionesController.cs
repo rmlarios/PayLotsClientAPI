@@ -7,6 +7,10 @@ using Newtonsoft.Json;
 using NToastNotify;
 using System.Web;
 using Microsoft.AspNetCore.Http;
+using DevExtreme.AspNet.Mvc;
+using DevExtreme.AspNet.Data;
+using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 
 namespace DevExtremeAspNetCoreResponsiveApp.Controllers
 {
@@ -17,6 +21,15 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controllers
         public class ActivarRequest
         {
             public string IdAsignacion { get; set; }
+        }
+
+      
+
+        class Filters
+        {
+            public string Field { get; set; }
+            public string Condition { get; set; }
+            public string Value { get; set; }
         }
 
         public AsignacionesController(IGenericProxy genericProxy, IToastNotification toastNotification) : base(genericProxy, toastNotification, "Asignacion/", "GetAsignaciones", "GetbyBenef/")
@@ -60,7 +73,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controllers
             var result = await _genericProxy.PostAsync<ActivarRequest>("Asignacion/Activar", request);
             if (result.Succeeded)
             {
-                  _toastNotification.AddSuccessToastMessage(result.Message);
+                _toastNotification.AddSuccessToastMessage(result.Message);
                 return Ok(IdAsignacion);
                 //return new OkObjectResult(result.Message);
             }
@@ -71,6 +84,25 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAsignaciones(DataSourceLoadOptions loadOptions, int id = 0)
+        {
+            string busqueda = "";
+            Filters filters = new Filters();
+            if (loadOptions.Filter != null)
+                if (loadOptions.Filter.Count != 0)
+                    if (loadOptions.Filter[0].ToString() != "IdAsignacion")
+                        if (JArray.FromObject(loadOptions.Filter[0])[0].ToString() == "NombreLote")
+                            busqueda = JArray.FromObject(loadOptions.Filter[0])[2].ToString();
 
+            var result = await _genericProxy.GetAsync<ViewAsignacionesSaldo>("Asignacion/GetAsignacionesForm/" + id);
+            
+                        //filters = JsonConvert.DeserializeObject<Filters>(loadOptions.Filter[0].ToString());
+                        //            JArray r = JArray.Parse(loadOptions.Filter[0].ToString());
+            if (result.Succeeded == true)
+                return new JsonResult(DataSourceLoader.Load(result.Datas, loadOptions));
+
+            return new JsonResult(DataSourceLoader.Load(new List<ViewAsignacionesSaldo>(), new DataSourceLoadOptionsBase()));
+        }
     }
 }

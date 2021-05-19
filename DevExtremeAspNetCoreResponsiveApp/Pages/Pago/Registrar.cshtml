@@ -44,16 +44,16 @@
                            }
                        </text>
                ));
-               i.AddSimpleFor(m => m.EstadoPago).ColSpan(1).Editor(e => e.TextBox().ReadOnly(true).StylingMode(EditorStylingMode.Outlined));
-           });
-            /*item.AddButton().Name("Guardar").ButtonOptions(o => o.Icon("save").Text("Guardar").Type(ButtonType.Success).UseSubmitBehavior(true));*/
-            //item.AddSimpleFor(m => m.IdAsignacion).Visible(false);
-            item.AddSimpleFor(m=>m.Estado).Visible(false);
-        item.AddSimpleFor(m => m.IdAsignacion).ColSpan(2).Label(l => l.Text("Lote")).Editor(e => e.Lookup().DataSource(d => d.Mvc().Controller("Asignaciones").LoadAction("GetAll").Key("IdAsignacion")).DataSourceOptions(o=>
-            o.Filter("[['Estado', '=', 'Vigente'],'and',['PrimaCancelada','=','true']]").Paginate(false))
+           i.AddSimpleFor(m => m.EstadoPago).ColSpan(1).Editor(e => e.TextBox().ReadOnly(true).StylingMode(EditorStylingMode.Outlined));
+       });
+                /*item.AddButton().Name("Guardar").ButtonOptions(o => o.Icon("save").Text("Guardar").Type(ButtonType.Success).UseSubmitBehavior(true));*/
+                //item.AddSimpleFor(m => m.IdAsignacion).Visible(false);
+                item.AddSimpleFor(m=>m.Estado).Visible(false);
+        item.AddSimpleFor(m => m.IdAsignacion).ColSpan(2).Label(l => l.Text("Lote")).Editor(e => e.Lookup().DataSource(d => d.Mvc().Controller("Asignaciones").LoadAction("GetAsignaciones").Key("IdAsignacion").LoadParams(new {id= new JS("getIdAsignacion") }))
+        //.DataSourceOptions(o=>o.Filter("[['Estado', '=', 'Vigente'],'and',['PrimaCancelada','=','true']]").Paginate(false))
 
-            .SearchExpr("NombreLote").SearchMode(DropDownSearchMode.Contains).DisplayExpr(new JS("lookupExpr")).ValueExpr("IdAsignacion").PageLoadingText("Cargando").NextButtonText("Más").PageLoadMode(ListPageLoadMode.NextButton).SearchEnabled(true).SearchMode(DropDownSearchMode.Contains).StylingMode(EditorStylingMode.Outlined)
-
+            .SearchExpr("NombreLote").ShowDataBeforeSearch(false).MinSearchLength(1).SearchMode(DropDownSearchMode.Contains).DisplayExpr(new JS("lookupExpr")).ValueExpr("IdAsignacion").PageLoadingText("Cargando").NextButtonText("Más").PageLoadMode(ListPageLoadMode.NextButton).SearchEnabled(true).SearchMode(DropDownSearchMode.Contains).StylingMode(EditorStylingMode.Outlined)
+            
             .OnValueChanged(@<text>
                 function(e){
                     window.location.href="/Pago/Registrar/?p=" + e.value+".0";
@@ -125,7 +125,7 @@
                     /*Columnas del grid*/
                     .Columns(c =>{
                     c.Add().Type(GridCommandColumnType.Buttons).Buttons(b=> {
-                        b.Add().Name(GridColumnButtonName.Edit);                       
+                        b.Add().Name(GridColumnButtonName.Edit);
                         b.Add().Icon("fa fa-print").Hint("Imprimir").OnClick("printTicket");
                         b.Add().Name("Anular").Hint("Anular").Icon("clear").Visible(new JS("isAnularVisible")).OnClick("openAnular");
                     }).Name("Commands");
@@ -155,7 +155,7 @@
                         .UseIcons(true)
                         .AllowAdding(true)
                         .AllowUpdating(true)
-                      
+
                         .UseIcons(true)
                         .Texts(t => t.AddRow("Nuevo").EditRow("Editar").DeleteRow("Eliminar").ConfirmDeleteMessage("¿Está seguro que desea Eliminar este Registro?")
                         .SaveRowChanges("Guardar").CancelRowChanges("Cancelar"))
@@ -271,12 +271,12 @@
     }
 
     function calcCustomSummary(options) {
-       
+
         //if (options.name === "TotalSum") {
             if (options.summaryProcess === "start") {
                 options.totalValue = 0;
             }
-            if (options.summaryProcess === "calculate") {                
+            if (options.summaryProcess === "calculate") {
                 if (options.value.Estado == "Vigente") {
                     if (options.name === "TotalSum")
                         options.totalValue = options.totalValue + options.value.MontoPago + options.value.Interés + options.value.Mora;
@@ -297,13 +297,13 @@
         IdPagoAnular = e.row.key;
         document.getElementById("IdPagoAnular").value = IdPagoAnular;
         var popup = $("#PopAnular").dxPopup("instance");
-        popup.option('title', e.row.data.MesPagado + ' ' + e.row.data.NumeroRecibo);        
+        popup.option('title', e.row.data.MesPagado + ' ' + e.row.data.NumeroRecibo);
         popup.show();
         vformanular.getEditor("Observaciones").option("value", "");
         vformanular.getEditor("IdPago").option("value", IdPagoAnular);
     }
 
-    
+
 
       function anular(e) {
          var dxFormInstance = $("#formAnular").dxForm("instance");
