@@ -69,6 +69,7 @@
                         buttons.Add().Name("Anular").Hint("Anular").Icon("clear").Visible(new JS("isAnularVisible")).OnClick("openAnular");
                         buttons.Add().Name("PlanPago").Hint("Ver Plan de Pago").Icon("fa fa-calendar").Visible(new JS("isPlanVisible")).OnClick("printPlan");
                         buttons.Add().Name("Activar").Hint("Activar").Icon("check").Visible(new JS("isActivarVisible")).OnClick("activar");
+                        buttons.Add().Name("EstadoCuenta").Hint("Estado de Cuenta").Icon("fa fa-calculator").Visible(new JS("isPlanVisible")).OnClick("printEstado");
                     });
        })
                     .HeaderFilter(h => h.AllowSearch(true).Visible(true))
@@ -240,6 +241,10 @@
         window.open('/Reportes/Viewer?r=pp&p=' + IdAsignacionS, '_newtab');
         //window.location.href = "/ReportViewer/?p=";
     }
+    function printEstado(e) {
+        window.open('/Reportes/EstadoCuenta/?id=' + e.row.key, '_newtab');
+    }
+
 
 
     function lookupExpr(item) {

@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" href="~/css/vendor.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css" />
     @*<link rel="stylesheet" href="~/css/devextreme/dx.light.css">*@
     @*<link rel="stylesheet" href="~/Identity/lib/bootstrap/dist/css/bootstrap.css" />*@
     @*<link href="~/css/boostrap/bootstrap.min.css" rel="stylesheet" />*@
@@ -37,6 +38,39 @@
             display:block
         }
     </style>
+    <style>
+        .iframe-container {
+            padding-bottom: 60%;
+            padding-top: 30px;
+            height: 0;
+            overflow: hidden;
+        }
+
+            .iframe-container iframe,
+            .iframe-container object,
+            .iframe-container embed {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+
+        .modal.in .modal-dialog {
+            transform: none; /*translate(0px, 0px);*/
+        }
+
+        .ui-draggable-handle:hover {
+            cursor:move;
+
+        }
+
+        .ayuda:hover{
+            cursor:pointer;
+        }
+    </style>
+
+  
 
     <script src="~/js/devextreme/jszip.js"></script>
 
@@ -197,7 +231,7 @@
                 <ul class="sidebar-menu" data-widget="tree">
                     <li class="header">Menú de Opciones</li>
                     <li>
-                        <a  href=@Url.Page("/Index")>
+                        <a href=@Url.Page("/Index")>
                             <i class="fa fa-home"></i> <span>Inicio</span>
                         </a>
                     </li>
@@ -211,14 +245,14 @@
                         </a>
                         <ul class="treeview-menu">
                             <li><a is-active-page href=@Url.Page("/Ubicacion/Listado")><i class="fa fa-map"></i> Asentamientos</a></li>
-                            <li><a is-active-page  href=@Url.Page("/Lote/Listado")><i class="fa fa-map-pin"></i> Lotes</a></li>
+                            <li><a is-active-page href=@Url.Page("/Lote/Listado")><i class="fa fa-map-pin"></i> Lotes</a></li>
                             <li>
-                                <a is-active-page  href=@Url.Page("/Beneficiario/Listado")>
+                                <a is-active-page href=@Url.Page("/Beneficiario/Listado")>
                                     <i class="fa fa-users">
                                     </i>Beneficiarios
                                 </a>
                             </li>
-                            <li><a is-active-page  href=@Url.Page("/Mora/Listado")><i class="fa fa-calendar"></i> Rangos Mora</a></li>
+                            <li><a is-active-page href=@Url.Page("/Mora/Listado")><i class="fa fa-calendar"></i> Rangos Mora</a></li>
 
                         </ul>
                     </li>
@@ -284,6 +318,7 @@
                         <li><a is-active-page href=@Url.Page("/Empresa/Respaldos")><i class="fa fa-database"></i> <span>Respaldos</span></a></li>
 
                     }
+                    <li class="ayuda"><a herf=@Url.Content("~/Manual.pdf") class="view-pdf"><i class="fa fa-question-circle"></i><span>Ayuda</span></a></li>                    
                 </ul>
             </section>
             <!-- /.sidebar -->
@@ -519,7 +554,69 @@
             $('.sidebar-menu').tree();
         });
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+    <script type="text/javascript">
 
+        (function (a) {
+            a.createModal = function (b) {
+                defaults = { title: "", message: "Your Message Goes Here!", closeButton: true, scrollable: false }; var b = a.extend({}, defaults, b); var c = (b.scrollable === true) ? 'style="overflow-y: auto;"' : ""; html = '<div class="modal fade" id="myModal" role="dialog" data-keyboard="false" data-backdrop="static">'; html += '<div class="modal-dialog" role="document">'; html += '<div class="modal-content">'; html += '<div class="modal-header">'; html += '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>'; if (b.title.length > 0) { html += '<h4 class="modal-title">' + b.title + "</h4>" } html += "</div>"; html += '<div class="modal-body" style="height:600px;"' + c + ">"; html += b.message; html += "</div>"; html += '<div class="modal-footer">'; if (b.closeButton === true) { html += '<button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>' } html += "</div>"; html += "</div>"; html += "</div>"; html += "</div>"; a("body").prepend(html); a("#myModal").modal().on("hidden.bs.modal", function () { a(this).remove() }) } })(jQuery);
+
+        /*
+        * Here is how you use it
+        */
+        $(function () {
+            $('.view-pdf').on('click', function () {
+                //var pdf_link = $(this).attr('href');
+                var pdf_link = this.attributes.herf.value;
+                alert(pdf_link);
+                //var iframe = '<div class="iframe-container"><iframe src="'+pdf_link+'"></iframe></div>'
+                //var iframe = '<object data="'+pdf_link+'" type="application/pdf"><embed src="'+pdf_link+'" type="application/pdf" /></object>'
+                var iframe = '<object class="mypdf" type="application/pdf" data="' + pdf_link + '" width="100%" height="100%">No Support</object>'
+                $.createModal({
+                    title: 'Manual de Usuario',
+                    message: iframe,
+                    closeButton: true,
+                    scrollable: false
+                });
+
+                $('.modal-content').resizable({
+                    alsoResize: '.mypdf,.modal-body',
+                    minHeight: 450,
+                    maxHeight: 900,
+                    maxWidth: 900,
+                    minWidth:400
+                });
+                $('.modal-dialog').draggable({
+                    handle: '.modal-content',
+                    cursor: "crosshair"
+                }
+                );
+
+                return false;
+            });
+        })
+
+
+
+        //var $modal = $('#myModal');
+        //$modal.find('.modal-content')
+        //    .css({
+        //        width: 625,
+        //        height: 175,
+        //    })
+        //    .resizable({
+        //        minWidth: 625,
+        //        minHeight: 175,
+        //        handles: 'n, e, s, w, ne, sw, se, nw',
+        //    })
+        //    .draggable({
+        //        handle: '.modal-header'
+        //    });
+    </script>
+
+    <script>
+     
+    </script>
 
     @await Component.InvokeAsync("NToastNotify")
 

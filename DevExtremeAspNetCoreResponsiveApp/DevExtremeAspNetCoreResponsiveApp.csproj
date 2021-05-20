@@ -144,7 +144,9 @@
     <EmbeddedResource Include="Reports\Estado_Cuenta.repx" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Reports\RptTicketPrima.repx" />
+    <EmbeddedResource Include="Reports\RptTicketPrima.repx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Pages\Reportes\Estado_Cuenta.cs">

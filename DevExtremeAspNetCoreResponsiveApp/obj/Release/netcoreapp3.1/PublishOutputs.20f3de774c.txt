@@ -1,3 +1,4 @@
+D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Release\netcoreapp3.1\PubTmp\Out\Reports\RptTicketPrima.repx
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Release\netcoreapp3.1\PubTmp\Out\DevExtremeAspNetCoreResponsiveApp.exe
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\AdminLTE\css\AdminLTE.css
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\AdminLTE\css\adminlte.css.map
