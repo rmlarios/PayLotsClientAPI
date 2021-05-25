@@ -106,6 +106,12 @@ namespace DevExtremeAspNetCoreResponsiveApp.Areas.Identity.Pages.Account
             new Claim("rol",result.Data.Roles[0])
         };
 
+                if(result.Data.Permisos.Count!=0)
+                {
+                    foreach (string p in result.Data.Permisos)
+                        claims.Add(new Claim("Permiso", p));
+                }
+
                 var user = await _userHelper.GetUserByNameAsync(model.Email);
                 await _userHelper.AddUserClaims(user, claims);
 
@@ -119,14 +125,15 @@ namespace DevExtremeAspNetCoreResponsiveApp.Areas.Identity.Pages.Account
 
                   }); */
                 // return LocalRedirect("~/"); 
-                
+
                 return Redirect("~/index");
             }
             else
             {
-                _toastNotification.AddErrorToastMessage(result.Message, new ToastrOptions() { 
-                   PositionClass= ToastPositions.BottomCenter         
-                                       
+                _toastNotification.AddErrorToastMessage(result.Message, new ToastrOptions()
+                {
+                    PositionClass = ToastPositions.BottomCenter
+
                 });
                 return Page();
             }
@@ -161,7 +168,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Areas.Identity.Pages.Account
                         }
             */
             // If we got this far, something failed, redisplay form
-           
+
         }
     }
 }

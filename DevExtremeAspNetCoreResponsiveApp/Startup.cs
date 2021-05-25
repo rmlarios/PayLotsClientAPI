@@ -35,6 +35,7 @@ using DevExtremeAspNetCoreResponsiveApp.Services;
 using DevExpress.XtraReports.Web.WebDocumentViewer;
 using DevExtremeAspNetCoreResponsiveApp.Middlewares;
 using DevExtremeAspNetCoreResponsiveApp.Logging;
+using DevExtremeAspNetCoreResponsiveApp.Permissions;
 
 namespace DevExtremeAspNetCoreResponsiveApp
 {
@@ -74,7 +75,8 @@ namespace DevExtremeAspNetCoreResponsiveApp
                 options.MinimumSameSitePolicy = SameSiteMode.None;
                 options.HttpOnly = Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.None;
             });
-
+            services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
+            services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
             //Conexion a la Base de Datos
             services.AddDbContext<PayLotsDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PayLotsConnection")));
 

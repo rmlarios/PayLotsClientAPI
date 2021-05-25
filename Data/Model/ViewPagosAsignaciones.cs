@@ -17,8 +17,8 @@ namespace Data.Model
             get { return NombreLote + (Grupo!=""? " "+Grupo:"") + " - " + NombreCompleto; }
          }
         public string NumeroRecibo { get; set; }
-        [Required(ErrorMessage ="Debe ingresar la fecha del recibo.")]
-        public DateTime? FechaRecibo { get; set; }
+        [Required(ErrorMessage = "Debe ingresar la fecha del recibo.")]
+        public DateTime? FechaRecibo { get; set; } = DateTime.Now.Date;
         [Required(ErrorMessage ="Debe seleccionar el mes a pagar.")]
         public string MesPagado { get; set; }
         public DateTime? MesPagadoFecha

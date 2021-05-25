@@ -1,4 +1,7 @@
 ﻿@page
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+@using DevExtremeAspNetCoreResponsiveApp.Constants
 @using DevExpress.AspNetCore
 
 <link rel="stylesheet" href="~/css/viewer.part.bundle.css" />
@@ -6,6 +9,11 @@
 @{
     ViewData["Title"] = "Registrar Pago";
 }
+
+@*@if ((AuthorizationService.AuthorizeAsync(User, "Editar")).Result.Succeeded)
+{
+    <div class="alert alert-danger">Hola</div>
+}*@
 
 @using (Html.BeginForm(method: FormMethod.Post))
 {
@@ -26,7 +34,7 @@
             //.Disabled(new JS("disableForm"))
             .Items(item =>{
                item.AddGroup().ColSpan(4).ColCount(6).Items(i => {
-                   i.AddButton().Name("Guardar").ColSpan(1).ButtonOptions(o=>o.Icon("save").Text("Guardar").Type(ButtonType.Success).UseSubmitBehavior(true).Width("100%"));
+                   i.AddButton().Name("Guardar").ColSpan(1).ButtonOptions(o=>o.Icon("save").Text("Guardar").Type(ButtonType.Success).UseSubmitBehavior(true).OnClick("CheckDouble").Width("100%"));
                    i.AddButton().Name("Nuevo").ColSpan(1).ButtonOptions(o=>o.Icon("fa fa-file-o").Text("Nuevo").Type(ButtonType.Success).Width("100%").OnClick(
                        @<text>
                            function(e)
@@ -53,7 +61,7 @@
         //.DataSourceOptions(o=>o.Filter("[['Estado', '=', 'Vigente'],'and',['PrimaCancelada','=','true']]").Paginate(false))
 
             .SearchExpr("NombreLote").ShowDataBeforeSearch(false).MinSearchLength(1).SearchMode(DropDownSearchMode.Contains).DisplayExpr(new JS("lookupExpr")).ValueExpr("IdAsignacion").PageLoadingText("Cargando").NextButtonText("Más").PageLoadMode(ListPageLoadMode.NextButton).SearchEnabled(true).SearchMode(DropDownSearchMode.Contains).StylingMode(EditorStylingMode.Outlined)
-            
+
             .OnValueChanged(@<text>
                 function(e){
                     window.location.href="/Pago/Registrar/?p=" + e.value+".0";
@@ -124,8 +132,9 @@
                     .ColumnAutoWidth(true)
                     /*Columnas del grid*/
                     .Columns(c =>{
-                    c.Add().Type(GridCommandColumnType.Buttons).Buttons(b=> {
-                        b.Add().Name(GridColumnButtonName.Edit);
+                    c.Add().Type(GridCommandColumnType.Buttons).Buttons(b=> {                 
+                        
+                         b.Add().Name(GridColumnButtonName.Edit).Visible(new JS("allowEditar")); 
                         b.Add().Icon("fa fa-print").Hint("Imprimir").OnClick("printTicket");
                         b.Add().Name("Anular").Hint("Anular").Icon("clear").Visible(new JS("isAnularVisible")).OnClick("openAnular");
                     }).Name("Commands");
@@ -440,6 +449,20 @@
         if (item != null)
             return item.NombreProyecto + " " + item.NombreLote;
     }
+
+    function allowEditar(e) {
+        var p = "@((AuthorizationService.AuthorizeAsync(User, Permissions.Pagos.Editar)).Result.Succeeded as bool?)";
+        return p;
+    }
+       
+   var submit = 0;
+   function CheckDouble() {
+     if (++submit > 1) {
+     alert('This sometimes takes a few seconds - please be patient.');
+     return false;
+   }
+ }
+
 
     function exporting(e) {
         var workbook = new ExcelJS.Workbook();
