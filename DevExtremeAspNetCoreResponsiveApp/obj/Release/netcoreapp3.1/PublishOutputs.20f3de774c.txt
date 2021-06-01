@@ -4969,6 +4969,7 @@ D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Release\netcoreapp
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\js\vendor.js
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\js\vendorold.js
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\js\viewer.part.bundle.js
+D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Manual.pdf
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\sweetalert\sweetalert.css
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\sweetalert\sweetalert.min.js
 D:\GIT\PayLotsClientAPI\DevExtremeAspNetCoreResponsiveApp\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\TempImg\blob

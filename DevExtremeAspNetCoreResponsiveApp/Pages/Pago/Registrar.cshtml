@@ -60,10 +60,10 @@
         item.AddSimpleFor(m => m.IdAsignacion).ColSpan(2).Label(l => l.Text("Lote")).Editor(e => e.Lookup().DataSource(d => d.Mvc().Controller("Asignaciones").LoadAction("GetAsignaciones").Key("IdAsignacion").LoadParams(new {id= new JS("getIdAsignacion") }))
         //.DataSourceOptions(o=>o.Filter("[['Estado', '=', 'Vigente'],'and',['PrimaCancelada','=','true']]").Paginate(false))
 
-            .SearchExpr("NombreLote").ShowDataBeforeSearch(false).MinSearchLength(1).SearchMode(DropDownSearchMode.Contains).DisplayExpr(new JS("lookupExpr")).ValueExpr("IdAsignacion").PageLoadingText("Cargando").NextButtonText("Más").PageLoadMode(ListPageLoadMode.NextButton).SearchEnabled(true).SearchMode(DropDownSearchMode.Contains).StylingMode(EditorStylingMode.Outlined)
+            .SearchExpr(new string[] { "NombreLote", "NombreCompleto" }).ShowDataBeforeSearch(false).MinSearchLength(1).SearchMode(DropDownSearchMode.Contains).DisplayExpr(new JS("lookupExpr")).ValueExpr("IdAsignacion").PageLoadingText("Cargando").NextButtonText("Más").PageLoadMode(ListPageLoadMode.NextButton).SearchEnabled(true).SearchMode(DropDownSearchMode.Contains).StylingMode(EditorStylingMode.Outlined)
 
             .OnValueChanged(@<text>
-                function(e){
+                function(e){0000
                     window.location.href="/Pago/Registrar/?p=" + e.value+".0";
                 }
                 </text>)
@@ -447,14 +447,16 @@
 
     function lookupExpr(item) {
         if (item != null)
-            return item.NombreProyecto + " " + item.NombreLote;
+            return item.NombreProyecto + " " + item.NombreLote + " " + item.NombreCompleto;
     }
 
     function allowEditar(e) {
-        var p = "@((AuthorizationService.AuthorizeAsync(User, Permissions.Pagos.Editar)).Result.Succeeded as bool?)";
-        return p;
+       // var p = @((AuthorizationService.AuthorizeAsync(User, Permissions.Pagos.Editar)).Result.Succeeded as bool?);
+        var p = "@((AuthorizationService.AuthorizeAsync(User, Permissions.Pagos.Editar)).Result.Succeeded)";
+        if (p == "True") return true; else return false;
+        //return p;
     }
-       
+
    var submit = 0;
    function CheckDouble() {
      if (++submit > 1) {
