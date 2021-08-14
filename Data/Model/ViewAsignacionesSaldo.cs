@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Data.Model
 {
@@ -33,5 +34,7 @@ namespace Data.Model
         {
             get { return NombreLote + (Grupo != "" ? " " + Grupo : "") + " - " + NombreCompleto; }
         }
+        [Column(TypeName = "numeric(18, 2)")]
+        public decimal? MontoTuberia { get; set; }
     }
 }

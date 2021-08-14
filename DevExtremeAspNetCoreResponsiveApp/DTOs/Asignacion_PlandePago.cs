@@ -23,10 +23,11 @@ namespace DevExtremeAspNetCoreResponsiveApp.DTOs
         public string FechaPago { get; set; }
         public string Estado { get; set; }
         public decimal Mora { get; set; } = 0;
-        public int DiasMora { get; set; } = 0;
+        public decimal DiasMora { get; set; } = 0;
         public string Empresa { get; set; } = "";
         public string DireccionEmpresa { get; set; } = "";
         public string TelefonoEmpresa { get; set; } = "";
-
+        public decimal PagoTuberia { get; set; } = 0;
+        
     }
 }

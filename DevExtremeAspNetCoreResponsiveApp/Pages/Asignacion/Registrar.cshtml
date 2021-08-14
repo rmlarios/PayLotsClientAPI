@@ -65,12 +65,14 @@
                 item.AddSimpleFor(m => m.CuotaMinima).Name("CuotaMinima").ColSpan(1).Label(l => l.Text("Cuota Mínima")).Editor(e=>e.NumberBox().ShowSpinButtons(true).Mode(NumberBoxMode.Number).Format("$ #,##0.##").StylingMode(EditorStylingMode.Outlined));
 
                 item.AddSimpleFor(m => m.Prima).ColSpan(1).Editor(e=>e.NumberBox().ShowSpinButtons(true).Mode(NumberBoxMode.Number).Format("$ #,##0.##").StylingMode(EditorStylingMode.Outlined).Min(0));
+
                 item.AddSimpleFor(m => m.PrimaCancelada).ColSpan(1).Label(l => l.Text("Prima Cancelada")).Editor(e => e.CheckBox().ReadOnly(true));
                 item.AddSimpleFor(m => m.Donado).ColSpan(1);
                 item.AddSimpleFor(m => m.AplicaMora).ColSpan(1).Label(l => l.Text("Aplicar Mora"));
                 item.AddSimpleFor(m => m.AplicaInteres).ColSpan(1).Label(l => l.Text("Aplicar interés")).Editor(e=>e.CheckBox().OnValueChanged("chkInteresChanged"));
                 item.AddSimpleFor(m => m.TasaInteres).ColSpan(1).Label(l => l.Text("Tasa de Interés")).Editor(e=>e.NumberBox().ShowSpinButtons(true).Mode(NumberBoxMode.Number).Format("#,##0.##").StylingMode(EditorStylingMode.Outlined));
                 item.AddSimpleFor(m => m.Plazo).ColSpan(1).Editor(e=>e.NumberBox().ShowSpinButtons(true).Mode(NumberBoxMode.Number).Format("#,##0").StylingMode(EditorStylingMode.Outlined));
+                item.AddSimpleFor(m => m.MontoTuberia).ColSpan(1).Editor(e => e.NumberBox().ShowSpinButtons(true).Mode(NumberBoxMode.Number).Format("$ #,##0.##").StylingMode(EditorStylingMode.Outlined));
                 item.AddSimpleFor(m => m.Observaciones).ColSpan(3).Editor(e=>e.TextArea().StylingMode(EditorStylingMode.Outlined));
 
             }).OnInitialized("onFormInitialized").OnContentReady("onFormReady")
@@ -111,7 +113,8 @@
                         c.AddFor(m=>m.MontoCuota).Caption("Principal");
                         c.AddFor(m=>m.Interes);
                         c.AddFor(m=>m.Mora);
-                        c.AddFor(m => m.TotalPago).Caption("En Deuda");                        
+                        c.AddFor(m => m.PagoTuberia);
+                        c.AddFor(m => m.TotalPago).Caption("En Deuda");
                         c.AddFor(m=>m.Saldo);
                     })
                     .Summary(s=>s.TotalItems(t=>t.AddFor(m=>m.TotalPago).ShowInColumn("TotalPago").DisplayFormat("Total Pendiente {0}").SummaryType(SummaryType.Sum).ValueFormat(Format.Currency)))

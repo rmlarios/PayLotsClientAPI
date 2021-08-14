@@ -71,6 +71,9 @@ namespace DevExtremeAspNetCoreResponsiveApp.Reports {
             this.xrTableCell22 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableCell>("xrTableCell22");
             this.xrTableCell23 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableCell>("xrTableCell23");
             this.xrTableCell24 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableCell>("xrTableCell24");
+            this.tableRow1 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableRow>("tableRow1");
+            this.tableCell1 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableCell>("tableCell1");
+            this.tableCell2 = reportInitializer.GetControl<DevExpress.XtraReports.UI.XRTableCell>("tableCell2");
         }
         private DevExpress.XtraReports.UI.TopMarginBand TopMargin;
         private DevExpress.XtraReports.UI.DetailBand Detail;
@@ -128,5 +131,8 @@ namespace DevExtremeAspNetCoreResponsiveApp.Reports {
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell22;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell23;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell24;
+        private DevExpress.XtraReports.UI.XRTableRow tableRow1;
+        private DevExpress.XtraReports.UI.XRTableCell tableCell1;
+        private DevExpress.XtraReports.UI.XRTableCell tableCell2;
     }
 }

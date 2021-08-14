@@ -42,6 +42,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Helpers
             new Urls ("/Pago/Pagos","Pagos"),
             new Urls ("/Pago/AbonosPrima","Pagos"),
             new Urls ("/Pago/PagosAnulados","Pagos"),
+            new Urls ("/Pago/ConsolidadoMeses","Pagos"),
             new Urls ("/Reportes/EstadoCuenta","Reportes"),
             new Urls ("/Reportes/PagosporFechas","Reportes"),
             new Urls ("/Reportes/Morosos","Reportes")

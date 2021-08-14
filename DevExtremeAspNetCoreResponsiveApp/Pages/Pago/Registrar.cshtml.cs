@@ -78,6 +78,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.Pago
                         pago.MontoPago = DatosMes.Datas.SingleOrDefault(m => m.MesPagado == pago.MesPagado).MontoMinimo;
                         pago.Interés = DatosMes.Datas.SingleOrDefault(m => m.MesPagado == pago.MesPagado).Interes;
                         pago.Mora = DatosMes.Datas.SingleOrDefault(m => m.MesPagado == pago.MesPagado).Mora;
+                        pago.PagoTuberia = DatosMes.Datas.SingleOrDefault(m => m.MesPagado == pago.MesPagado).PagoTuberia;
                     }
                     else
                         pago = new ViewPagosAsignaciones();
@@ -128,6 +129,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.Pago
                 pago.MontoPago = 0;
                 pago.Interés = 0;
                 pago.Mora = 0;
+                pago.PagoTuberia = 0;
                 pago.MontoEfectivo = 0;
                 pago.Observaciones = "";
                 pago.NumeroRecibo = "";

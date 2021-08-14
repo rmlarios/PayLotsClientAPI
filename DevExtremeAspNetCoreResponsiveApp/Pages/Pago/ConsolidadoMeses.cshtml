@@ -1,6 +1,6 @@
 ﻿@page
 @{
-    ViewData["Title"] = "Consolidado de Pagos";
+    ViewData["Title"] = "Consolidado de Pagos por Meses";
 }
 
 @(Html.DevExtreme().PivotGrid<ViewPagosAsignaciones>()
@@ -9,18 +9,19 @@
                     .Fields(c=>
                     {
                         c.AddFor(m => m.DatoCompleto).Area(PivotGridArea.Row).Width(200);
-                        c.AddFor(m => m.MesPagadoFecha).Format("MMMM/yyyy").Area(PivotGridArea.Column);
-                        c.AddFor(m => m.TotalRecibo).Area(PivotGridArea.Data).ShowValues(true).SummaryType(SummaryType.Max);//.SummaryType(SummaryType.Sum).RunningTotal(PivotGridRunningTotalMode.Row);
+                        c.AddFor(m => m.FechaReciboMes).Format("MMMM/yyyy").Area(PivotGridArea.Column);
+                        c.AddFor(m => m.TotalRecibo).Area(PivotGridArea.Data).SummaryType(SummaryType.Sum);//.RunningTotal(PivotGridRunningTotalMode.Row);
                         c.AddFor(m => m.NombreProyecto).Area(PivotGridArea.Filter);
 
                     })
-                    .Paginate(true).RetrieveFields(false).Filter("[['MesPagado', '<>', null]]")
+                    .Paginate(true).RetrieveFields(false).Filter("[['FechaRecibo', '<>', null]]")
     )
 
     .HeaderFilter(c=>c.AllowSearch(true).Height(200).ShowRelevantValues(true))
     .FieldPanel(c=>c.Visible(true).ShowFilterFields(true).AllowFieldDragging(false))
     .AllowFiltering(true)
-    .ShowTotalsPrior(PivotGridTotalsDisplayMode.Columns).ShowRowTotals(true)    
+    .ShowTotalsPrior(PivotGridTotalsDisplayMode.Columns).ShowRowTotals(false)
+    .ShowColumnGrandTotals(true).ShowColumnTotals(true).ShowTotalsPrior(PivotGridTotalsDisplayMode.Both)
     .Scrolling(c=>c.Mode(PivotGridScrollingMode.Virtual))
     .Width("100%").ShowBorders(true)
     .Texts(c=>c.GrandTotal("Total Abonado"))

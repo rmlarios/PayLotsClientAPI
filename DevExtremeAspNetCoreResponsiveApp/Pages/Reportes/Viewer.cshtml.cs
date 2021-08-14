@@ -36,46 +36,53 @@ namespace DevExtremeAspNetCoreResponsiveApp.Pages.Reportes
 
         public async Task OnGet(string r, int? p)
         {
-            var path = Path.Combine(_env.ContentRootPath, "Reports");
-           
-            switch (r)
+            try
             {
-                case "pp"://Plan de Pago
-                    Report = new RptPlandePago();
-                    var source = await _genericproxy.GetAsync<Asignacion_PlandePago>("Pago/GetPlanPago/" + p);
-                    //var path = Path.Combine(_env.ContentRootPath, "Reports");
-                    Report.LoadLayout(path + "\\RptPlandePago.repx");
-                    CargarDatosEmpresa(Report);
-                    Report.DataSource = source.Datas;
-                    Report.DataMember = Report.DataMember;
-                    break;
-                case "pf"://Pago por fechas
-                    Report = new RptPagosFechas();
-                    var source2 = await _genericproxy.GetAsync<ViewPagosAsignaciones>("Pago/GetListado?vigentes=" + false);
-                    //var path2 = Path.Combine(_env.ContentRootPath, "Reports");
-                    Report.LoadLayout(path + "\\RptPagosFechas.repx");
-                    CargarDatosEmpresa(Report);
-                    Report.DataSource = source2.Datas.Where(m => m.FechaRecibo >= Convert.ToDateTime("01/08/2020"));
-                    Report.DataMember = Report.DataMember;
-                    break;
-                case "pro"://Proforma
-                    Report = new RptProforma();
-                    var source3 = await _genericproxy.GetAsync<Proformas>("Proforma/GetProforma/" + p);
-                    Report.LoadLayout(path + "\\RptProforma.repx");
-                    CargarDatosEmpresa(Report);
-                    Report.DataSource = source3.Datas;
-                    Report.DataMember = Report.DataMember;
-                    break;
-                case "tkp"://TicketPrima
-                    Report = new RptTicketPrima();
-                    var source4 = await _genericproxy.GetAsync<TicketPrima>("AbonosPrima/GetTicketPrima/" + p);
-                    Report.LoadLayout(path + "\\RptTicketPrima.repx");
-                    CargarDatosEmpresa(Report);
-                    Report.DataSource = source4.Datas;
-                    Report.DataMember = Report.DataMember;
-                    break;
-            }
+                var path = Path.Combine(_env.ContentRootPath, "Reports");
 
+                switch (r)
+                {
+                    case "pp"://Plan de Pago
+                        Report = new RptPlandePago();
+                        //var source = await _genericproxy.GetAsync<Asignacion_PlandePago>("Pago/GetPlanPago/" + p + "?opcion=" + "TODO");
+                        var source = await _genericproxy.GetAsync<Asignacion_PlandePago>("Asignacion/GetPlandePagoInicial/" + p);
+                        //var path = Path.Combine(_env.ContentRootPath, "Reports");
+                        Report.LoadLayout(path + "\\RptPlandePago.repx");
+                        CargarDatosEmpresa(Report);
+                        Report.DataSource = source.Datas;
+                        Report.DataMember = Report.DataMember;
+                        break;
+                    case "pf"://Pago por fechas
+                        Report = new RptPagosFechas();
+                        var source2 = await _genericproxy.GetAsync<ViewPagosAsignaciones>("Pago/GetListado?vigentes=" + false);
+                        //var path2 = Path.Combine(_env.ContentRootPath, "Reports");
+                        Report.LoadLayout(path + "\\RptPagosFechas.repx");
+                        CargarDatosEmpresa(Report);
+                        Report.DataSource = source2.Datas.Where(m => m.FechaRecibo >= Convert.ToDateTime("01/08/2020"));
+                        Report.DataMember = Report.DataMember;
+                        break;
+                    case "pro"://Proforma
+                        Report = new RptProforma();
+                        var source3 = await _genericproxy.GetAsync<Proformas>("Proforma/GetProforma/" + p);
+                        Report.LoadLayout(path + "\\RptProforma.repx");
+                        CargarDatosEmpresa(Report);
+                        Report.DataSource = source3.Datas;
+                        Report.DataMember = Report.DataMember;
+                        break;
+                    case "tkp"://TicketPrima
+                        Report = new RptTicketPrima();
+                        var source4 = await _genericproxy.GetAsync<TicketPrima>("AbonosPrima/GetTicketPrima/" + p);
+                        Report.LoadLayout(path + "\\RptTicketPrima.repx");
+                        CargarDatosEmpresa(Report);
+                        Report.DataSource = source4.Datas;
+                        Report.DataMember = Report.DataMember;
+                        break;
+                }
+            }
+            catch(Exception Ex)
+            {
+
+            }
 
         }
 

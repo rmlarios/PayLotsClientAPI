@@ -29,6 +29,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.DTOs
         public string Empresa { get; set; } = "";
         public string DireccionEmpresa { get; set; } = "";
         public string TelefonoEmpresa { get; set; } = "";
+        public decimal? PagoTuberia { get; set; } = 0;
 
     }
 }

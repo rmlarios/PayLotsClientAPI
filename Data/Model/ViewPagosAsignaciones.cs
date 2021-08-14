@@ -19,6 +19,18 @@ namespace Data.Model
         public string NumeroRecibo { get; set; }
         [Required(ErrorMessage = "Debe ingresar la fecha del recibo.")]
         public DateTime? FechaRecibo { get; set; } = DateTime.Now.Date;
+        public DateTime? FechaReciboMes { 
+            get
+            {
+                if (FechaRecibo != null)
+                {
+                    string mes = FechaRecibo.Value.ToString("MMMM");
+                    string anio = FechaRecibo.Value.Year.ToString();
+                    return Convert.ToDateTime("01/" + mes + "/" + anio);
+                }
+                return null;
+            }  
+        }
         [Required(ErrorMessage ="Debe seleccionar el mes a pagar.")]
         public string MesPagado { get; set; }
         public DateTime? MesPagadoFecha
@@ -62,9 +74,11 @@ namespace Data.Model
 
         public decimal? Total
         {
-            get { return MontoPago + Interés + Mora; }
+            get { return MontoPago + Interés + Mora + PagoTuberia; }
         }
 
         public string EstadoPago { get; set; }
+
+        public decimal? PagoTuberia { get; set; }
     }
 }

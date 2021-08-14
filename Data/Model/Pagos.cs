@@ -23,6 +23,7 @@ namespace Data.Model
         public string Uua { get; set; }
         public DateTime Fua { get; set; }
         public string Estado { get; set; }
+        public decimal? PagoTuberia { get; set; }
 
         public virtual Asignaciones IdAsignacionNavigation { get; set; }
     }

@@ -89,6 +89,7 @@
                     item.AddSimpleFor(m=>m.MontoPago).Editor(e => e.NumberBox().ShowSpinButtons(true).ReadOnly(true).StylingMode(EditorStylingMode.Outlined));
                     item.AddSimpleFor(m=>m.Mora).Editor(e => e.NumberBox().ShowSpinButtons(true).ReadOnly(true).StylingMode(EditorStylingMode.Outlined));
                     item.AddSimpleFor(m=>m.Interés).Editor(e => e.NumberBox().ShowSpinButtons(true).ReadOnly(true).StylingMode(EditorStylingMode.Outlined));
+                    item.AddSimpleFor(m => m.PagoTuberia).Editor(e => e.NumberBox().ShowSpinButtons(true).ReadOnly(true).StylingMode(EditorStylingMode.Outlined));
                     item.AddSimple().Name("TotalPagar").Label(l=>l.Text("Total a Pagar")).Editor(e => e.NumberBox().ShowSpinButtons(true).ReadOnly(true).StylingMode(EditorStylingMode.Outlined));
                     item.AddSimpleFor(m => m.NumeroRecibo).Editor(e => e.TextBox().ReadOnly(true).StylingMode(EditorStylingMode.Outlined));
                     item.AddSimpleFor(m => m.FechaRecibo).Editor(e => e.DateBox().DisplayFormat("dd/MM/yyyy").StylingMode(EditorStylingMode.Outlined));
@@ -132,9 +133,9 @@
                     .ColumnAutoWidth(true)
                     /*Columnas del grid*/
                     .Columns(c =>{
-                    c.Add().Type(GridCommandColumnType.Buttons).Buttons(b=> {                 
-                        
-                         b.Add().Name(GridColumnButtonName.Edit).Visible(new JS("allowEditar")); 
+                    c.Add().Type(GridCommandColumnType.Buttons).Buttons(b=> {
+
+                        b.Add().Name(GridColumnButtonName.Edit).Visible(new JS("allowEditar"));
                         b.Add().Icon("fa fa-print").Hint("Imprimir").OnClick("printTicket");
                         b.Add().Name("Anular").Hint("Anular").Icon("clear").Visible(new JS("isAnularVisible")).OnClick("openAnular");
                     }).Name("Commands");
@@ -147,9 +148,10 @@
                     c.AddFor(m=>m.MontoPago).Caption("Principal");
                     c.AddFor(m=>m.Interés);
                     c.AddFor(m=>m.Mora);
+                    c.AddFor(m => m.PagoTuberia);
                     c.Add().Name("TotalPagado").Caption("Total").CalculateCellValue(@<text>
                         function(rowData) {
-                            return rowData.MontoPago + rowData.Interés + rowData.Mora;
+                            return rowData.MontoPago + rowData.Interés + rowData.Mora + rowData.PagoTuberia;
                         }
                         </text>);
                     })
@@ -420,7 +422,8 @@
         vform.getEditor("MontoPago").option("value", e.selectedItem.MontoMinimo);
         vform.getEditor("Interés").option("value", e.selectedItem.Interes);
         vform.getEditor("Mora").option("value", e.selectedItem.Mora);
-        vform.getEditor("TotalPagar").option("value", e.selectedItem.MontoMinimo + e.selectedItem.Interes + e.selectedItem.Mora);
+        vform.getEditor("PagoTuberia").option("value", e.selectedItem.PagoTuberia);
+        vform.getEditor("TotalPagar").option("value", e.selectedItem.MontoMinimo + e.selectedItem.Interes + e.selectedItem.Mora + e.selectedItem.PagoTuberia);
         //vform.option("formData").IdPago = 0;
     }
 

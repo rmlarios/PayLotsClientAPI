@@ -12157,26 +12157,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Miguel.Larios.MEM\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\DELL\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\GIT\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp.csproj",
+      "projectUniqueName": "D:\\Repository\\rmlarios\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp.csproj",
       "projectName": "DevExtremeAspNetCoreResponsiveApp",
-      "projectPath": "D:\\GIT\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp.csproj",
-      "packagesPath": "C:\\Users\\Miguel.Larios.MEM\\.nuget\\packages\\",
-      "outputPath": "D:\\GIT\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\obj\\",
+      "projectPath": "D:\\Repository\\rmlarios\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\DevExtremeAspNetCoreResponsiveApp.csproj",
+      "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
+      "outputPath": "D:\\Repository\\rmlarios\\PayLotsClientAPI\\DevExtremeAspNetCoreResponsiveApp\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Miguel.Larios.MEM\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 18.2.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.1.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.2.config",
+        "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 20.1.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -12184,21 +12177,16 @@
         "netcoreapp3.1"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\DevExpress 18.2\\Components\\System\\Components\\Packages": {},
-        "C:\\Program Files (x86)\\DevExpress 18.2\\DevExtreme\\System\\DevExtreme\\Bin\\AspNetCore": {},
-        "C:\\Program Files (x86)\\DevExpress 19.1\\Components\\System\\Components\\Packages": {},
-        "C:\\Program Files (x86)\\DevExpress 19.2\\Components\\System\\Components\\Packages": {},
         "C:\\Program Files (x86)\\DevExpress 20.1\\Components\\System\\Components\\Packages": {},
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "D:\\TFS2020\\SISLIC\\packages": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "D:\\GIT\\PayLotsClientAPI\\Data\\Data.csproj": {
-              "projectPath": "D:\\GIT\\PayLotsClientAPI\\Data\\Data.csproj"
+            "D:\\Repository\\rmlarios\\PayLotsClientAPI\\Data\\Data.csproj": {
+              "projectPath": "D:\\Repository\\rmlarios\\PayLotsClientAPI\\Data\\Data.csproj"
             }
           }
         }
@@ -12308,7 +12296,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
       }
     }
   }
