@@ -221,7 +221,7 @@
                   </ExpressionBindings>
                 </Item4>
                 <Item5 Ref="108" ControlType="XRTableCell" Name="tableCell4" Weight="1.2382498360958534" TextFormatString="{0:$0.00}" Multiline="true" Text="tableCell4">
-                  <Summary Ref="109" Running="Group" />
+                  <Summary Ref="109" Running="Report" />
                   <ExpressionBindings>
                     <Item1 Ref="110" EventName="BeforePrint" PropertyName="Text" Expression="sumSum([PagoTuberia])" />
                   </ExpressionBindings>

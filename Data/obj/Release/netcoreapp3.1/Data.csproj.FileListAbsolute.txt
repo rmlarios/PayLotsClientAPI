@@ -22,3 +22,15 @@ D:\GIT\PayLotsClientAPI\Data\obj\Release\netcoreapp3.1\Data.csproj.CoreCompileIn
 D:\GIT\PayLotsClientAPI\Data\obj\Release\netcoreapp3.1\Data.dll
 D:\GIT\PayLotsClientAPI\Data\obj\Release\netcoreapp3.1\Data.pdb
 D:\GIT\PayLotsClientAPI\Data\obj\Release\netcoreapp3.1\Data.genruntimeconfig.cache
+D:\Repository\rmlarios\PayLotsClientAPI\Data\bin\Release\netcoreapp3.1\Data.deps.json
+D:\Repository\rmlarios\PayLotsClientAPI\Data\bin\Release\netcoreapp3.1\Data.runtimeconfig.json
+D:\Repository\rmlarios\PayLotsClientAPI\Data\bin\Release\netcoreapp3.1\Data.runtimeconfig.dev.json
+D:\Repository\rmlarios\PayLotsClientAPI\Data\bin\Release\netcoreapp3.1\Data.dll
+D:\Repository\rmlarios\PayLotsClientAPI\Data\bin\Release\netcoreapp3.1\Data.pdb
+D:\Repository\rmlarios\PayLotsClientAPI\Data\obj\Release\netcoreapp3.1\Data.csproj.AssemblyReference.cache
+D:\Repository\rmlarios\PayLotsClientAPI\Data\obj\Release\netcoreapp3.1\Data.AssemblyInfoInputs.cache
+D:\Repository\rmlarios\PayLotsClientAPI\Data\obj\Release\netcoreapp3.1\Data.AssemblyInfo.cs
+D:\Repository\rmlarios\PayLotsClientAPI\Data\obj\Release\netcoreapp3.1\Data.csproj.CoreCompileInputs.cache
+D:\Repository\rmlarios\PayLotsClientAPI\Data\obj\Release\netcoreapp3.1\Data.dll
+D:\Repository\rmlarios\PayLotsClientAPI\Data\obj\Release\netcoreapp3.1\Data.pdb
+D:\Repository\rmlarios\PayLotsClientAPI\Data\obj\Release\netcoreapp3.1\Data.genruntimeconfig.cache

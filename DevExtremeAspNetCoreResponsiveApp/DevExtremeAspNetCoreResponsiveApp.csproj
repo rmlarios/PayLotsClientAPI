@@ -44,13 +44,9 @@
   <ItemGroup>
     <None Remove="Pages\Reportes\Estado_Cuenta.repx" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Reports\Estado_Cuenta.cs">
-      <DependentUpon>Estado_Cuenta.repx</DependentUpon>
-    </Compile>
-    <Compile Include="Reports\Estado_Cuenta.Designer.cs">
-      <DependentUpon>Estado_Cuenta.repx</DependentUpon>
-    </Compile>
+  <ItemGroup>    
+    <Compile Include="Reports\Estado_Cuenta.cs" />    
+    <Compile Include="Reports\Estado_Cuenta.Designer.cs" />    
     <Compile Include="Reports\RptEstadoCuenta.cs">
       <DependentUpon>RptEstadoCuenta.repx</DependentUpon>
     </Compile>
@@ -120,13 +116,19 @@
     <EmbeddedResource Include="Reports\TestReport.repx" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Reports\RptPlandePago.repx" />
+    <EmbeddedResource Include="Reports\RptPlandePago.repx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Reports\RptTicketPago.repx" />
+    <EmbeddedResource Include="Reports\RptTicketPago.repx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Reports\RptEstadoCuenta.repx" />
+    <EmbeddedResource Include="Reports\RptEstadoCuenta.repx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj" />
@@ -135,13 +137,14 @@
     <Folder Include="wwwroot\TempImg\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Reports\RptPagosFechas.repx" />
+    <EmbeddedResource Include="Reports\RptPagosFechas.repx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Reports\RptProforma.repx" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Reports\Estado_Cuenta.repx" />
+    <EmbeddedResource Include="Reports\RptProforma.repx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Reports\RptTicketPrima.repx">
@@ -149,18 +152,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Pages\Reportes\Estado_Cuenta.cs">
-      <DependentUpon>Estado_Cuenta.repx</DependentUpon>
-    </Compile>
-    <Compile Update="Pages\Reportes\Estado_Cuenta.Designer.cs">
-      <DependentUpon>Estado_Cuenta.repx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Update="Pages\Reportes\EstadoCuenta.cshtml">
+    <EmbeddedResource Include="Reports\Estado_Cuenta.repx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
+    </EmbeddedResource>
+  </ItemGroup> 
+
   <ProjectExtensions>
     <VisualStudio><UserProperties appsettings_1json__JsonSchema="" TemplateFeatures="NETCORE CS RESPONSIVE" /></VisualStudio>
   </ProjectExtensions>

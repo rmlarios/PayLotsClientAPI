@@ -5,7 +5,7 @@
 
 @(Html.DevExtreme().PivotGrid<ViewPagosAsignaciones>()
     .ID("pivot").Height(800)
-    .DataSource(c=>c.Store(m=>m.Mvc().Controller("Pagos").LoadAction("GetAll"))
+    .DataSource(c=>c.Store(m=>m.Mvc().Controller("Pagos").LoadAction("GetConsolidado"))
                     .Fields(c=>
                     {
                         c.AddFor(m => m.DatoCompleto).Area(PivotGridArea.Row).Width(200);

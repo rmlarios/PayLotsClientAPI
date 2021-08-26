@@ -107,7 +107,7 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controllers
                         select new
                         {
                             Fecha = a.FechaRecibo.Value != null ? a.FechaRecibo.Value.Date : a.FechaRecibo.Value,
-                            Pagado = a.MontoPago + a.Interés + a.Mora,
+                            Pagado = a.MontoPago + a.Interés + a.Mora + a.PagoTuberia,
                         }).GroupBy(x => x.Fecha) // 1
                         .Select(grp => new //2
                         {
@@ -133,7 +133,8 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controllers
             if (result.Succeeded)
             {
                 //return new JsonResult(DataSourceLoader.Load(result.Datas, loadOptions));
-                LoadResult newresult = new LoadResult();
+                LoadResult newresult = new LoadResult();                
+                //LoadResult newresult = DataSourceLoader.Load(result.Datas, loadOptions);
                 newresult.totalCount = result.Count;
                 newresult.data = result.Datas;
                 return new OkObjectResult(newresult);
@@ -141,6 +142,20 @@ namespace DevExtremeAspNetCoreResponsiveApp.Controllers
             return new JsonResult(DataSourceLoader.Load(new List<ViewPagosAsignaciones>(), loadOptions));
         }
 
+        [HttpGet("GetConsolidado")]
+        public async Task<IActionResult> GetConsolidado(DataSourceLoadOptions loadOptions)
+        {
+            var result = await _genericProxy.GetAsync<ViewPagosAsignaciones>("Pago/GetListado?vigentes=" + false);
+            if (result.Succeeded)
+            {
+                loadOptions.Take = 0; loadOptions.Skip = 0;
+                LoadResult newresult = DataSourceLoader.Load(result.Datas, loadOptions);
+                newresult.totalCount = result.Count;                
+                return new OkObjectResult(newresult);
+            }
+            return new JsonResult(DataSourceLoader.Load(new List<ViewPagosAsignaciones>(), loadOptions));
+        }
+        
         [HttpGet("GetAnulados")]
         public async Task<IActionResult> GetAnulados(DataSourceLoadOptions loadOptions)
         {
